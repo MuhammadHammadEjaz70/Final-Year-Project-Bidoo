@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
   MDBContainer,
@@ -28,6 +28,7 @@ const Header = (props) => {
 
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  let { user } = useSelector((state) => ({ ...state }));
 
   const auth = getAuth();
   const logout = () => {
@@ -71,44 +72,37 @@ const Header = (props) => {
                 aria-current="page"
                 className="nav-link"
               >
-                <Link to="/">Home</Link>
+                <Link to="/">Home </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
 
-            <form className="d-flex input-group w-auto">
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Type query"
-                aria-label="Search"
-              />
-              <MDBBtn color="primary">Search</MDBBtn>
-            </form>
-            <MDBNavbarItem>
-              <Link to="/login">
-                {" "}
-                <div>
+            {!user && (
+              <MDBNavbarItem>
+                <Link to="/login">
                   {" "}
-                  <MDBIcon className="px-3" far icon="user" size="2x" />
-                </div>
-              </Link>
-            </MDBNavbarItem>
-
-            <MDBNavbarItem>
-              <Link to="/Register">Register</Link>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <MDBDropdown>
-                <MDBDropdownToggle tag="a" className="nav-link">
-                  username
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem link onClick={logout}>
-                    Logout
-                  </MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavbarItem>
+                  <div className="container">Login</div>
+                </Link>
+              </MDBNavbarItem>
+            )}
+            {!user && (
+              <MDBNavbarItem>
+                <Link to="/Register">Register</Link>
+              </MDBNavbarItem>
+            )}
+            {user && (
+              <MDBNavbarItem>
+                <MDBDropdown>
+                  <MDBDropdownToggle tag="a" className="nav-link">
+                    {user.email && user.email.split("@")[0]}
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu>
+                    <MDBDropdownItem link onClick={logout}>
+                      Logout
+                    </MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavbarItem>
+            )}
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
