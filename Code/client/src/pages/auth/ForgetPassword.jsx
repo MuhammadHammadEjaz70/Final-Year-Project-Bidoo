@@ -1,12 +1,14 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
-import { sendSignInLinkToEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Register = () => {
+const ForgetPassword = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -14,29 +16,25 @@ const Register = () => {
     if (user && user.token) navigate("/");
   }, [user, navigate]);
 
-
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
 
-    const actionCodeSettings = {
-      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
-      handleCodeInApp: true,
-    };
-    sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    setLoading(true);
+    sendPasswordResetEmail(auth, email)
       .then(() => {
-        window.localStorage.setItem("emailForSignIn", email);
-        toast.success(
-          `Verification email is sent to ${email}. Click the link to complete the registration`
-        );
+        // Password reset email sent!
+        setEmail("");
+        setLoading(false);
+        toast.success("Check your email for pasaword reset link");
       })
+
       .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
+        setLoading(false);
         toast.error(error.message);
       });
   };
 
-  const registerForm = () => (
+  const ForgetPasswordForm = () => (
     <form onSubmit={handelSubmit} className="row gy-5">
       <input
         type="email"
@@ -47,9 +45,15 @@ const Register = () => {
           // console.log(e.target);
           setEmail(e.target.value);
         }}
-        autoFocus
       />
-      <button type="submit" className="btn btn-raised btn-primary col-3">
+
+      <br />
+      <button
+        type="submit"
+        onClick={handelSubmit}
+        className="btn btn-raised btn-primary col-3"
+        disabled={!email}
+      >
         Submit
       </button>
     </form>
@@ -59,9 +63,15 @@ const Register = () => {
       <div className="container p-5">
         <div className="row ">
           <div className="col-md-6 offset-md-3">
-            <h3>Register</h3>
+            {loading ? (
+              <h3 className="text-danger">Loading...</h3>
+            ) : (
+              <h3>Forgot Password</h3>
+            )}
 
-            {registerForm()}
+            {ForgetPasswordForm()}
+
+            <br />
           </div>
         </div>
       </div>
@@ -69,4 +79,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ForgetPassword;

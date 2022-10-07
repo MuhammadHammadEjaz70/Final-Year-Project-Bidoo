@@ -10,6 +10,7 @@ import RegisterComplete from "./pages/auth/RegisterComplete";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import Header from "./components/nav/Header";
+import ForgetPassword from "./pages/auth/ForgetPassword";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header title="Bidoo"/>
+        <Header title="Bidoo" />
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -46,6 +47,7 @@ const App = () => {
             path="/Register/complete-register"
             element={<RegisterComplete />}
           />
+          <Route path="/forget/password" element={<ForgetPassword />} />
         </Routes>
       </Router>
     </>

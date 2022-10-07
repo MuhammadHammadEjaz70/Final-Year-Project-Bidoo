@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { auth } from "../../firebase";
 import {
   signInWithEmailAndPassword,
@@ -14,9 +15,14 @@ const Login = () => {
   const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
   const provider = new GoogleAuthProvider();
-
-  let dispatch = useDispatch();
+  const { user } = useSelector((state) => ({ ...state }));
   let navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user && user.token) navigate("/");
+  }, [user, navigate]);
+
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +55,8 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
         // console.log("Google Access Token", token);
 
         const user = result.user;
@@ -69,8 +75,8 @@ const Login = () => {
       })
       .catch((error) => {
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.email;
         console.log("email", email);
@@ -136,6 +142,13 @@ const Login = () => {
             >
               Login with Google
             </button>
+            <br />
+
+            <div className="container">
+              <Link to="/forget/password" className="float-right text-danger">
+                Forget Password
+              </Link>
+            </div>
           </div>
         </div>
       </div>

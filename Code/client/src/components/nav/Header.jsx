@@ -93,6 +93,7 @@ const Header = (props) => {
               <MDBNavbarItem>
                 <MDBDropdown>
                   <MDBDropdownToggle tag="a" className="nav-link">
+                    {/* {user.displayName} */}
                     {user.email && user.email.split("@")[0]}
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
