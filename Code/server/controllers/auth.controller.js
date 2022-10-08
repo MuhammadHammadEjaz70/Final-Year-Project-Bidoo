@@ -1,8 +1,8 @@
-function user(req, res) {
+function create_update_user(req, res) {
   res.json({
     data: "create user  end point is hit",
   });
 }
 module.exports = {
-  user,
+    create_update_user,
 };
