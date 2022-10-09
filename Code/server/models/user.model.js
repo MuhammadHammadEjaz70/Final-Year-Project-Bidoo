@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
 
     address: String,
-    contactNumber: { type: Number, min: 11, max: 12, required: true },
+    contactNumber: { type: Number, min: 11, max: 12 },
     NICnumber: {
       type: Number,
       img: {

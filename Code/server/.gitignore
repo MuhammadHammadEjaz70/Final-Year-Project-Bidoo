@@ -1,3 +1,3 @@
 *node_modules
 *.env
- /code/server/config/fbServiceAccountKey.json
+/server/config/fbServiceAccountKey.json

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../firebase";
 import {
   signInWithEmailAndPassword,
@@ -8,21 +8,31 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { createUpdateUser } from "../../functions/auth.functions";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("112233");
   const [loading, setLoading] = useState(false);
   const provider = new GoogleAuthProvider();
-  const { user } = useSelector((state) => ({ ...state }));
-  let navigate = useNavigate();
   let dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
-  }, [user, navigate]);
+    if (user && user.token) navigate("/user/history");
+  }, [user]);
 
+  const roleBaseRedirect = (res) => {
+    if (res.data.role === "admin") {
+      navigate("/admin/dashboard");
+    } else if (res.data.role === "seller") {
+      navigate("/seller/dashboard");
+    } else if (res.data.role === "subscriber") {
+      navigate("/user/history");
+    }
+  };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -35,15 +45,23 @@ const Login = () => {
         const user = userCredential.user;
         // console.log("user logged in", user);
         const idTokenResult = await user.getIdTokenResult();
-
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
-        navigate("/");
+        createUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+            roleBaseRedirect(res);
+          })
+          .catch((error) => {
+            toast.error("login module mei error hai", error.message);
+          });
       })
       .catch((error) => {
         toast.error(error.message);
@@ -54,30 +72,30 @@ const Login = () => {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // console.log("Google Access Token", token);
-
         const user = result.user;
         console.log("Google User", user);
         const idTokenResult = await user.getIdTokenResult();
         // console.log("IdTokenResult", idTokenResult);
         // The signed-in user info.
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
-        navigate("/");
+        createUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+            roleBaseRedirect(res);
+          })
+          .catch((error) => {
+            toast.error("login module mei error hai", error.message);
+          });
       })
       .catch((error) => {
-        // Handle Errors here.
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.email;
         console.log("email", email);
 

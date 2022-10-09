@@ -7,11 +7,18 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+
+import { createUpdateUser } from "../../functions/auth.functions";
 
 const RegisterComplete = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  const { user } = useSelector((state) => ({ ...state }));
+
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForSignIn"));
   }, []);
@@ -35,7 +42,7 @@ const RegisterComplete = () => {
           // You can access the new user via result.user
           if (result.user.emailVerified) {
             // Clear email from storage.
-            window.localStorage.removeItem("emailForSignIn");
+            // window.localStorage.removeItem("emailForSignIn");
             const user = auth.currentUser;
             const newPassword = password;
             updatePassword(user, newPassword)
@@ -48,6 +55,23 @@ const RegisterComplete = () => {
               });
             const idTokenResult = await user.getIdTokenResult();
             // console.log("user", user, "idTokenResult", idTokenResult);
+            createUpdateUser(idTokenResult.token)
+              .then((res) => {
+                dispatch({
+                  type: "LOGGED_IN_USER",
+                  payload: {
+                    name: res.data.name,
+                    email: res.data.email,
+                    token: idTokenResult.token,
+                    role: res.data.role,
+                    _id: res.data._id,
+                  },
+                });
+              })
+              .catch((error) => {
+                toast.error("register module mei error hai", error.message);
+              });
+
             navigate("/");
           }
         })

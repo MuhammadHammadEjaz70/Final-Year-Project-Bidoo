@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { auth } from "./firebase";
+import { useDispatch } from "react-redux";
 
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Home from "./pages/Home";
 import RegisterComplete from "./pages/auth/RegisterComplete";
-import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
 import Header from "./components/nav/Header";
 import ForgetPassword from "./pages/auth/ForgetPassword";
+import History from "./pages/user/History";
+import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
+
+import { currentUser } from "./functions/auth.functions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,14 +26,23 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        console.log("user dispatched", user);
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            token: idTokenResult.token,
-          },
-        });
+        // console.log("user dispatched", user);
+        currentUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
       }
     });
     //cleanup
@@ -40,14 +55,17 @@ const App = () => {
         <Header title="Bidoo" />
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
+          <Route path="/" element={<Home />} exact />
+          <Route path="/Login" element={<Login />} exact />
+          <Route path="/Register" element={<Register />} exact />
           <Route
             path="/Register/complete-register"
             element={<RegisterComplete />}
           />
           <Route path="/forget/password" element={<ForgetPassword />} />
+          <Route element={<UserPrivateRoute />}>
+            <Route path="/user/history" element={<History />} exact />
+          </Route>
         </Routes>
       </Router>
     </>
