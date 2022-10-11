@@ -15,10 +15,14 @@ import Header from "./components/nav/Header";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import History from "./pages/user/History";
 import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
+import SellerPrivateRoute from "./components/privateRoutes/SellerPrivateRoute";
 import Password from "./pages/user/Password";
-
 import { currentUser } from "./functions/auth.functions";
 import WishList from "./pages/user/Wishlist";
+import SellerLogin from "./pages/auth/SellerLogin";
+import { SellerDashboard } from "./pages/seller/SellerDashboard";
+import SellerRegistration from "./pages/auth/SellerRegistration";
+import SellerRegistrationComplete from "./pages/auth/SellerRegistrationComplete";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -64,11 +68,30 @@ const App = () => {
             path="/Register/complete-register"
             element={<RegisterComplete />}
           />
-          <Route path="/forget/password" element={<ForgetPassword />} />
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/history" element={<History />} exact />
             <Route path="/user/password" element={<Password />} exact />
             <Route path="/user/wishlist" element={<WishList />} exact />
+          </Route>
+
+          <Route path="/seller/login" element={<SellerLogin />} exact />
+          <Route
+            path="/seller/registration"
+            element={<SellerRegistration />}
+            exact
+          />
+          <Route
+            path="/Seller-Register/complete-register"
+            element={<SellerRegistrationComplete />}
+          />
+          <Route path="/forget/password" element={<ForgetPassword />} />
+
+          <Route element={<SellerPrivateRoute />}>
+            <Route
+              path="/seller/dashboard"
+              element={<SellerDashboard />}
+              exact
+            />
           </Route>
         </Routes>
       </Router>

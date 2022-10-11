@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { ObjectId } = mongoose.Schema;
 
-const userSchema = new mongoose.Schema(
+const sellerSchema = new mongoose.Schema(
   {
     name: String,
     email: {
@@ -11,20 +11,19 @@ const userSchema = new mongoose.Schema(
       index: true,
     },
     role: {
-      type: String,
-      default: "subsciber",
-    },
-    cart: {
-      type: Array,
-      default: [],
+        type:String,
+        default:"seller",
     },
 
     address: String,
     contactNumber: { type: Number, min: 11, max: 12 },
-     
-
-    //   whishlist: [{ type: ObjectId, ref: "Prdocut" }],
+    NICnumber: {
+      type: Number,
+      img: {
+        data: Buffer,
+      },
+    },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Seller", sellerSchema);

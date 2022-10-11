@@ -6,7 +6,6 @@ exports.authCheck = async (req, res, next) => {
     const firebaseUser = await admin
       .auth()
       .verifyIdToken(req.headers.authtoken);
-    console.log("firebase user in authcheck", firebaseUser);
     req.user = firebaseUser;
     next();
   } catch (error) {
@@ -17,3 +16,9 @@ exports.authCheck = async (req, res, next) => {
     });
   }
 };
+
+// exports.sellerCheck=async (req, res,next)=>{
+//   const {email}=req.user
+
+//   const sellerUser=await User.
+// }

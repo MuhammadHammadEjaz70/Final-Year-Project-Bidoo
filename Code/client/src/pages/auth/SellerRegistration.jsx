@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Register = () => {
+const SellerRegistration = () => {
   const [email, setEmail] = useState("");
   let navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
@@ -18,7 +18,8 @@ const Register = () => {
     e.preventDefault();
 
     const actionCodeSettings = {
-      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+      url:'http://localhost:3000/Seller-Register/complete-register',
+      // url: process.env.REACT_APP_REGISTER_SELLER_REDIRECT_URL,
       handleCodeInApp: true,
     };
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
@@ -51,9 +52,6 @@ const Register = () => {
       <button type="submit" className="btn btn-raised btn-primary col-3">
         Submit
       </button>
-      <div className="container">
-        <Link to="/seller/registration">Become a seller</Link>
-      </div>
     </form>
   );
   return (
@@ -61,7 +59,7 @@ const Register = () => {
       <div className="container p-5">
         <div className="row ">
           <div className="col-md-6 offset-md-3">
-            <h3>Register</h3>
+            <h3> Seller Register</h3>
 
             {registerForm()}
           </div>
@@ -71,4 +69,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SellerRegistration;

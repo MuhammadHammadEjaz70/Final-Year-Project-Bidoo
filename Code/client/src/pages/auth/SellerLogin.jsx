@@ -8,9 +8,9 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { createUpdateUser } from "../../functions/auth.functions";
+import { createUpdateSeller } from "../../functions/auth.functions";
 
-const Login = () => {
+const SellerLogin = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
   const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ const Login = () => {
         const user = userCredential.user;
         // console.log("user logged in", user);
         const idTokenResult = await user.getIdTokenResult();
-        createUpdateUser(idTokenResult.token)
+        createUpdateSeller(idTokenResult.token)
           .then((res) => {
             dispatch({
               type: "LOGGED_IN_USER",
@@ -77,7 +77,7 @@ const Login = () => {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("IdTokenResult", idTokenResult);
         // The signed-in user info.
-        createUpdateUser(idTokenResult.token)
+        createUpdateSeller(idTokenResult.token)
           .then((res) => {
             dispatch({
               type: "LOGGED_IN_USER",
@@ -147,7 +147,7 @@ const Login = () => {
             {loading ? (
               <h3 className="text-danger">Loading...</h3>
             ) : (
-              <h3>Login</h3>
+              <h3>Seller Login</h3>
             )}
 
             {loginForm()}
@@ -167,11 +167,6 @@ const Login = () => {
                 Forget Password
               </Link>
             </div>
-            <div className="container">
-              <Link to="/seller/login" className="float-right text-primary">
-                Seller Account
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -179,4 +174,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SellerLogin;
