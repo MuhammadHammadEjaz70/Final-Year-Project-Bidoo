@@ -1,7 +1,7 @@
 import React from "react";
 import UserNavigation from "../../components/nav/UserNavigation";
 
-const History = () => {
+const WishList = () => {
   return (
     <>
       <div className="contianer-fluid">
@@ -9,11 +9,11 @@ const History = () => {
           <div className="col-md-2">
             <UserNavigation />
           </div>
-          <div className="col">User page History</div>
+          <div className="col">User WishList Page</div>
         </div>
       </div>
     </>
   );
 };
 
-export default History;
+export default WishList;

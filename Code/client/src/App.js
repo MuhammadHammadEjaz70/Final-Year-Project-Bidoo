@@ -15,8 +15,10 @@ import Header from "./components/nav/Header";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import History from "./pages/user/History";
 import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
+import Password from "./pages/user/Password";
 
 import { currentUser } from "./functions/auth.functions";
+import WishList from "./pages/user/Wishlist";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,6 +67,8 @@ const App = () => {
           <Route path="/forget/password" element={<ForgetPassword />} />
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/history" element={<History />} exact />
+            <Route path="/user/password" element={<Password />} exact />
+            <Route path="/user/wishlist" element={<WishList />} exact />
           </Route>
         </Routes>
       </Router>
