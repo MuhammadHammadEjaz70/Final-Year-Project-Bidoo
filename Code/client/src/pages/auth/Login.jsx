@@ -12,7 +12,7 @@ import { createUpdateUser } from "../../functions/auth.functions";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("123123");
   const [loading, setLoading] = useState(false);
   const provider = new GoogleAuthProvider();
   let dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Login = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
+    if (user && user.token) navigate("/user/history");
   }, [user]);
 
   const roleBaseRedirect = (res) => {

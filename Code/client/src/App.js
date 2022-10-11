@@ -18,6 +18,7 @@ import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
 import SellerPrivateRoute from "./components/privateRoutes/SellerPrivateRoute";
 import Password from "./pages/user/Password";
 import { currentUser } from "./functions/auth.functions";
+import { currentSeller } from "./functions/auth.functions";
 import WishList from "./pages/user/Wishlist";
 import SellerLogin from "./pages/auth/SellerLogin";
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
@@ -33,6 +34,7 @@ const App = () => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("user dispatched", user);
+
         currentUser(idTokenResult.token)
           .then((res) => {
             dispatch({

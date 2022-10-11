@@ -5,9 +5,9 @@ import { Outlet, Navigate } from "react-router-dom";
 import LoadingToRedirect from "./LoadingToRedirect";
 
 const SellerPrivateRoute = () => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const { seller } = useSelector((state) => ({ ...state }));
 
-  return user && user.token ? <Outlet /> : <LoadingToRedirect />;
+  return seller && seller.token ? <Outlet /> : <LoadingToRedirect />;
 };
 
 export default SellerPrivateRoute;

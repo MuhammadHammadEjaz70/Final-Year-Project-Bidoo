@@ -18,19 +18,19 @@ const SellerLogin = () => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const { user } = useSelector((state) => ({ ...state }));
+  const { seller } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
-  }, [user]);
+    if (seller && seller.token) navigate("/seller/dashboard");
+  }, [seller]);
 
   const roleBaseRedirect = (res) => {
     if (res.data.role === "admin") {
       navigate("/admin/dashboard");
     } else if (res.data.role === "seller") {
       navigate("/seller/dashboard");
-    } else if (res.data.role === "subscriber") {
-      navigate("/user/history");
+    } else {
+      navigate("/");
     }
   };
 
@@ -42,13 +42,13 @@ const SellerLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        const seller = userCredential.user;
         // console.log("user logged in", user);
-        const idTokenResult = await user.getIdTokenResult();
+        const idTokenResult = await seller.getIdTokenResult();
         createUpdateSeller(idTokenResult.token)
           .then((res) => {
             dispatch({
-              type: "LOGGED_IN_USER",
+              type: "LOGGED_IN_SELLER",
               payload: {
                 name: res.data.name,
                 email: res.data.email,
@@ -72,15 +72,15 @@ const SellerLogin = () => {
     e.preventDefault();
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        const user = result.user;
-        console.log("Google User", user);
-        const idTokenResult = await user.getIdTokenResult();
+        const seller = result.user;
+        console.log("Google User", seller);
+        const idTokenResult = await seller.getIdTokenResult();
         // console.log("IdTokenResult", idTokenResult);
         // The signed-in user info.
         createUpdateSeller(idTokenResult.token)
           .then((res) => {
             dispatch({
-              type: "LOGGED_IN_USER",
+              type: "LOGGED_IN_SELLER",
               payload: {
                 name: res.data.name,
                 email: res.data.email,
@@ -92,7 +92,7 @@ const SellerLogin = () => {
             roleBaseRedirect(res);
           })
           .catch((error) => {
-            toast.error("login module mei error hai", error.message);
+            toast.error("seller login module mei error hai", error.message);
           });
       })
       .catch((error) => {

@@ -7,6 +7,10 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import flags from "react-phone-number-input/flags";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { createUpdateSeller } from "../../functions/auth.functions";
@@ -14,10 +18,12 @@ import { createUpdateSeller } from "../../functions/auth.functions";
 const SellerRegistrationComplete = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [address, setAddress] = useState();
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
-  const { user } = useSelector((state) => ({ ...state }));
+  const { seller } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForSignIn"));
@@ -43,9 +49,9 @@ const SellerRegistrationComplete = () => {
           if (result.user.emailVerified) {
             // Clear email from storage.
             // window.localStorage.removeItem("emailForSignIn");
-            const user = auth.currentUser;
+            const seller = auth.currentUser;
             const newPassword = password;
-            updatePassword(user, newPassword)
+            updatePassword(seller, newPassword)
               .then(() => {
                 // Update successful.
               })
@@ -53,18 +59,20 @@ const SellerRegistrationComplete = () => {
                 // An error ocurred
                 toast.error(error.message);
               });
-            const idTokenResult = await user.getIdTokenResult();
+            const idTokenResult = await seller.getIdTokenResult();
             // console.log("user", user, "idTokenResult", idTokenResult);
             createUpdateSeller(idTokenResult.token)
               .then((res) => {
                 dispatch({
-                  type: "LOGGED_IN_USER",
+                  type: "LOGGED_IN_SELLER",
                   payload: {
                     name: res.data.name,
                     email: res.data.email,
                     token: idTokenResult.token,
                     role: res.data.role,
                     _id: res.data._id,
+                    phoneNumber: res.data.phoneNumber,
+                    address:res.data.address,
                   },
                 });
               })
@@ -72,7 +80,7 @@ const SellerRegistrationComplete = () => {
                 toast.error("register module mei error hai", error.message);
               });
 
-            navigate("/");
+            navigate("/seller/dashboard");
           }
         })
         .catch((error) => {
@@ -101,7 +109,22 @@ const SellerRegistrationComplete = () => {
         }}
         autoFocus
       />
-
+      <input
+        type="text"
+        placeholder="address"
+        className="form-control "
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
+        }}
+        autoFocus
+      />
+      <PhoneInput
+        flags={flags}
+        placeholder="Enter phone number"
+        value={phoneNumber}
+        onChange={setPhoneNumber}
+      />
       <button type="submit" className="btn btn-raised btn-primary col-3">
         Register
       </button>

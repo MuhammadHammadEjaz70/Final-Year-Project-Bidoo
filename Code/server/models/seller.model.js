@@ -11,12 +11,12 @@ const sellerSchema = new mongoose.Schema(
       index: true,
     },
     role: {
-        type:String,
-        default:"seller",
+      type: String,
+      default: "seller",
     },
 
     address: String,
-    contactNumber: { type: Number, min: 11, max: 12 },
+    phoneNumber: Number,
     NICnumber: {
       type: Number,
       img: {

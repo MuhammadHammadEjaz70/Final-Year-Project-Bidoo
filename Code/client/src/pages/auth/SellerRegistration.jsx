@@ -8,17 +8,17 @@ import { useSelector } from "react-redux";
 const SellerRegistration = () => {
   const [email, setEmail] = useState("");
   let navigate = useNavigate();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { seller } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
-  }, [user, navigate]);
+    if (seller && seller.token) navigate("/seller/dashboard");
+  }, [seller, navigate]);
 
   const handelSubmit = (e) => {
     e.preventDefault();
 
     const actionCodeSettings = {
-      url:'http://localhost:3000/Seller-Register/complete-register',
+      url: "http://localhost:3000/Seller-Register/complete-register",
       // url: process.env.REACT_APP_REGISTER_SELLER_REDIRECT_URL,
       handleCodeInApp: true,
     };
