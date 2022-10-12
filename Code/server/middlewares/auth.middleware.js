@@ -1,4 +1,6 @@
 const admin = require("../firbase/index.firebase");
+const Seller = require("../models/seller.model");
+const User = require("../models/user.model");
 
 exports.authCheck = async (req, res, next) => {
   // console.log(req.headers); //token
@@ -17,8 +19,24 @@ exports.authCheck = async (req, res, next) => {
   }
 };
 
-// exports.sellerCheck=async (req, res,next)=>{
-//   const {email}=req.user
+exports.sellerCheck = async (req, res, next) => {
+  const { email } = req.user;
+  const seller = await Seller.findOne({ email }).exec();
 
-//   const sellerUser=await User.
-// }
+  if (seller.role !== "seller") {
+    res.status(403).json({ error: "Seller resource. Access denied  " });
+  } else {
+    next();
+  }
+};
+
+exports.adminCheck = async (req, res, next) => {
+  const { email } = req.user;
+  const admin = await User.findOne({ email }).exec();
+
+  if (admin.role !== "admin") {
+    res.status(403).json({ error: "Admin resource. Access denied  " });
+  } else {
+    next();
+  }
+};

@@ -12,7 +12,7 @@ import { createUpdateUser } from "../../functions/auth.functions";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
-  const [password, setPassword] = useState("123123");
+  const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
   const provider = new GoogleAuthProvider();
   let dispatch = useDispatch();

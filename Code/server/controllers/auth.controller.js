@@ -32,8 +32,8 @@ exports.currentUser = async (req, res) => {
 
 exports.createUpdateSeller = async (req, res) => {
   console.log("inside create Update function");
+  // const { name, picture, email } = req.user;
   const { name, picture, email } = req.user;
-  // const { name, picture, email } = req.seller;
 
   const seller = await Seller.findOneAndUpdate(
     { email },
@@ -55,7 +55,7 @@ exports.createUpdateSeller = async (req, res) => {
 };
 
 exports.currentSeller = async (req, res) => {
-  Seller.findOne({ email: req.seller.email }).exec((error, seller) => {
+  Seller.findOne({ email: req.user.email }).exec((error, seller) => {
     if (error) throw new Error(error);
     res.json(seller);
   });
