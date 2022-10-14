@@ -72,11 +72,11 @@ const App = () => {
             <Route path="/user/history" element={<History />} exact />
             <Route path="/user/password" element={<Password />} exact />
             <Route path="/user/wishlist" element={<WishList />} exact />
+          <Route path="/seller/dashboard" element={<SellerDashboard />} exact />
           </Route>
 
           <Route path="/forget/password" element={<ForgetPassword />} />
 
-          <Route path="/seller/dashboard" element={<SellerDashboard />} exact />
         </Routes>
       </Router>
     </>
