@@ -1,6 +1,5 @@
 const User = require("../models/user.model");
-const Seller = require("../models/seller.model");
-
+ 
 exports.createUpdateUser = async (req, res) => {
   console.log("inside create Update function");
   const { name, picture, email } = req.user;
@@ -29,34 +28,4 @@ exports.currentUser = async (req, res) => {
     res.json(user);
   });
 };
-
-exports.createUpdateSeller = async (req, res) => {
-  console.log("inside create Update function");
-  // const { name, picture, email } = req.user;
-  const { name, picture, email } = req.user;
-
-  const seller = await Seller.findOneAndUpdate(
-    { email },
-    { name: email.split("@")[0], picture },
-    { new: true }
-  );
-  if (seller) {
-    console.log("Seller updated", seller);
-    res.json(seller);
-  } else {
-    const newSeller = await new Seller({
-      email,
-      name: email.split("@")[0],
-      picture,
-    }).save();
-    console.log("New Seller", newSeller);
-    res.json(newSeller);
-  }
-};
-
-exports.currentSeller = async (req, res) => {
-  Seller.findOne({ email: req.user.email }).exec((error, seller) => {
-    if (error) throw new Error(error);
-    res.json(seller);
-  });
-};
+ 

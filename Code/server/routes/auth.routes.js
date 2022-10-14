@@ -3,26 +3,16 @@ const express = require("express");
 const router = express.Router();
 
 //middlewares
-const {
-  authCheck,
-  sellerCheck,
-  adminCheck,
-} = require("../middlewares/auth.middleware");
+const { authCheck, adminCheck } = require("../middlewares/auth.middleware");
 
 //controllers
 const {
   createUpdateUser,
   currentUser,
 } = require("../controllers/auth.controller");
-const {
-  createUpdateSeller,
-  currentSeller,
-} = require("../controllers/auth.controller");
 
 router.post("/create-update-user", authCheck, createUpdateUser);
-router.post("/create-update-seller", authCheck, createUpdateSeller);
 router.post("/current-user", authCheck, currentUser);
-// router.post("/current-admin", authCheck, adminCheck, currentUser);
-router.post("/current-seller", authCheck, currentSeller);
+router.post("/current-admin", authCheck, adminCheck, currentUser);
 
 module.exports = router;

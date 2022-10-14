@@ -15,15 +15,13 @@ import Header from "./components/nav/Header";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import History from "./pages/user/History";
 import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
-import SellerPrivateRoute from "./components/privateRoutes/SellerPrivateRoute";
+
 import Password from "./pages/user/Password";
 import { currentUser } from "./functions/auth.functions";
-import { currentSeller } from "./functions/auth.functions";
+
 import WishList from "./pages/user/Wishlist";
-import SellerLogin from "./pages/auth/SellerLogin";
+
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
-import SellerRegistration from "./pages/auth/SellerRegistration";
-import SellerRegistrationComplete from "./pages/auth/SellerRegistrationComplete";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,23 +37,6 @@ const App = () => {
           .then((res) => {
             dispatch({
               type: "LOGGED_IN_USER",
-              payload: {
-                name: res.data.name,
-                email: res.data.email,
-                token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
-              },
-            });
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
-          
-        currentSeller(idTokenResult.token)
-          .then((res) => {
-            dispatch({
-              type: "LOGGED_IN_SELLER",
               payload: {
                 name: res.data.name,
                 email: res.data.email,
@@ -93,25 +74,9 @@ const App = () => {
             <Route path="/user/wishlist" element={<WishList />} exact />
           </Route>
 
-          <Route path="/seller/login" element={<SellerLogin />} exact />
-          <Route
-            path="/seller/registration"
-            element={<SellerRegistration />}
-            exact
-          />
-          <Route
-            path="/Seller-Register/complete-register"
-            element={<SellerRegistrationComplete />}
-          />
           <Route path="/forget/password" element={<ForgetPassword />} />
 
-          <Route element={<SellerPrivateRoute />}>
-            <Route
-              path="/seller/dashboard"
-              element={<SellerDashboard />}
-              exact
-            />
-          </Route>
+          <Route path="/seller/dashboard" element={<SellerDashboard />} exact />
         </Routes>
       </Router>
     </>

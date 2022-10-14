@@ -167,11 +167,7 @@ const Login = () => {
                 Forget Password
               </Link>
             </div>
-            <div className="container">
-              <Link to="/seller/login" className="float-right text-primary">
-                Seller Account
-              </Link>
-            </div>
+            
           </div>
         </div>
       </div>

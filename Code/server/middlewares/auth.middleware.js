@@ -1,5 +1,4 @@
 const admin = require("../firbase/index.firebase");
-const Seller = require("../models/seller.model");
 const User = require("../models/user.model");
 
 exports.authCheck = async (req, res, next) => {
@@ -16,17 +15,6 @@ exports.authCheck = async (req, res, next) => {
     res.status(401).json({
       error: "Invlaid or Expired Token",
     });
-  }
-};
-
-exports.sellerCheck = async (req, res, next) => {
-  const { email } = req.user;
-  const seller = await Seller.findOne({ email }).exec();
-
-  if (seller.role !== "seller") {
-    res.status(403).json({ error: "Seller resource. Access denied  " });
-  } else {
-    next();
   }
 };
 

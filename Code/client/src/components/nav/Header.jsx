@@ -100,6 +100,9 @@ const Header = (props) => {
                     <MDBDropdownItem link onClick={logout}>
                       Logout
                     </MDBDropdownItem>
+                    <MDBDropdownItem link>
+                      <Link to="/seller/dashboard">Sell/Bid</Link>
+                    </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>

@@ -51,9 +51,7 @@ const Register = () => {
       <button type="submit" className="btn btn-raised btn-primary col-3">
         Submit
       </button>
-      <div className="container">
-        <Link to="/seller/registration">Become a seller</Link>
-      </div>
+     
     </form>
   );
   return (
