@@ -21,14 +21,12 @@ const Login = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/user/history");
-  }, [user]);
+    if (user && user.token) navigate("/");
+  }, [user,navigate]);
 
   const roleBaseRedirect = (res) => {
     if (res.data.role === "admin") {
       navigate("/admin/dashboard");
-    } else if (res.data.role === "seller") {
-      navigate("/seller/dashboard");
     } else if (res.data.role === "subscriber") {
       navigate("/user/history");
     }
@@ -167,7 +165,6 @@ const Login = () => {
                 Forget Password
               </Link>
             </div>
-            
           </div>
         </div>
       </div>

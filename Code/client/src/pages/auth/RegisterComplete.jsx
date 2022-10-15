@@ -7,7 +7,7 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { createUpdateUser } from "../../functions/auth.functions";
 
@@ -17,7 +17,7 @@ const RegisterComplete = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
-  const { user } = useSelector((state) => ({ ...state }));
+  // const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForSignIn"));
