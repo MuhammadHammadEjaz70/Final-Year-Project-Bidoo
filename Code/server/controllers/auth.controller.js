@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
- 
+
 exports.createUpdateUser = async (req, res) => {
   console.log("inside create Update function");
   const { name, picture, email } = req.user;
@@ -28,4 +28,3 @@ exports.currentUser = async (req, res) => {
     res.json(user);
   });
 };
- 

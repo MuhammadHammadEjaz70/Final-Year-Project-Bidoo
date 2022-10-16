@@ -7,8 +7,9 @@ const { readdirSync } = require("fs");
 require("dotenv").config();
 
 //import Routes
-// const authRoutes = require("./routes/auth");
-// const userRoutes = require("./routes/user");
+// const authRoutes = require("./routes/auth.routes");
+// const userRoutes = require("./routes/users.routes");
+// const categoryRoutes=require("./routes/category.routes");
 
 // app
 const app = express();
@@ -17,8 +18,8 @@ const app = express();
 
 mongoose
   .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   })
   .then(async () => {
     console.log("Connection to MongoDB created");
@@ -36,12 +37,13 @@ app.use(cors());
 // routes  middlewares
 // app.use("/api", authRoutes);
 // app.use("/api", userRoutes);
+// app.use("/api",categoryRoutes)
 
 readdirSync("./routes").map((route) =>
   app.use("/api", require("./routes/" + route))
 );
 
-//routes
+
 
 //port
 const port = process.env.PORT || 8000;
