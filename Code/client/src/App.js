@@ -22,6 +22,7 @@ import WishList from "./pages/user/Wishlist";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import AdminPrivateRoute from "./components/privateRoutes/AdminPrivateRoute";
 import { AdminCreateCategory } from "./pages/admin/category/AdminCreateCategory";
+import { AdminUpdateCategory } from "./pages/admin/category/AdminUpdateCategory";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
 import { SellerCreateProdut } from "./pages/seller/product/SellerCreateProdut";
@@ -80,7 +81,11 @@ const App = () => {
               element={<SellerDashboard />}
               exact
             />
-            <Route path="/seller/product" element={<SellerCreateProdut />} exact />
+            <Route
+              path="/seller/product"
+              element={<SellerCreateProdut />}
+              exact
+            />
           </Route>
 
           <Route path="/forget/password" element={<ForgetPassword />} />
@@ -88,6 +93,10 @@ const App = () => {
           <Route element={<AdminPrivateRoute />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/category" element={<AdminCreateCategory />} />
+            <Route
+              path="/admin/category/:slug"
+              element={<AdminUpdateCategory />}
+            />
           </Route>
         </Routes>
       </Router>
