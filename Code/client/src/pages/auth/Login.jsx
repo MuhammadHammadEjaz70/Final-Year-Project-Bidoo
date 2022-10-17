@@ -9,6 +9,9 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { createUpdateUser } from "../../functions/auth.functions";
+import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
+import {createUpdateUser} from '../../functions/auth.functions'
+
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
@@ -159,7 +162,7 @@ const Login = () => {
               Login with Google
             </button>
             <br />
-
+<h3> awais</h3>
             <div className="container">
               <Link to="/forget/password" className="float-right text-danger">
                 Forget Password

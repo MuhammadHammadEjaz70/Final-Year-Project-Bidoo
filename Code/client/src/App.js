@@ -8,6 +8,13 @@ import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
+<<<<<<< Updated upstream
+=======
+import RegisterComplete from "./pages/auth/RegisterComplete";
+
+
+import Header2 from "./components/nav/Header2";
+>>>>>>> Stashed changes
 import Header from "./components/nav/Header";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
