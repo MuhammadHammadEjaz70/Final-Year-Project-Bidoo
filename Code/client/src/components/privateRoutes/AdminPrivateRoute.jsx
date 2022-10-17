@@ -11,16 +11,16 @@ const AdminPrivateRoute = () => {
   useEffect(() => {
     if (user && user.token) {
       currentAdmin(user.token)
-        .then((response) => {
-          console.log("Current admin response", response);
+        .then((res) => {
+          console.log("Current admin response", res);
           setAdmin(true);
         })
         .catch((error) => {
           console.log("admin route mein error hai", error);
-          setAdmin(false);
+           setAdmin(false);
         });
     }
-  });
+  }, [user]);
 
   return admin ? <Outlet /> : <LoadingToRedirect />;
 };

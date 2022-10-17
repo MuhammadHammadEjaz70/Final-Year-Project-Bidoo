@@ -13,7 +13,7 @@ import {
   MDBIcon,
   MDBNavbarNav,
   MDBNavbarItem,
-  MDBBtn,
+  // MDBBtn,
   MDBDropdown,
   MDBDropdownToggle,
   MDBDropdownMenu,
@@ -99,6 +99,14 @@ const Header = (props) => {
                   <MDBDropdownMenu>
                     <MDBDropdownItem link onClick={logout}>
                       Logout
+                    </MDBDropdownItem>
+                    <MDBDropdownItem link>
+                      {user && user.role === "subscriber" && (
+                        <Link to="/user/history">Dashboard</Link>
+                      )}
+                      {user && user.role === "admin" && (
+                        <Link to="/admin/dashboard">Dashboard</Link>
+                      )}
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
                       <Link to="/seller/dashboard">Sell/Bid</Link>

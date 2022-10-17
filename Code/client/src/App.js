@@ -7,20 +7,24 @@ import { toast } from "react-toastify";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
 import Home from "./pages/Home";
-import RegisterComplete from "./pages/auth/RegisterComplete";
 import Header from "./components/nav/Header";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import History from "./pages/user/History";
 import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
 import Password from "./pages/user/Password";
 import { currentUser } from "./functions/auth.functions";
 import WishList from "./pages/user/Wishlist";
-import { SellerDashboard } from "./pages/seller/SellerDashboard";
+
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import AdminPrivateRoute from "./components/privateRoutes/AdminPrivateRoute";
+import { AdminCreateCategory } from "./pages/admin/category/AdminCreateCategory";
+
+import { SellerDashboard } from "./pages/seller/SellerDashboard";
+import { SellerCreateProdut } from "./pages/seller/product/SellerCreateProdut";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -76,12 +80,14 @@ const App = () => {
               element={<SellerDashboard />}
               exact
             />
+            <Route path="/seller/product" element={<SellerCreateProdut />} exact />
           </Route>
 
           <Route path="/forget/password" element={<ForgetPassword />} />
 
           <Route element={<AdminPrivateRoute />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/category" element={<AdminCreateCategory />} />
           </Route>
         </Routes>
       </Router>

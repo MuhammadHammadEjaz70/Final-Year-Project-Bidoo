@@ -1,6 +1,7 @@
 import React from "react";
-import SellerNavigation from "../../components/nav/SellerNavigation";
-export const SellerDashboard = () => {
+import  SellerNavigation  from "../../../components/nav/SellerNavigation";
+
+export const SellerCreateProdut = () => {
   return (
     <>
       <div>
@@ -10,7 +11,7 @@ export const SellerDashboard = () => {
               <div className="col-md-2">
                 <SellerNavigation />
               </div>
-              <div className="col">Seller Dashboard</div>
+              <div className="col">Seller Create product</div>
             </div>
           </div>
         </>
