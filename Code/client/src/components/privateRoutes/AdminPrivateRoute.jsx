@@ -12,7 +12,7 @@ const AdminPrivateRoute = () => {
     if (user && user.token) {
       currentAdmin(user.token)
         .then((res) => {
-          console.log("Current admin response", res);
+          // console.log("Current admin response", res);
           setAdmin(true);
         })
         .catch((error) => {
