@@ -9,12 +9,16 @@ import {
 } from "../../../functions/category.functions";
 import { Link } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
+import { CategoryForm } from "../../../components/froms/CategoryForm";
+import { SearchFrom } from "../../../components/froms/SearchFrom";
 
 export const AdminCreateCategory = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  // search
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -61,25 +65,9 @@ export const AdminCreateCategory = () => {
           }
         });
     }
-  };
-  const createCategoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Category Name</label>
-
-        <input
-          type="text"
-          className="form-control col-3"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn  btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
+  }
+    const searched = (search) => (c) => c.name.toLowerCase().includes(search);
+  
   return (
     <div className="contianer-fluid">
       <div className="row">
@@ -92,10 +80,16 @@ export const AdminCreateCategory = () => {
           ) : (
             <h4> Create New Category</h4>
           )}
-          {createCategoryForm()}
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
           <hr />
+          <SearchFrom search={search} setSearch={setSearch}/>
+         
           <h5>Existing Categories</h5>
-          {categories.map((c) => (
+          {categories.filter(searched(search)).map((c) => (
             <div key={c._id} className="alert alert-primary">
               {c.name}
               <span
@@ -117,3 +111,4 @@ export const AdminCreateCategory = () => {
     </div>
   );
 };
+
