@@ -23,7 +23,8 @@ import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import AdminPrivateRoute from "./components/privateRoutes/AdminPrivateRoute";
 import { AdminCreateCategory } from "./pages/admin/category/AdminCreateCategory";
 import { AdminUpdateCategory } from "./pages/admin/category/AdminUpdateCategory";
-import SubCreateCategory from "./pages/admin/subCategory/SubCreateCategory";
+import { SubCreateCategory } from "./pages/admin/subCategory/SubCreateCategory";
+import { SubUpdateCategory } from "./pages/admin/subCategory/SubUpdateCategory";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
 import { SellerCreateProdut } from "./pages/seller/product/SellerCreateProdut";
@@ -94,10 +95,14 @@ const App = () => {
           <Route element={<AdminPrivateRoute />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/category" element={<AdminCreateCategory />} />
-            <Route path="/admin/sub" element={<SubCreateCategory />} />
             <Route
               path="/admin/category/:slug"
               element={<AdminUpdateCategory />}
+            />
+            <Route path="/admin/sub" element={<SubCreateCategory />} />
+            <Route
+              path="/admin/sub-category/:slug"
+              element={<SubUpdateCategory />}
             />
           </Route>
         </Routes>

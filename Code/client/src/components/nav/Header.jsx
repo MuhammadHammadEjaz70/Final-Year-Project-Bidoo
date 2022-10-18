@@ -13,7 +13,7 @@ import {
   MDBIcon,
   MDBNavbarNav,
   MDBNavbarItem,
-  // MDBBtn,
+  MDBBtn,
   MDBDropdown,
   MDBDropdownToggle,
   MDBDropdownMenu,
@@ -86,13 +86,13 @@ const Header = (props) => {
             )}
             {!user && (
               <MDBNavbarItem>
-                <Link to="/Register">Register</Link>
+                <MDBBtn> <Link to="/Register">Register</Link></MDBBtn>
               </MDBNavbarItem>
             )}
             {user && (
               <MDBNavbarItem>
                 <MDBDropdown>
-                  <MDBDropdownToggle tag="a" className="nav-link">
+                  <MDBDropdownToggle  className="nav-link">
                     {/* {user.displayName} */}
                     {user.email && user.email.split("@")[0]}
                   </MDBDropdownToggle>

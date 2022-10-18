@@ -5,7 +5,7 @@ export const CategoryForm = (props) => {
     <div>
       <form onSubmit={props.handleSubmit}>
         <div className="form-group">
-          <label>Category Name</label>
+          <label> Name</label>
 
           <input
             type="text"

@@ -4,8 +4,12 @@ const { connect } = require("mongoose");
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-    const category = await new SubCategory({ name, slug: slugify(name) }).save();
+    const { name, parentCategory } = req.body;
+    const category = await new SubCategory({
+      name,
+      parentCategory,
+      slug: slugify(name),
+    }).save();
     res.json(category);
   } catch (error) {
     console.log(error);
@@ -16,8 +20,10 @@ exports.list = async (req, res) =>
   res.json(await SubCategory.find({}).sort({ createdAt: -1 }).exec());
 
 exports.read = async (req, res) => {
-  const subcategory = await SubCategory.findOne({ slug: req.params.slug }).exec();
-  console.log("category:", subcategory); 
+  const subcategory = await SubCategory.findOne({
+    slug: req.params.slug,
+  }).exec();
+  console.log("category:", subcategory);
   res.json(subcategory);
 };
 exports.remove = async (req, res) => {
@@ -31,11 +37,11 @@ exports.remove = async (req, res) => {
   }
 };
 exports.update = async (req, res) => {
-  const { name } = req.body;
+  const { name,parentCategory } = req.body;
   try {
     const updatesubcategory = await SubCategory.findOneAndUpdate(
       { slug: req.params.slug },
-      { name, slug: slugify(name) },
+      { name, parentCategory, slug: slugify(name) },
       { new: true }
     );
     res.json(updatesubcategory);
