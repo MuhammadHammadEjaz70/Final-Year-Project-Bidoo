@@ -7,6 +7,7 @@ import {
   getCategory,
 } from "../../../functions/category.functions";
 import { useNavigate, useParams } from "react-router-dom";
+import { CategoryForm } from "../../../components/froms/CategoryForm";
 
 export const AdminUpdateCategory = () => {
   const navigate = useNavigate();
@@ -47,24 +48,6 @@ export const AdminUpdateCategory = () => {
       });
   };
 
-  const updateCategoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Category New Name</label>
-
-        <input
-          type="text"
-          className="form-control col-3"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn  btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
   return (
     <div className="contianer-fluid">
       <div className="row">
@@ -77,8 +60,13 @@ export const AdminUpdateCategory = () => {
           ) : (
             <h4> Update Category</h4>
           )}
-          {updateCategoryForm()}
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
           <hr />
+          {/* Input Field */}
         </div>
       </div>
     </div>
