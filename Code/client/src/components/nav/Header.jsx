@@ -86,13 +86,16 @@ const Header = (props) => {
             )}
             {!user && (
               <MDBNavbarItem>
-                <MDBBtn> <Link to="/Register">Register</Link></MDBBtn>
+                <MDBBtn>
+                  {" "}
+                  <Link to="/Register">Register</Link>
+                </MDBBtn>
               </MDBNavbarItem>
             )}
             {user && (
               <MDBNavbarItem>
                 <MDBDropdown>
-                  <MDBDropdownToggle  className="nav-link">
+                  <MDBDropdownToggle className="nav-link">
                     {/* {user.displayName} */}
                     {user.email && user.email.split("@")[0]}
                   </MDBDropdownToggle>
@@ -101,7 +104,7 @@ const Header = (props) => {
                       Logout
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
-                      {user && user.role === "subscriber" && (
+                      {user && user.role === "subsciber" && (
                         <Link to="/user/history">Dashboard</Link>
                       )}
                       {user && user.role === "admin" && (

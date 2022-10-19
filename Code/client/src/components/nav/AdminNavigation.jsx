@@ -12,7 +12,7 @@ export const AdminNavigation = () => {
                 Dashboard
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/admin/product">
                 Product
               </Link>
@@ -21,7 +21,7 @@ export const AdminNavigation = () => {
               <Link className="nav-link" to="/admin/products">
                 Products
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link className="nav-link" to="/admin/category">
                 Category
