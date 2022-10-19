@@ -1,13 +1,15 @@
-const Product = require("../models/product.model");
+const Produt = require("../models/product.model");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    console.log(req.body);
-    req.body.slug = slugify(req.body.title);
-    const newProduct= await new Product(req.body).save();
-    res.json(newProduct)
+    req.body.slug = slugify(req.body.title+req.body.description+req.body.color+req.body.brand);
 
+    console.log("body----------", req.body);
+
+    const newProduct = await new Produt(req.body).save();
+    console.log(newProduct);
+    res.json(newProduct);
   } catch (error) {
     console.log(error);
     res.status(400).send("Create product failed");

@@ -21,10 +21,10 @@ const userSchema = new mongoose.Schema(
 
     address: String,
     contactNumber: { type: Number, min: 11, max: 12 },
-     
 
     //   whishlist: [{ type: ObjectId, ref: "Prdocut" }],
   },
+
   { timestamps: true }
 );
 module.exports = mongoose.model("User", userSchema);

@@ -27,7 +27,8 @@ import { SubCreateCategory } from "./pages/admin/subCategory/SubCreateCategory";
 import { SubUpdateCategory } from "./pages/admin/subCategory/SubUpdateCategory";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
-import { SellerCreateProdut } from "./pages/seller/product/SellerCreateProdut";
+
+import CreateProduct from "./pages/seller/product/CreateProduct";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -83,11 +84,7 @@ const App = () => {
               element={<SellerDashboard />}
               exact
             />
-            <Route
-              path="/seller/product"
-              element={<SellerCreateProdut />}
-              exact
-            />
+            <Route path="/seller/product" element={<CreateProduct />} exact />
           </Route>
 
           <Route path="/forget/password" element={<ForgetPassword />} />
