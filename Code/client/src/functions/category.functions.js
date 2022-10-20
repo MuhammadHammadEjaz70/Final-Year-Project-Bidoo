@@ -11,7 +11,7 @@ export const removeCategory = async (slug, authToken) =>
     headers: { authToken },
   });
 export const updateCategory = async (slug, category, authToken) =>
-  await axios.put(`${process.env.REACT_APP_API}/category/${slug}`, category,{
+  await axios.put(`${process.env.REACT_APP_API}/category/${slug}`, category, {
     headers: { authToken },
   });
 
@@ -19,3 +19,5 @@ export const createCategory = async (category, authToken) =>
   await axios.post(`${process.env.REACT_APP_API}/category`, category, {
     headers: { authToken },
   });
+export const getSubCategory = async (_id) =>
+  await axios.get(`${process.env.REACT_APP_API}/category/subs/${_id}`);

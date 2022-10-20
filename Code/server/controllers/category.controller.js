@@ -1,6 +1,7 @@
 const Category = require("../models/category.model");
+const SubCategory = require("../models/sub.category.model");
 const slugify = require("slugify");
-const { connect } = require("mongoose");
+
 
 exports.create = async (req, res) => {
   try {
@@ -43,3 +44,11 @@ exports.update = async (req, res) => {
     res.status(400).send("Update Failed");
   }
 };
+
+exports.getSubs = (req, res) =>
+  SubCategory.find({ parentCategory: req.params._id }).exec((error, subs) => {
+    if (error) {
+      console.log(error);
+    }
+    res.json(subs);
+  });

@@ -23,7 +23,7 @@ exports.read = async (req, res) => {
   const subcategory = await SubCategory.findOne({
     slug: req.params.slug,
   }).exec();
-  console.log("category:", subcategory);
+  console.log(" sub category:", subcategory);
   res.json(subcategory);
 };
 exports.remove = async (req, res) => {
@@ -37,7 +37,7 @@ exports.remove = async (req, res) => {
   }
 };
 exports.update = async (req, res) => {
-  const { name,parentCategory } = req.body;
+  const { name, parentCategory } = req.body;
   try {
     const updatesubcategory = await SubCategory.findOneAndUpdate(
       { slug: req.params.slug },
