@@ -5,20 +5,20 @@ import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product.functions";
 
 const initialState = {
-  title: "",
-  description: "",
-  price: "",
-  buyoutPrice: "",
+  title: "Apple",
+  description: "Apple Laptop",
+  price: "10",
+  buyoutPrice: "100",
   categories: [],
   category: "",
   subcategories: [],
-  shipping: "",
-  quantity: "",
+  shipping: "Yes",
+  quantity: "12",
   images: [],
   colors: ["Red", "Black", "Brown", "Blue", "White"],
   brands: ["Apple", "Samsung", "Microsoft", "Acer", "Asus"],
-  color: "",
-  brand: "",
+  color: "Red",
+  brand: "Acer",
 };
 const CreateProduct = () => {
   const [values, setValues] = useState(initialState);
@@ -43,10 +43,11 @@ const CreateProduct = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-    createProduct(values, user.token, user.token)
+    createProduct(values, user.token)
       .then((res) => {
         console.log(res);
-        toast.success("Product Created");
+        window.alert("Product Created");
+        window.location.reload();
       })
       .catch((error) => {
         if (error.response.status === 400) toast.error(error.response.data);
