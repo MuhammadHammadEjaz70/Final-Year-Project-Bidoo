@@ -9,6 +9,8 @@ import {
   getSubCategory,
 } from "../../../functions/category.functions";
 import ProductCreateForm from "../../../components/froms/ProductCreateForm";
+import FileUpload from "../../../components/froms/FileUpload";
+
 const initialState = {
   title: "Apple",
   description: "Apple Laptop",
@@ -60,7 +62,7 @@ const CreateProduct = () => {
 
   const handleCategoryChange = async (e) => {
     e.preventDefault();
-    setValues({ ...values,subcategories:[], category: e.target.value });
+    setValues({ ...values, subcategories: [], category: e.target.value });
     console.log("Clicked Category", e.target.value);
     getSubCategory(e.target.value).then((res) => {
       console.log("Subs options on category click", res.data);
@@ -79,6 +81,9 @@ const CreateProduct = () => {
             <h3>Upload New Product</h3>
             <hr />
             {/* {JSON.stringify(values.subcategories )} */}
+            <div className="p-3">
+              <FileUpload />
+            </div>
             <ProductCreateForm
               handleSubmit={handleSubmit}
               handleChange={handleChange}

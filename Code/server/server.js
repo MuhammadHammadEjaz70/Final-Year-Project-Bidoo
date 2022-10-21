@@ -43,7 +43,7 @@ readdirSync("./routes").map((route) =>
   app.use("/api", require("./routes/" + route))
 );
 
-
+//routes
 
 //port
 const port = process.env.PORT || 8000;
