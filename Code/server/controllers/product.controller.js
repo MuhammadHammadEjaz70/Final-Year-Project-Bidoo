@@ -3,9 +3,7 @@ const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
-    req.body.slug = slugify(
-      req.body.title + req.body.description + req.body.color + req.body.brand
-    );
+    req.body.slug = slugify(req.body.title + Date.now());
 
     console.log("body----------", req.body);
 

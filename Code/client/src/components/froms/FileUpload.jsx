@@ -2,56 +2,119 @@ import React from "react";
 import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import { useSelector } from "react-redux";
+// import { Avatar, Badge } from "antd";
 
-const FileUpload = () => {
+const FileUpload = ({ values, setValues, setLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  const fileUploadAndResize = async (e) => {
+  const fileUploadAndResize = (e) => {
     // console.log(e.target.files);
-    //resize image
-    try {
-      const files = e.target.files;
-      console.log("files====>", files);
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          Resizer.imageFileResizer(
-            files[i],
-            720,
-            720,
-            "JPEG",
-            100,
-            0,
-            (uri) => {
-              console.log(uri);
-            },
-            "base64"
-          );
-        
-        }
+    // resize
+    let files = e.target.files; // 3
+    let allUploadedFiles = values.images;
+
+    if (files) {
+      setLoading(true);
+      for (let i = 0; i < files.length; i++) {
+        Resizer.imageFileResizer(
+          files[i],
+          720,
+          720,
+          "JPEG",
+          100,
+          0,
+          (uri) => {
+            // console.log(uri);
+            axios
+              .post(
+                `${process.env.REACT_APP_API}/uploadimages`,
+                { image: uri },
+                {
+                  headers: {
+                    authtoken: user ? user.token : "",
+                  },
+                }
+              )
+              .then((res) => {
+                console.log("IMAGE UPLOAD RES DATA", res);
+                setLoading(false);
+                allUploadedFiles.push(res.data);
+
+                setValues({ ...values, images: allUploadedFiles });
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.log(err.response.status);
+              });
+          },
+          "base64"
+        );
       }
-    } catch (error) {
-      console.log(error);
     }
-    //send  to server to upload
-    //server upload to CLOUDINARY
-    //cloudinary send image back to server
-    //server store that url in database
-    //Send that url as a response to front end as store to images[] in the parent component ---> CreateProduct
+    // send back to server to upload to cloudinary
+    // set url to images[] in the parent component state - ProductCreate
   };
 
+  //   const handleImageRemove = (public_id) => {
+  //     setLoading(true);
+  //     // console.log("remove image", public_id);
+  //     axios
+  //       .post(
+  //         `${process.env.REACT_APP_API}/removeimage`,
+  //         { public_id },
+  //         {
+  //           headers: {
+  //             authtoken: user ? user.token : "",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         setLoading(false);
+  //         const { images } = values;
+  //         let filteredImages = images.filter((item) => {
+  //           return item.public_id !== public_id;
+  //         });
+  //         setValues({ ...values, images: filteredImages });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         setLoading(false);
+  //       });
+  //   };
+
   return (
-    <div className="row ">
-      <label className="btn btn-dark  btn-raised">
-        Choose File
-        <input
-          type="file"
-          multiple
-          hidden
-          accept="images/*"
-          onChange={fileUploadAndResize}
-        ></input>
-      </label>
-    </div>
+    <>
+      {/* <div className="row">
+        {values.images &&
+          values.images.map((image) => (
+            <Badge
+              count="X"
+              key={image.public_id}
+              onClick={() => handleImageRemove(image.public_id)}
+              style={{ cursor: "pointer" }}
+            >
+              <Avatar
+                src={image.url}
+                size={100}
+                shape="square"
+                className="ml-3"
+              />
+            </Badge>
+          ))}
+      </div> */}
+      <div className="row">
+        <label className="btn btn-primary btn-raised mt-3">
+          Choose File
+          <input
+            type="file"
+            multiple
+            hidden
+            accept="images/*"
+            onChange={fileUploadAndResize}
+          />
+        </label>
+      </div>
+    </>
   );
 };
 
