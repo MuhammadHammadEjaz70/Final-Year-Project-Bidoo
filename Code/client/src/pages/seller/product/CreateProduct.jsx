@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import SellerNavigation from "../../../components/nav/SellerNavigation";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import {
 } from "../../../functions/category.functions";
 import ProductCreateForm from "../../../components/froms/ProductCreateForm";
 import FileUpload from "../../../components/froms/FileUpload";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
   title: "Apple",
@@ -31,6 +31,7 @@ const CreateProduct = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -78,20 +79,28 @@ const CreateProduct = () => {
             <SellerNavigation />
           </div>
           <div className="col-md-10">
-            <h3>Upload New Product</h3>
+            {loading ? (
+              <LoadingOutlined className="text-danger h1" />
+            ) : (
+              <h4>Create New Product</h4>
+            )}
             <hr />
-            {/* {JSON.stringify(values.subcategories )} */}
+            {JSON.stringify(values.images)}
             <div className="p-3">
-              <FileUpload />
+              <FileUpload
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+              />
             </div>
             <ProductCreateForm
               handleSubmit={handleSubmit}
               handleChange={handleChange}
               values={values}
-              handleCategoryChange={handleCategoryChange}
-              subOptions={subOptions}
-              showSub={showSub}
               setValues={setValues}
+              handleCategoryChange={handleCategoryChange}
+              showSub={showSub}
+              subOptions={subOptions}
             />
           </div>
         </div>
