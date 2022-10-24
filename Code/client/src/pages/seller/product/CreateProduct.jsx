@@ -80,12 +80,11 @@ const CreateProduct = () => {
           </div>
           <div className="col-md-10">
             {loading ? (
-              <LoadingOutlined className="text-danger h1" />
+              <LoadingOutlined className="text-dark h1" />
             ) : (
               <h4>Create New Product</h4>
             )}
             <hr />
-            {JSON.stringify(values.images)}
             <div className="p-3">
               <FileUpload
                 values={values}
@@ -93,6 +92,8 @@ const CreateProduct = () => {
                 setLoading={setLoading}
               />
             </div>
+            <hr />
+
             <ProductCreateForm
               handleSubmit={handleSubmit}
               handleChange={handleChange}
@@ -102,6 +103,7 @@ const CreateProduct = () => {
               showSub={showSub}
               subOptions={subOptions}
             />
+          
           </div>
         </div>
       </div>
