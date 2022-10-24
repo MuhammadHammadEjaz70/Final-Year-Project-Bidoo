@@ -6,6 +6,6 @@ const { authCheck } = require("../middlewares/auth.middleware");
 const { upload, remove } = require("../controllers/cloudinary.controller");
 
 router.post("/uploadimages", authCheck, upload);
-router.post("/remmovimage", authCheck, remove);
+router.post("/removeimage", authCheck, remove);
 
 module.exports = router;

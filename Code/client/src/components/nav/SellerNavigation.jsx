@@ -5,30 +5,30 @@ const SellerNavigation = () => {
   return (
     <div>
       <nav>
-        <ul className="nav flex-column">
-          <li className="nav-item">
-            <Link className="nav-link" to="/seller/dashboard">
+        <ul className="nav flex-column ">
+          <li className="nav-item ">
+            <Link className="nav-link text-dark" to="/seller/dashboard ">
               Dashboard
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/seller/product">
+          <li className="nav-item ">
+            <Link className="nav-link text-dark" to="/seller/product">
               Product
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/seller/products">
+          <li className="nav-item ">
+            <Link className="nav-link text-dark" to="/seller/products">
               Products
             </Link>
           </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/seller/coupon">
+          <li className="nav-item ">
+            <Link className="nav-link text-dark " to="/seller/coupon">
               Coupon
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/user/password">
+          <li className="nav-item ">
+            <Link className="nav-link text-dark " to="/user/password">
               Password
             </Link>
           </li>
