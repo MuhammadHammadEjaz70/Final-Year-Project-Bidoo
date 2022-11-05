@@ -16,10 +16,7 @@ const productSchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
-    userID: {
-      type: ObjectId,
-      ref: "Category",
-    },
+    userID: String,
     description: {
       type: String,
       required: true,
