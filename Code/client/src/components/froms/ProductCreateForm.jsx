@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 const ProductCreateForm = ({
   handleSubmit,
@@ -12,6 +13,7 @@ const ProductCreateForm = ({
 }) => {
   const {
     title,
+    userID,
     description,
     price,
     buyoutPrice,
@@ -26,6 +28,7 @@ const ProductCreateForm = ({
     color,
     brand,
   } = values;
+  const { user } = useSelector((state) => ({ ...state }));
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -133,29 +136,43 @@ const ProductCreateForm = ({
               ))}
           </select>
         </div>
-      {showSub &&  <div className="form-group">
-          <label>Sub Category</label>
-          <Select
-            mode="multiple"
-            allowClear
-            style={{
-              width: "100%",
-            }}
-            placeholder="Please select"
-            value={subcategories}
-            onChange={(value) => setValues({ ...values, subcategories: value })}
-          >
-       
-            <option>Click to Select Category</option>
-            {subOptions.length > 0 &&
-              subOptions.map((s) => (
-                <option key={s._id} value={s._id}>
-                  {s.name}
-                </option>
-              ))}
-          </Select>
+        {showSub && (
+          <div className="form-group">
+            <label>Sub Category</label>
+            <Select
+              mode="multiple"
+              allowClear
+              style={{
+                width: "100%",
+              }}
+              placeholder="Please select"
+              value={subcategories}
+              onChange={(value) =>
+                setValues({ ...values, subcategories: value })
+              }
+            >
+              <option>Click to Select Category</option>
+              {subOptions.length > 0 &&
+                subOptions.map((s) => (
+                  <option key={s._id} value={s._id}>
+                    {s.name}
+                  </option>
+                ))}
+            </Select>
+          </div>
+        )}
+        <div className="form-group">
+          <label>User-ID</label>
+          <input
+            type="text"
+            name="userID"
+            className="form-control"
+            value={user._id}
+            onChange={handleChange}
+            disabled
+          />
         </div>
-      }  <br />
+        <br />
         <button className="btn btn-dark btn-outline">Save</button>
         {/* {subOptions ? subOptions.length : "no subs yet"} */}
       </form>

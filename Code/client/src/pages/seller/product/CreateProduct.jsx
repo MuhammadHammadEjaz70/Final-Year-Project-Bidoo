@@ -13,6 +13,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
   title: "Apple",
+  userID: "",
   description: "Apple Laptop",
   price: "10",
   buyoutPrice: "100",
@@ -37,12 +38,17 @@ const CreateProduct = () => {
 
   useEffect(() => {
     loadCategories();
+    // setUserID();
+    
   }, []);
   const loadCategories = () => {
     getAllCategories().then((c) =>
       setValues({ ...values, categories: c.data })
     );
   };
+  // const setUserID = () => {
+  //   setValues({ ...values, userID: user._id });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +109,6 @@ const CreateProduct = () => {
               showSub={showSub}
               subOptions={subOptions}
             />
-          
           </div>
         </div>
       </div>
