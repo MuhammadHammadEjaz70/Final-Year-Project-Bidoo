@@ -79,7 +79,7 @@ const Header = (props) => {
             {!user && (
               <MDBNavbarItem>
                 <Link to="/login">
-                  {" "}
+                
                   <div className="container">Login</div>
                 </Link>
               </MDBNavbarItem>

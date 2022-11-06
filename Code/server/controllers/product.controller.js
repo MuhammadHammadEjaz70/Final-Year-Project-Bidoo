@@ -19,7 +19,24 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.read = async (req, res) => {
-  let products = await Produt.find({});
+exports.listAllProducts = async (req, res) => {
+  console.log(" get product req body===>", req.body);
+  let products = await Produt.find({})
+    .limit(parseInt(req.params.count))
+    .populate("category")
+    .populate("subcategories")
+    .sort([["createdAt", "desc"]])
+    .exec();
+  res.json(products);
+};
+
+exports.listAllSellerProducts = async (req, res) => {
+  console.log(" get product req body===>", req.body);
+  let products = await Produt.find({ userID: req.body.userID })
+    .populate("category")
+    .populate("subcategories")
+    .sort([["createdAt", "desc"]])
+    .exec();
+
   res.json(products);
 };

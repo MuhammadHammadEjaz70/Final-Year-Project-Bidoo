@@ -38,7 +38,7 @@ const CreateProduct = () => {
 
   useEffect(() => {
     loadCategories();
-    // setUserID();
+   
     
   }, []);
   const loadCategories = () => {
@@ -46,9 +46,7 @@ const CreateProduct = () => {
       setValues({ ...values, categories: c.data })
     );
   };
-  // const setUserID = () => {
-  //   setValues({ ...values, userID: user._id });
-  // };
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
