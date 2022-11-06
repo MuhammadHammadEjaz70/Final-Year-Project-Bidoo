@@ -7,13 +7,13 @@ const SellerNavigation = () => {
       <nav>
         <ul className="nav flex-column ">
           <li className="nav-item ">
-            <Link className="nav-link text-dark" to="/seller/dashboard ">
+            <Link className="nav-link text-dark" to="/seller/dashboard">
               Dashboard
             </Link>
           </li>
           <li className="nav-item ">
             <Link className="nav-link text-dark" to="/seller/product">
-              Product
+              New Product
             </Link>
           </li>
           <li className="nav-item ">

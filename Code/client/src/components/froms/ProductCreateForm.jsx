@@ -29,6 +29,7 @@ const ProductCreateForm = ({
     brand,
   } = values;
   const { user } = useSelector((state) => ({ ...state }));
+  values.userID=user._id;
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -161,20 +162,21 @@ const ProductCreateForm = ({
             </Select>
           </div>
         )}
-        <div className="form-group">
-          <label>User-ID</label>
+        {/* <div className="form-group">
+          <label >User-ID</label>
           <input
             type="text"
             name="userID"
             className="form-control"
             value={user._id}
-            onChange={handleChange}
-            disabled
+            // onChange={handleChange}
+            // disabled
+            // hidden
           />
-        </div>
+        </div> */}
         <br />
         <button className="btn btn-dark btn-outline">Save</button>
-        {/* {subOptions ? subOptions.length : "no subs yet"} */}
+   
       </form>
     </div>
   );
