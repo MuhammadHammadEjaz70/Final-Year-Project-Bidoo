@@ -12,21 +12,21 @@ import FileUpload from "../../../components/froms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
-  title: "Apple",
+  title: "N/A",
   userID: "",
-  description: "Apple Laptop",
-  price: "10",
-  buyoutPrice: "100",
+  description: "N/A",
+  price: "N/A",
+  buyoutPrice: "N/A",
   categories: [],
   category: "",
   subcategories: [],
-  shipping: "Yes",
-  quantity: "12",
+  shipping: "N/A",
+  quantity: "N/A",
   images: [],
-  colors: ["Red", "Black", "Brown", "Blue", "White"],
-  brands: ["Apple", "Samsung", "Microsoft", "Acer", "Asus"],
-  color: "Red",
-  brand: "Acer",
+  colors: ["Red", "Black", "Brown", "Blue", "White", "Other"],
+  brands: ["Apple", "Samsung", "Microsoft", "Acer", "Asus", "Other"],
+  color: "N/A",
+  brand: "N/A",
 };
 const CreateProduct = () => {
   const [values, setValues] = useState(initialState);
@@ -38,15 +38,12 @@ const CreateProduct = () => {
 
   useEffect(() => {
     loadCategories();
-   
-    
   }, []);
   const loadCategories = () => {
     getAllCategories().then((c) =>
       setValues({ ...values, categories: c.data })
     );
   };
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
