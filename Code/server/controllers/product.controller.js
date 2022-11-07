@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
 };
 
 exports.listAllProducts = async (req, res) => {
-  console.log(" get product req body===>", req.body);
+  console.log(" get product req body===>", req.params);
   let products = await Produt.find({})
     .limit(parseInt(req.params.count))
     .populate("category")
@@ -31,8 +31,9 @@ exports.listAllProducts = async (req, res) => {
 };
 
 exports.listAllSellerProducts = async (req, res) => {
-  console.log(" get product req body===>", req.body);
-  let products = await Produt.find({ userID: req.body.userID })
+  console.log(" get product req body===>", req.headers);
+  const userID = req.headers.userid;
+  let products = await Produt.find({ userID })
     .populate("category")
     .populate("subcategories")
     .sort([["createdAt", "desc"]])
