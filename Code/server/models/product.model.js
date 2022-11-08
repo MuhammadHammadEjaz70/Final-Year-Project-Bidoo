@@ -60,12 +60,12 @@ const productSchema = new mongoose.Schema(
     },
     color: {
       type: String,
-      enum: ["Red", "Black", "Brown", "Blue", "White,Other"],
+      enum: ["Red", "Black", "Brown", "Blue", "White","Other"],
     },
     brand: {
       type: String,
       trim: true,
-      enum: ["Apple", "Samsung", "Microsoft", "Acer", "Asus, Other"],
+      enum: ["Apple", "Samsung", "Microsoft", "Acer", "Asus", "Other"],
     },
     // ratings: [{ star: Number, postedBy: { type: ObjectId, ref: "User" } }],
   },

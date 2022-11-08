@@ -1,14 +1,14 @@
-const Produt = require("../models/product.model");
+const Product = require("../models/product.model");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title + Date.now());
 
-    console.log("body----------", req.body);
+    // console.log("body----------", req.body);
 
-    const newProduct = await new Produt(req.body).save();
-    console.log(newProduct);
+    const newProduct = await new Product(req.body).save();
+    // console.log(newProduct);
     res.json(newProduct);
   } catch (error) {
     console.log(error);
@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
 
 exports.listAllProducts = async (req, res) => {
   console.log(" get product req body===>", req.params);
-  let products = await Produt.find({})
+  let products = await Product.find({})
     .limit(parseInt(req.params.count))
     .populate("category")
     .populate("subcategories")
@@ -31,13 +31,26 @@ exports.listAllProducts = async (req, res) => {
 };
 
 exports.listAllSellerProducts = async (req, res) => {
-  console.log(" get product req body===>", req.headers);
+  // console.log(" get product req header===>", req.headers);
   const userID = req.headers.userid;
-  let products = await Produt.find({ userID })
+  let products = await Product.find({ userID })
     .populate("category")
     .populate("subcategories")
     .sort([["createdAt", "desc"]])
     .exec();
 
   res.json(products);
+};
+
+exports.remove = async (req, res) => {
+  try {
+    const deletedProduct = await Product.findOneAndRemove({
+      slug: req.params.slug,
+    }).exec();
+    // console.log("deleted product===>", deleted);
+    res.json(deletedProduct);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Product Deletetion Failed");
+  }
 };
