@@ -12,21 +12,21 @@ import FileUpload from "../../../components/froms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
-  title: "N/A",
+  title: "MacBook",
   userID: "",
-  description: "N/A",
-  price: "N/A",
-  buyoutPrice: "N/A",
+  description: "MacBook Air 512 GB",
+  price: "200",
+  buyoutPrice: "2000",
   categories: [],
   category: "",
   subcategories: [],
-  shipping: "N/A",
-  quantity: "N/A",
+  shipping: "Yes",
+  quantity: "1",
   images: [],
   colors: ["Red", "Black", "Brown", "Blue", "White", "Other"],
   brands: ["Apple", "Samsung", "Microsoft", "Acer", "Asus", "Other"],
-  color: "N/A",
-  brand: "N/A",
+  color: "White",
+  brand: "Apple",
 };
 const CreateProduct = () => {
   const [values, setValues] = useState(initialState);
