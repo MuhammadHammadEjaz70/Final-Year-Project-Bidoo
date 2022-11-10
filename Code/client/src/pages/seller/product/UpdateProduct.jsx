@@ -2,59 +2,80 @@ import React, { useState, useEffect } from "react";
 import SellerNavigation from "../../../components/nav/SellerNavigation";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { createProduct } from "../../../functions/product.functions";
+import { getProduct } from "../../../functions/product.functions";
 import {
   getAllCategories,
   getSubCategory,
 } from "../../../functions/category.functions";
-import ProductCreateForm from "../../../components/froms/ProductCreateForm";
+import UpdateProductForm from '../../../components/froms/UpdateProductForm'
 import FileUpload from "../../../components/froms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
+import { useParams } from "react-router-dom";
+
+
+const initialState = {
+  title: " ",
+  userID: "",
+  description: " ",
+  price: "",
+  buyoutPrice: "",
+  categories: [],
+  category: "",
+  subcategories: [],
+  shipping: " ",
+  quantity: " ",
+  images: [],
+  colors: ["Red", "Black", "Brown", "Blue", "White", "Other"],
+  brands: ["Apple", "Samsung", "Microsoft", "Acer", "Asus", "Other"],
+  color: " ",
+  brand: " ",
+};
 
 const UpdateProduct = () => {
-// //   const [values, setValues] = useState(initialState);
-//   const [subOptions, setSubOptions] = useState([]);
-//   const [showSub, setShowSub] = useState(false);
+  const [values, setValues] = useState(initialState);
+  //   const [subOptions, setSubOptions] = useState([]);
+  //   const [showSub, setShowSub] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { slug } = useParams();
   const { user } = useSelector((state) => ({ ...state }));
 
-//   useEffect(() => {
-//     loadCategories();
-//   }, []);
-//   const loadCategories = () => {
-//     getAllCategories().then((c) =>
-//       setValues({ ...values, categories: c.data })
-//     );
-//   };
+  useEffect(() => {
+    loadProduct();
+  }, []);
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     createProduct(values, user.token)
-//       .then((res) => {
-//         console.log(res);
-//         window.alert("Product Created");
-//         window.location.reload();
-//       })
-//       .catch((error) => {
-//         toast.error(error.response.data.error);
-//       });
-//   };
+  const loadProduct = () => {
+    getProduct(slug).then((p) => {
+      setValues({ ...values, ...p.data });
+    });
+  };
 
-//   const handleChange = async (e) => {
-//     setValues({ ...values, [e.target.name]: e.target.value });
-//   };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      // createProduct(values, user.token)
+      //   .then((res) => {
+      //     console.log(res);
+      //     window.alert("Product Created");
+      //     window.location.reload();
+      //   })
+      //   .catch((error) => {
+      //     toast.error(error.response.data.error);
+      //   });
+    };
 
-//   const handleCategoryChange = async (e) => {
-//     e.preventDefault();
-//     setValues({ ...values, subcategories: [], category: e.target.value });
-//     console.log("Clicked Category", e.target.value);
-//     getSubCategory(e.target.value).then((res) => {
-//       console.log("Subs options on category click", res.data);
-//       setSubOptions(res.data);
-//     });
-//     setShowSub(true);
-//   };
+    const handleChange = async (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+  //   const handleCategoryChange = async (e) => {
+  //     e.preventDefault();
+  //     setValues({ ...values, subcategories: [], category: e.target.value });
+  //     console.log("Clicked Category", e.target.value);
+  //     getSubCategory(e.target.value).then((res) => {
+  //       console.log("Subs options on category click", res.data);
+  //       setSubOptions(res.data);
+  //     });
+  //     setShowSub(true);
+  //   };
   return (
     <>
       <div className="container-fluid">
@@ -68,6 +89,8 @@ const UpdateProduct = () => {
             ) : (
               <h4>Edit Product</h4>
             )}
+            {/* {JSON.stringify(values)} */}
+
             <hr />
             {/* <div className="p-3">
               <FileUpload
@@ -77,16 +100,13 @@ const UpdateProduct = () => {
               />
             </div> */}
             <hr />
-
-            {/* <ProductCreateForm
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-              values={values}
-              setValues={setValues}
-              handleCategoryChange={handleCategoryChange}
-              showSub={showSub}
-              subOptions={subOptions}
-            /> */}
+            <UpdateProductForm
+             handleSubmit={handleSubmit}
+             handleChange={handleChange}
+             values={values}
+             setValues={setValues}
+            />
+           
           </div>
         </div>
       </div>

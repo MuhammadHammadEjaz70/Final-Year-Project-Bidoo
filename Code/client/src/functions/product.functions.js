@@ -14,6 +14,9 @@ export const createProduct = async (product, authToken) => {
 export const getProductsByCount = async (count) =>
   await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
 
+export const getProduct = async (slug) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
+
 export const getProductsBySeller = async (userID) =>
   await axios.get(`${process.env.REACT_APP_API}/products-seller`, {
     headers: { userID },
