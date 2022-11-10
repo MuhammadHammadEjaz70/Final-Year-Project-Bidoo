@@ -28,8 +28,8 @@ import { SubUpdateCategory } from "./pages/admin/subCategory/SubUpdateCategory";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
 import { AllProducts } from "./pages/seller/product/AllProducts";
-
 import CreateProduct from "./pages/seller/product/CreateProduct";
+import UpdateProduct from "./pages/seller/product/UpdateProduct";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -86,6 +86,7 @@ const App = () => {
               exact
             />
             <Route path="/seller/product" element={<CreateProduct />} exact />
+            <Route path="/seller/product/:slug" element={<UpdateProduct />} exact />
             <Route path="/seller/products" element={<AllProducts />} exact />
           </Route>
 
