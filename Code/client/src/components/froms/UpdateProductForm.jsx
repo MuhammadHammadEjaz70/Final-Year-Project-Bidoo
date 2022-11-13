@@ -7,9 +7,10 @@ const UpdateProductForm = ({
   handleChange,
   values,
   setValues,
-  // handleCategoryChange,
-  // subOptions,
-  // showSub,
+  handleCategoryChange,
+  subOptions,
+  showSub,
+  categories,
 }) => {
   const {
     title,
@@ -17,7 +18,6 @@ const UpdateProductForm = ({
     description,
     price,
     buyoutPrice,
-    categories,
     category,
     subcategories,
     shipping,
@@ -79,10 +79,10 @@ const UpdateProductForm = ({
           <label>Shipping</label>
           <select
             name="shipping"
+            value={shipping === "Yes" ? "Yes" : "No"}
             className="form-control"
             onChange={handleChange}
           >
-            <option>Select One</option>
             <option value="No">No</option>
             <option value="Yes">Yes</option>
           </select>
@@ -99,9 +99,12 @@ const UpdateProductForm = ({
         </div>
         <div className="form-group">
           <label>Color</label>
-          <select name="color" className="form-control" onChange={handleChange}>
-            <option>Select One</option>
-
+          <select
+            name="color"
+            className="form-control"
+            value={color}
+            onChange={handleChange}
+          >
             {colors.map((color) => (
               <option key={color} value={color}>
                 {color}
@@ -111,7 +114,12 @@ const UpdateProductForm = ({
         </div>
         <div className="form-group">
           <label>Brand</label>
-          <select name="brand" className="form-control" onChange={handleChange}>
+          <select
+            name="brand"
+            className="form-control"
+            value={brand}
+            onChange={handleChange}
+          >
             <option>Select One</option>
 
             {brands.map((brand) => (
@@ -121,14 +129,14 @@ const UpdateProductForm = ({
             ))}
           </select>
         </div>
-        {/* <div className="form-group">
+        <div className="form-group">
           <label>Category</label>
           <select
             name="category"
             className="form-control"
             onChange={handleCategoryChange}
           >
-            <option>Click to Select Category</option>
+            <option>{category?category.name:"Please Select Category"}</option>
             {categories.length > 0 &&
               categories.map((c) => (
                 <option key={c._id} value={c._id}>
@@ -152,7 +160,7 @@ const UpdateProductForm = ({
                 setValues({ ...values, subcategories: value })
               }
             >
-              <option>Click to Select Category</option>
+              
               {subOptions.length > 0 &&
                 subOptions.map((s) => (
                   <option key={s._id} value={s._id}>
@@ -161,7 +169,7 @@ const UpdateProductForm = ({
                 ))}
             </Select>
           </div>
-        )} */}
+        )}
 
         <br />
         <button className="btn btn-dark btn-outline">Save</button>
