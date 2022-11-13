@@ -7,11 +7,10 @@ import {
   getAllCategories,
   getSubCategory,
 } from "../../../functions/category.functions";
-import UpdateProductForm from '../../../components/froms/UpdateProductForm'
+import UpdateProductForm from "../../../components/froms/UpdateProductForm";
 import FileUpload from "../../../components/froms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
-
 
 const initialState = {
   title: " ",
@@ -19,7 +18,7 @@ const initialState = {
   description: " ",
   price: "",
   buyoutPrice: "",
-  categories: [],
+
   category: "",
   subcategories: [],
   shipping: " ",
@@ -32,15 +31,19 @@ const initialState = {
 };
 
 const UpdateProduct = () => {
-  const [values, setValues] = useState(initialState);
-  //   const [subOptions, setSubOptions] = useState([]);
-  //   const [showSub, setShowSub] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { slug } = useParams();
+  const [values, setValues] = useState(initialState);
+  const [categories, setCategories] = useState([]);
+  const [subOptions, setSubOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  // const [category, setCategory] = useState("");
+  // const [subCategory, setSubCategory] = useState([]);
+  const [showSub, setShowSub] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     loadProduct();
+    loadCategories();
   }, []);
 
   const loadProduct = () => {
@@ -48,34 +51,39 @@ const UpdateProduct = () => {
       setValues({ ...values, ...p.data });
     });
   };
+  const loadCategories = () => {
+    getAllCategories().then((c) => {
+      setCategories(c.data);
+    });
+  };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      // createProduct(values, user.token)
-      //   .then((res) => {
-      //     console.log(res);
-      //     window.alert("Product Created");
-      //     window.location.reload();
-      //   })
-      //   .catch((error) => {
-      //     toast.error(error.response.data.error);
-      //   });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // createProduct(values, user.token)
+    //   .then((res) => {
+    //     console.log(res);
+    //     window.alert("Product Created");
+    //     window.location.reload();
+    //   })
+    //   .catch((error) => {
+    //     toast.error(error.response.data.error);
+    //   });
+  };
 
-    const handleChange = async (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
+  const handleChange = async (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
-  //   const handleCategoryChange = async (e) => {
-  //     e.preventDefault();
-  //     setValues({ ...values, subcategories: [], category: e.target.value });
-  //     console.log("Clicked Category", e.target.value);
-  //     getSubCategory(e.target.value).then((res) => {
-  //       console.log("Subs options on category click", res.data);
-  //       setSubOptions(res.data);
-  //     });
-  //     setShowSub(true);
-  //   };
+  const handleCategoryChange = async (e) => {
+    e.preventDefault();
+    setValues({ ...values, subcategories: [], category: e.target.value });
+    console.log("Clicked Category", e.target.value);
+    getSubCategory(e.target.value).then((res) => {
+      console.log("Subs options on category click", res.data);
+      setSubOptions(res.data);
+    });
+    setShowSub(true);
+  };
   return (
     <>
       <div className="container-fluid">
@@ -89,7 +97,7 @@ const UpdateProduct = () => {
             ) : (
               <h4>Edit Product</h4>
             )}
-            {/* {JSON.stringify(values)} */}
+            {JSON.stringify(values)}
 
             <hr />
             {/* <div className="p-3">
@@ -101,12 +109,15 @@ const UpdateProduct = () => {
             </div> */}
             <hr />
             <UpdateProductForm
-             handleSubmit={handleSubmit}
-             handleChange={handleChange}
-             values={values}
-             setValues={setValues}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              handleCategoryChange={handleCategoryChange}
+              values={values}
+              setValues={setValues}
+              categories={categories}
+              showSub={showSub}
+              subOptions={subOptions}
             />
-           
           </div>
         </div>
       </div>

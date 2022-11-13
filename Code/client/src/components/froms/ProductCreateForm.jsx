@@ -162,18 +162,7 @@ const ProductCreateForm = ({
             </Select>
           </div>
         )}
-        {/* <div className="form-group">
-          <label >User-ID</label>
-          <input
-            type="text"
-            name="userID"
-            className="form-control"
-            value={user._id}
-            // onChange={handleChange}
-            // disabled
-            // hidden
-          />
-        </div> */}
+        
         <br />
         <button className="btn btn-dark btn-outline">Save</button>
    
