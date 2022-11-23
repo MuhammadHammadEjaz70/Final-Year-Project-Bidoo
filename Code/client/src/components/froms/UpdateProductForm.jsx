@@ -11,6 +11,10 @@ const UpdateProductForm = ({
   subOptions,
   showSub,
   categories,
+  ArrayOfSubIds,
+  setArrayOfSubIds,
+  selectedCategoryValue,
+  
 }) => {
   const {
     title,
@@ -134,9 +138,10 @@ const UpdateProductForm = ({
           <select
             name="category"
             className="form-control"
+            value={selectedCategoryValue?selectedCategoryValue:category._id}
             onChange={handleCategoryChange}
           >
-            <option>{category?category.name:"Please Select Category"}</option>
+             
             {categories.length > 0 &&
               categories.map((c) => (
                 <option key={c._id} value={c._id}>
@@ -145,31 +150,27 @@ const UpdateProductForm = ({
               ))}
           </select>
         </div>
-        {showSub && (
-          <div className="form-group">
-            <label>Sub Category</label>
-            <Select
-              mode="multiple"
-              allowClear
-              style={{
-                width: "100%",
-              }}
-              placeholder="Please select"
-              value={subcategories}
-              onChange={(value) =>
-                setValues({ ...values, subcategories: value })
-              }
-            >
-              
-              {subOptions.length > 0 &&
-                subOptions.map((s) => (
-                  <option key={s._id} value={s._id}>
-                    {s.name}
-                  </option>
-                ))}
-            </Select>
-          </div>
-        )}
+
+        <div className="form-group">
+          <label>Sub Category</label>
+          <Select
+            mode="multiple"
+            allowClear
+            style={{
+              width: "100%",
+            }}
+            placeholder="Please select"
+            value={ArrayOfSubIds}
+            onChange={(value) => setArrayOfSubIds(value)}
+          >
+            {subOptions.length > 0 &&
+              subOptions.map((s) => (
+                <option key={s._id} value={s._id}>
+                  {s.name}
+                </option>
+              ))}
+          </Select>
+        </div>
 
         <br />
         <button className="btn btn-dark btn-outline">Save</button>

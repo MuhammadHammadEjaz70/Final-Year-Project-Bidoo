@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const removeProduct = async (slug, authToken) => {
-  await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
+export const createProduct = async (product, authToken) => {
+  await axios.post(`${process.env.REACT_APP_API}/product`, product, {
     headers: { authToken },
   });
 };
-export const createProduct = async (product, authToken) => {
-  await axios.post(`${process.env.REACT_APP_API}/product`, product, {
+
+export const removeProduct = async (slug, authToken) => {
+  await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
     headers: { authToken },
   });
 };
@@ -21,3 +22,8 @@ export const getProductsBySeller = async (userID) =>
   await axios.get(`${process.env.REACT_APP_API}/products-seller`, {
     headers: { userID },
   });
+export const updateProduct = async (slug, product, authToken) => {
+  await axios.put(`${process.env.REACT_APP_API}/product/${slug}`, product, {
+    headers: { authToken },
+  });
+};
