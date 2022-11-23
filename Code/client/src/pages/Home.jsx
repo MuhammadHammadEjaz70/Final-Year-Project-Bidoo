@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getProductsByCount } from "../functions/product.functions";
+import {
+  getProductsByCount,
+  sortProducts,
+} from "../functions/product.functions";
 import ProductCard from "../components/cards/ProductCard";
 import { LoadingOutlined } from "@ant-design/icons";
 import TypeWritter from "../components/cards/TypeWritter";
@@ -10,11 +13,22 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    loadAllProducts();
+    sortAllProducts();
+    // loadAllProducts();
   }, []);
   const loadAllProducts = () => {
     setLoading(true);
     getProductsByCount(6).then((res) => {
+      setProducts(res.data);
+      console.log(res);
+      setLoading(false);
+    });
+  };
+  const sortAllProducts = () => {
+    setLoading(true);
+    sortProducts("createdAt", "desc", 6).then((res) => {
+      console.log("Response came back from backend");
+      console.log(res);
       setProducts(res.data);
       setLoading(false);
     });
