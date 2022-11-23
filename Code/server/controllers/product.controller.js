@@ -80,3 +80,23 @@ exports.update = async (req, res) => {
     });
   }
 };
+
+exports.list = async (req, res) => {
+  try {
+    //sort: createdAt/updatedAt
+    //order: desc/ascend
+    //limit: limiting the result i.e. 3
+    const { sort, order, limit } = req.body;
+    // console.log(" get product req body===>", req.body);
+    const products = await Product.find({})
+      .populate("category")
+      .populate("subcategories")
+      .sort([[sort, order]])
+      .limit(limit)
+      .exec();
+      console.log("res=======>",res);
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+  }
+};

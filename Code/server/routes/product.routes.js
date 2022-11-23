@@ -11,7 +11,8 @@ const {
   listAllSellerProducts,
   remove,
   read,
-  update
+  update,
+  list
 } = require("../controllers/product.controller");
 
 router.post("/product", authCheck, create);
@@ -20,5 +21,7 @@ router.get("/products-seller", listAllSellerProducts);
 router.delete("/product/:slug", authCheck, remove);
 router.get("/product/:slug", read);
 router.put("/product/:slug",authCheck,update)
+
+router.post("/products",list)
 
 module.exports = router;
