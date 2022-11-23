@@ -5,8 +5,6 @@ exports.create = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title + Date.now());
 
-    // console.log("body----------", req.body);
-
     const newProduct = await new Product(req.body).save();
     // console.log(newProduct);
     res.json(newProduct);
@@ -64,5 +62,21 @@ exports.read = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(400).send("Product Updation  Failed");
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const update = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      req.body,
+      { new: true }
+    ).exec();
+    res.json(update);
+  } catch (error) {
+    console.log("product update error===>", error);
+    res.status(400).json({
+      error: error.message,
+    });
   }
 };

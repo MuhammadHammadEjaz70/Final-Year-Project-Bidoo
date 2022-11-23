@@ -52,7 +52,7 @@ const Header = (props) => {
     <>
       <MDBNavbar expand="lg" light bgColor="light" className="px-4">
         <MDBContainer fluid>
-          <MDBNavbarBrand className="Display-3">{props.title}</MDBNavbarBrand>
+          <MDBNavbarBrand className="display-3">{props.title}</MDBNavbarBrand>
 
           {/* Mobile View */}
           <MDBNavbarToggler
@@ -87,7 +87,7 @@ const Header = (props) => {
             {!user && (
               <MDBNavbarItem>
                 <MDBBtn>
-                  {" "}
+                   
                   <Link to="/Register">Register</Link>
                 </MDBBtn>
               </MDBNavbarItem>

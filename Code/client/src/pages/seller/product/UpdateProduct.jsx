@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import SellerNavigation from "../../../components/nav/SellerNavigation";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getProduct } from "../../../functions/product.functions";
+import {
+  getProduct,
+  updateProduct,
+} from "../../../functions/product.functions";
 import {
   getAllCategories,
   getSubCategory,
@@ -10,7 +13,7 @@ import {
 import UpdateProductForm from "../../../components/froms/UpdateProductForm";
 import FileUpload from "../../../components/froms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const initialState = {
   title: " ",
@@ -18,7 +21,6 @@ const initialState = {
   description: " ",
   price: "",
   buyoutPrice: "",
-
   category: "",
   subcategories: [],
   shipping: " ",
@@ -32,13 +34,15 @@ const initialState = {
 
 const UpdateProduct = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
+
   const [values, setValues] = useState(initialState);
   const [categories, setCategories] = useState([]);
+  const [ArrayOfSubIds, setArrayOfSubIds] = useState([]);
   const [subOptions, setSubOptions] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [category, setCategory] = useState("");
-  // const [subCategory, setSubCategory] = useState([]);
-  const [showSub, setShowSub] = useState(false);
+  const [selectedCategoryValue, setSelectedCategoryValue] = useState("");
+
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -48,7 +52,20 @@ const UpdateProduct = () => {
 
   const loadProduct = () => {
     getProduct(slug).then((p) => {
+      //load single product
       setValues({ ...values, ...p.data });
+      //load single product subcategories
+      getSubCategory(p.data.category._id).then((res) => {
+        //show default sub categories on first load
+        setSubOptions(res.data);
+        //Array of sub categories ids
+        let arr = [];
+        p.data.subcategories.map((s) => {
+          arr.push(s._id);
+        });
+
+        setArrayOfSubIds((previous) => arr);
+      });
     });
   };
   const loadCategories = () => {
@@ -59,15 +76,21 @@ const UpdateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // createProduct(values, user.token)
-    //   .then((res) => {
-    //     console.log(res);
-    //     window.alert("Product Created");
-    //     window.location.reload();
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error.response.data.error);
-    //   });
+    setLoading(true);
+    values.subcategories = ArrayOfSubIds;
+    values.category = selectedCategoryValue
+      ? selectedCategoryValue
+      : values.category;
+    updateProduct(slug, values, user.token)
+      .then((res) => {
+        setLoading(false);
+        toast.success(`Product is updated`);
+        navigate("/seller/products");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.error);
+      });
   };
 
   const handleChange = async (e) => {
@@ -76,13 +99,20 @@ const UpdateProduct = () => {
 
   const handleCategoryChange = async (e) => {
     e.preventDefault();
-    setValues({ ...values, subcategories: [], category: e.target.value });
-    console.log("Clicked Category", e.target.value);
+    setValues({ ...values, subcategories: [] });
+
+    setSelectedCategoryValue(e.target.value);
     getSubCategory(e.target.value).then((res) => {
       console.log("Subs options on category click", res.data);
       setSubOptions(res.data);
     });
-    setShowSub(true);
+
+    //if user click back to original category then show the previous sub categories selected
+    if (values.category._id === e.target.value) {
+      loadProduct();
+    }
+    //clear old sub categories
+    setArrayOfSubIds([]);
   };
   return (
     <>
@@ -97,16 +127,16 @@ const UpdateProduct = () => {
             ) : (
               <h4>Edit Product</h4>
             )}
-            {JSON.stringify(values)}
+            {/* {JSON.stringify(values)} */}
 
             <hr />
-            {/* <div className="p-3">
+            <div className="p-3">
               <FileUpload
                 values={values}
                 setValues={setValues}
                 setLoading={setLoading}
               />
-            </div> */}
+            </div>
             <hr />
             <UpdateProductForm
               handleSubmit={handleSubmit}
@@ -115,8 +145,10 @@ const UpdateProduct = () => {
               values={values}
               setValues={setValues}
               categories={categories}
-              showSub={showSub}
               subOptions={subOptions}
+              ArrayOfSubIds={ArrayOfSubIds}
+              setArrayOfSubIds={setArrayOfSubIds}
+              selectedCategoryValue={selectedCategoryValue}
             />
           </div>
         </div>
