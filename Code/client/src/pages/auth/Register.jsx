@@ -48,7 +48,7 @@ const Register = () => {
         }}
         autoFocus
       />
-      <button type="submit" className="btn btn-raised btn-primary col-3">
+      <button type="submit" className="btn btn-raised btn-dark col-3">
         Submit
       </button>
      

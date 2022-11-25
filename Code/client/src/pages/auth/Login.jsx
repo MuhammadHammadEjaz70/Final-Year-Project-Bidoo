@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { createUpdateUser } from "../../functions/auth.functions";
+import { GoogleOutlined } from "@ant-design/icons";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
@@ -22,7 +23,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user && user.token) navigate("/");
-  }, [user,navigate]);
+  }, [user, navigate]);
 
   const roleBaseRedirect = (res) => {
     if (res.data.role === "admin") {
@@ -127,14 +128,11 @@ const Login = () => {
         }}
       />
       <br />
-      <button
-        type="submit"
-        onClick={handelSubmit}
-        className="btn btn-raised btn-primary col-3"
-        disabled={!email || password.length < 6}
-      >
-        Login with email and Password
-      </button>
+      <div className="container">
+        <Link to="/forget/password" className="float-right  text-dark">
+          Forget Password?
+        </Link>
+      </div>
     </form>
   );
   return (
@@ -149,22 +147,26 @@ const Login = () => {
             )}
 
             {loginForm()}
-
             <br />
+            
             <button
-              type="danger"
-              onClick={googleLogin}
-              className="btn btn-raised btn-primary col-3"
+              type="submit"
+              onClick={handelSubmit}
+              className="btn btn-raised btn-dark col-6"
+              disabled={!email || password.length < 6}
             >
-              Login with Google
+              Sign In
             </button>
             <br />
+            <br />
 
-            <div className="container">
-              <Link to="/forget/password" className="float-right text-danger">
-                Forget Password
-              </Link>
-            </div>
+            <button
+              type=" submit"
+              onClick={googleLogin}
+              className="btn btn-raised btn-danger col-6"
+            >
+              <GoogleOutlined /> Sign In With Google
+            </button>
           </div>
         </div>
       </div>
