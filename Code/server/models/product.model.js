@@ -28,6 +28,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 32,
+      postedBy: { type: ObjectId, ref: "User" },
     },
     buyoutPrice: {
       type: Number,
@@ -60,14 +61,25 @@ const productSchema = new mongoose.Schema(
     },
     color: {
       type: String,
-      enum: ["Red", "Black", "Brown", "Blue", "White","Other"],
+      enum: ["Red", "Black", "Brown", "Blue", "White", "N/A"],
     },
     brand: {
       type: String,
       trim: true,
-      enum: ["Apple", "Samsung", "Microsoft", "Acer", "Asus", "Other"],
+      enum: [
+        "Apple",
+        "Samsung",
+        "Microsoft",
+        "Acer",
+        "Asus",
+        "Nike",
+        "Nike",
+        "Vans",
+        "Adidas",
+        "N/A",
+      ],
     },
-    // ratings: [{ star: Number, postedBy: { type: ObjectId, ref: "User" } }],
+    ratings: [{ star: Number, postedBy: { type: ObjectId, ref: "User" } }],
   },
   { timestamps: true }
 );
