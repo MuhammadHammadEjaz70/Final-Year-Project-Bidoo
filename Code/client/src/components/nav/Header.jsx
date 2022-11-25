@@ -20,6 +20,7 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
+import {LogoutOutlined,SettingOutlined } from '@ant-design/icons'
 
 const Header = (props) => {
   const handleClick = () => {
@@ -52,7 +53,9 @@ const Header = (props) => {
     <>
       <MDBNavbar expand="lg" light bgColor="light" className="px-4">
         <MDBContainer fluid>
-          <MDBNavbarBrand className="display-3">{props.title}</MDBNavbarBrand>
+          <MDBNavbarBrand className="display-4 fst-italic  fw-bolder text-dark">
+            <h2>{props.title}</h2>
+          </MDBNavbarBrand>
 
           {/* Mobile View */}
           <MDBNavbarToggler
@@ -72,47 +75,49 @@ const Header = (props) => {
                 aria-current="page"
                 className="nav-link"
               >
-                <Link to="/">Home </Link>
+                <Link to="/" className="text-dark">
+                  Home{" "}
+                </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
 
             {!user && (
-              <MDBNavbarItem>
-                <Link to="/login">
-                
+              <MDBNavbarItem className="nav-link ">
+                <Link to="/login" className="text-dark">
                   <div className="container">Login</div>
                 </Link>
               </MDBNavbarItem>
             )}
             {!user && (
-              <MDBNavbarItem>
-                <MDBBtn>
-                   
-                  <Link to="/Register">Register</Link>
-                </MDBBtn>
+              <MDBNavbarItem className="nav-link">
+                <Link to="/Register" className="text-dark">
+                  Register
+                </Link>
               </MDBNavbarItem>
             )}
             {user && (
-              <MDBNavbarItem>
+              <MDBNavbarItem className="nav-link ">
                 <MDBDropdown>
-                  <MDBDropdownToggle className="nav-link">
+                  <MDBDropdownToggle className="bg-dark">
                     {/* {user.displayName} */}
+                   
                     {user.email && user.email.split("@")[0]}
+                    
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem link onClick={logout}>
-                      Logout
+                    <LogoutOutlined  />Logout
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
                       {user && user.role === "subsciber" && (
-                        <Link to="/user/history">Dashboard</Link>
+                        <Link to="/user/history" className="text-dark">Dashboard</Link>
                       )}
                       {user && user.role === "admin" && (
-                        <Link to="/admin/dashboard">Dashboard</Link>
+                        <Link to="/admin/dashboard" className="text-dark">Dashboard</Link>
                       )}
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
-                      <Link to="/seller/dashboard">Sell/Bid</Link>
+                      <Link to="/seller/dashboard" className="text-dark">Sell/Bid</Link>
                     </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>

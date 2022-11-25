@@ -86,17 +86,42 @@ exports.list = async (req, res) => {
     //sort: createdAt/updatedAt
     //order: desc/ascend
     //limit: limiting the result i.e. 3
-    const { sort, order, limit } = req.body;
-    // console.log(" get product req body===>", req.body);
+    const { sort, order, page } = req.body;
+    const currentPage = page || 1;
+    const perPage = 6;
     const products = await Product.find({})
+      .skip((currentPage - 1) * perPage)
       .populate("category")
       .populate("subcategories")
       .sort([[sort, order]])
-      .limit(limit)
+      .limit(perPage)
       .exec();
-      console.log("res=======>",res);
     res.json(products);
   } catch (error) {
     console.log(error);
   }
+};
+// exports.list = async (req, res) => {
+//   try {
+//     //sort: createdAt/updatedAt
+//     //order: desc/ascend
+//     //limit: limiting the result i.e. 3
+//     const { sort, order, limit } = req.body;
+//     // console.log(" get product req body===>", req.body);
+//     const products = await Product.find({})
+//       .populate("category")
+//       .populate("subcategories")
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+//     console.log("res=======>", res);
+//     res.json(products);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+exports.totalProducts = async (req, res) => {
+  let totalProducts = await Product.find({}).estimatedDocumentCount().exec();
+  res.json(totalProducts);
 };

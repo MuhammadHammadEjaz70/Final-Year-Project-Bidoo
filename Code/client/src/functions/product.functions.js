@@ -15,6 +15,9 @@ export const removeProduct = async (slug, authToken) => {
 export const getProductsByCount = async (count) =>
   await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
 
+export const getTotalProducts = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products/total`);
+
 export const getProduct = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
 
@@ -28,10 +31,9 @@ export const updateProduct = async (slug, product, authToken) => {
   });
 };
 
-export const sortProducts = async (sort, order, limit) => {
+export const sortProducts = async (sort, order, page) =>
   await axios.post(`${process.env.REACT_APP_API}/products`, {
     sort,
     order,
-    limit,
+    page,
   });
-};

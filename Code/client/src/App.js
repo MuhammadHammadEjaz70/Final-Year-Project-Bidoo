@@ -18,6 +18,7 @@ import UserPrivateRoute from "./components/privateRoutes/UserPrivateRoute";
 import Password from "./pages/user/Password";
 import { currentUser } from "./functions/auth.functions";
 import WishList from "./pages/user/Wishlist";
+import Product from "./pages/Product.jsx";
 
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import AdminPrivateRoute from "./components/privateRoutes/AdminPrivateRoute";
@@ -76,6 +77,8 @@ const App = () => {
             path="/Register/complete-register"
             element={<RegisterComplete />}
           />
+          <Route path="/product/:slug" element={<Product />} />
+
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/history" element={<History />} exact />
             <Route path="/user/password" element={<Password />} exact />
@@ -86,7 +89,11 @@ const App = () => {
               exact
             />
             <Route path="/seller/product" element={<CreateProduct />} exact />
-            <Route path="/seller/product/:slug" element={<UpdateProduct />} exact />
+            <Route
+              path="/seller/product/:slug"
+              element={<UpdateProduct />}
+              exact
+            />
             <Route path="/seller/products" element={<AllProducts />} exact />
           </Route>
 
