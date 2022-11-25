@@ -1,5 +1,6 @@
 const Product = require("../models/product.model");
 const slugify = require("slugify");
+const User = require("../models/user.model");
 
 exports.create = async (req, res) => {
   try {
@@ -125,3 +126,54 @@ exports.totalProducts = async (req, res) => {
   let totalProducts = await Product.find({}).estimatedDocumentCount().exec();
   res.json(totalProducts);
 };
+
+exports.productRating = async (req, res) => {
+  const product = await Product.findById(req.params.productId).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
+  const { star } = req.body;
+
+  //who is giving rating?
+  //make sure currelty logged in user in giving rating or he have already add rating or not?
+
+  let existingRatingObject = product.ratings.find(
+    (element) => element.postedBy.toSting() === user._id.toSting()
+  );
+
+  //if user have not rated the product, push it.
+  if (existingRatingObject === undefined) {
+    let ratingAdded = await Product.findByIdAndUpdate(
+      product._id,
+      {
+        // This is mongoDB command
+        $push: { ratings: { star: star, postedBy: user._id } },
+      },
+      { new: true }
+    ).exec();
+    console.log("ratingAdded===>", ratingAdded);
+    res.json(ratingAdded);
+  } else {
+    //if user have rated the product, update it.
+    const ratingUpdated = await Product.updateOne(
+      {
+        ratings: { $elemMatch: existingRatingObject },
+      },
+      { $set: { "ratings.$.star": star } },
+      { new: true }
+    ).exec();
+    console.log("ratingUpdated===>", ratingUpdated);
+    res.json(ratingUpdated);
+  }
+};
+
+// exports.productBidding = async (req, res) => {
+//   const product = await Product.findById(req.params.productId).exec();
+//   const user = await User.findOne({ email: req.user.email }).exec();
+//   const { price } = req.body;
+//   let newPrice = await Product.findByIdAndUpdate(
+//     product._id,
+//     req.body,
+//     { new: true }
+//   );
+//   console.log("Current Bid===>", newPrice);
+//   res.json(newPrice);
+// };

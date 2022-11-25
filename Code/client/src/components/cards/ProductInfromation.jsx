@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Link } from "react-router-dom";
 const ProductInfromation = ({ product }) => {
   const {
-    description,
+     
     price,
     buyoutPrice,
     color,
@@ -12,20 +12,22 @@ const ProductInfromation = ({ product }) => {
     category,
     subcategories,
     sold,
-    quantity
+    quantity,
   } = product;
   return (
     <ul className="list-group">
       <li className="list-group-item">
         Current Bid{" "}
-        <span className="label label-default label-pill pull-s-right">
-          Rs{price}
+        <span className="label label-default label-pill  float-end">
+          {" "}
+          {price} Rs
         </span>
       </li>
       <li className="list-group-item panel-footer ">
         Buyout Price{" "}
-        <span  className="label label-default label-pill pull-right">
-          Rs {buyoutPrice}
+        <span className=" label label-default label-pill  float-end ">
+          {" "}
+           {buyoutPrice} Rs
         </span>
       </li>
       {category && (
@@ -33,7 +35,7 @@ const ProductInfromation = ({ product }) => {
           Category{" "}
           <Link
             to={`/category/${category.slug}`}
-            className="label label-default label-pill pull-xs-right"
+            className="label label-default label-pill  float-end"
           >
             {category.name}
           </Link>
@@ -44,9 +46,9 @@ const ProductInfromation = ({ product }) => {
           Sub-Categories
           {subcategories.map((s) => (
             <Link
-            key={s._id}
+              key={s._id}
               to={`/sub-category/${s.slug}`}
-              className="label label-default label-pill pull-s-right"
+              className="label label-default label-pill float-end"
             >
               {s.name}
             </Link>
@@ -62,33 +64,32 @@ const ProductInfromation = ({ product }) => {
       </li> */}
       <li className="list-group-item">
         Brand{" "}
-        <span className="label label-default label-pill pull-s-right">
+        <span className="label label-default label-pill  float-end">
+       
           {brand}
         </span>
       </li>
       <li className="list-group-item">
         Color{" "}
-        <span className="label label-default label-pill pull-s-right">
+        <span className="label label-default label-pill  float-end">
           {color}
         </span>
       </li>
       <li className="list-group-item">
         Shipping{" "}
-        <span className="label label-default label-pill pull-s-right">
+        <span className="label label-default label-pill float-end">
           {shipping}
         </span>
       </li>
       <li className="list-group-item">
         Available{" "}
-        <span className="label label-default label-pill pull-s-right">
+        <span className="label label-default label-pill float-end">
           {quantity}
         </span>
       </li>
       <li className="list-group-item">
         Sold{" "}
-        <span className="label label-default label-pill pull-s-right">
-          {sold}
-        </span>
+        <span className="label label-default label-pill float-end">{sold}</span>
       </li>
     </ul>
   );
