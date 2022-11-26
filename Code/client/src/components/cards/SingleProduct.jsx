@@ -1,17 +1,30 @@
-import React from "react";
-import { Card, Tabs } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Tabs, InputNumber, Select, Space } from "antd";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProductInformation from "./ProductInfromation";
 import { Carousel } from "react-responsive-carousel";
 import logo from "../../images/logo.png";
-
+import StarRatings from "react-star-ratings";
+import RatingModal from "../modal/RatingModal";
+import BiddingModal from "../modal/BiddingModal";
 const { Meta } = Card;
-const { TabPane } = Tabs;
+const { items } = Tabs;
+const { Option } = Select;
 
-const SingleProduct = ({ product }) => {
-  const { title, images, description } = product;
+// This is children component of product component
+
+const SingleProduct = ({ product, onStarClick, star }) => {
+  const { title, images, description, _id, price } = product;
+
+  const [currentPrice, setCurrentPrice] = useState(price);
+
+  const handleBidChange = async (e) => {
+    setCurrentPrice(e.target.value);
+    console.log(currentPrice);
+  };
+
   return (
     <>
       <div className="col-md-7">
@@ -23,26 +36,50 @@ const SingleProduct = ({ product }) => {
           <Card cover={<img src={logo} className="mb-4" card-image />}></Card>
         )}
         <Tabs type="card">
-          <TabPane tab="Description" key="8">
+          <items tab="Description" key="8">
             {description && description}
-          </TabPane>
-          <TabPane tab="More" key="12">
+          </items>
+          <items tab="More" key="12">
             For any quires email at Biddo@admin.com
-          </TabPane>
+          </items>
         </Tabs>
       </div>
       <div className="col md-5">
         <h2 className="bg-dark p-3  text-light">{title}</h2>
+
         <Card
           actions={[
             <>
               <ShoppingCartOutlined className="text-success" /> <br /> Add to
               Cart
             </>,
+            <BiddingModal>
+              <div className="form-group">
+                <label>Place Your Bid</label>
+                <input
+                  type="number"
+                  name="Bid"
+                  className="form-control"
+                  value={currentPrice}
+                  onChange={handleBidChange}
+                />
+              </div>
+            </BiddingModal>,
             <Link to="/">
               <HeartOutlined className="text-danger" /> <br />
               Add to Wishlist
             </Link>,
+
+            <RatingModal>
+              <StarRatings
+                name={_id}
+                numberofStarts={5}
+                rating={star}
+                isSelectable={true}
+                starRatedColor="black"
+                changeRating={onStarClick}
+              />
+            </RatingModal>,
           ]}
         >
           <ProductInformation product={product} />

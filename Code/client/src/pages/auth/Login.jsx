@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import { createUpdateUser } from "../../functions/auth.functions";
 import { GoogleOutlined } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
@@ -18,25 +19,35 @@ const Login = () => {
   const provider = new GoogleAuthProvider();
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  const location = useLocation();
 
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) navigate("/");
+    let intended = location.state;
+    if (intended) {
+      return;
+    } else {
+      if (user && user.token) navigate("/");
+    }
   }, [user, navigate]);
 
   const roleBaseRedirect = (res) => {
-    if (res.data.role === "admin") {
-      navigate("/admin/dashboard");
-    } else if (res.data.role === "subscriber") {
-      navigate("/user/history");
+    let intended = location.state;
+    if (intended) {
+      navigate(intended.from);
+    } else {
+      if (res.data.role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (res.data.role === "subscriber") {
+        navigate("/user/history");
+      }
     }
   };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // console.table(email, password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -148,7 +159,7 @@ const Login = () => {
 
             {loginForm()}
             <br />
-            
+
             <button
               type="submit"
               onClick={handelSubmit}

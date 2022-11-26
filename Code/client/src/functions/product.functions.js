@@ -37,3 +37,10 @@ export const sortProducts = async (sort, order, page) =>
     order,
     page,
   });
+
+  export const ProductStar  = async (productId, star, authToken) => {
+    await axios.put(`${process.env.REACT_APP_API}/product/star/${productId}`, {star}, {
+      headers: { authToken },
+    });
+  };
+  
