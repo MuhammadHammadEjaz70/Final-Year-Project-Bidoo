@@ -20,6 +20,7 @@ mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+  
   })
   .then(async () => {
     console.log("Connection to MongoDB created");

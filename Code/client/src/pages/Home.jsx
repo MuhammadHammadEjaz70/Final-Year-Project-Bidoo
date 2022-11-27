@@ -1,6 +1,7 @@
 import React from "react";
 import TypeWritter from "../components/cards/TypeWritter";
-import NewArrivals from "../components/home/NewArrivals"
+import NewArrivals from "../components/home/NewArrivals";
+import CategoryList from "../components/category/CategoryList";
 const Home = () => {
   return (
     <>
@@ -18,7 +19,13 @@ const Home = () => {
       <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
         New Arrivals
       </h3>
-      <NewArrivals/>
+      <NewArrivals />
+      <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
+        Categories
+      </h3>
+      <CategoryList />
+      <br />
+      <br />
     </>
   );
 };

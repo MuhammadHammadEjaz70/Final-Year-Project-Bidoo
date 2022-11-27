@@ -26,6 +26,7 @@ import { AdminCreateCategory } from "./pages/admin/category/AdminCreateCategory"
 import { AdminUpdateCategory } from "./pages/admin/category/AdminUpdateCategory";
 import { SubCreateCategory } from "./pages/admin/subCategory/SubCreateCategory";
 import { SubUpdateCategory } from "./pages/admin/subCategory/SubUpdateCategory";
+import CategoryHome from "./pages/category/CategoryHome";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
 import { AllProducts } from "./pages/seller/product/AllProducts";
@@ -78,6 +79,7 @@ const App = () => {
             element={<RegisterComplete />}
           />
           <Route path="/product/:slug" element={<Product />} />
+          <Route path="/category/:slug" element={<CategoryHome />} />
 
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/history" element={<History />} exact />

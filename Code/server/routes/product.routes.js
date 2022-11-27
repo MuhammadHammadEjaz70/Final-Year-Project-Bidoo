@@ -16,6 +16,7 @@ const {
   totalProducts,
   productRating,
   productBidding,
+  listRelated,
 } = require("../controllers/product.controller");
 
 router.post("/product", authCheck, create);
@@ -28,6 +29,8 @@ router.get("/product/:slug", read);
 router.put("/product/:slug", authCheck, update);
 
 router.post("/products", list);
+//related
+router.get("/product/related/:productId", listRelated);
 
 //rating
 router.put("/product/star/:productId", authCheck, productRating);
