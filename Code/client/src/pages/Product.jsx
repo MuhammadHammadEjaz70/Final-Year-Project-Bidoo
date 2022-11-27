@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getProduct, ProductStar } from "../functions/product.functions";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SingleProduct from "../components/cards/SingleProduct";
 import { useSelector } from "react-redux";
+import { getRealtedProducts } from "../functions/product.functions";
+import ProductCard from "../components/cards/ProductCard";
 
 const Product = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
+
   const { user } = useSelector((state) => ({ ...state }));
+
   const [product, setProduct] = useState({});
+  const [related, setRelated] = useState([]);
   const [star, setStar] = useState(0);
 
   useEffect(() => {
@@ -28,6 +32,8 @@ const Product = () => {
   const loadSingleProduct = () => {
     getProduct(slug).then((res) => {
       setProduct(res.data);
+      //load related products
+      getRealtedProducts(res.data._id).then((res) => setRelated(res.data));
     });
   };
 
@@ -49,10 +55,25 @@ const Product = () => {
           // currentPrice={currentPrice}
         />
       </div>
-      <div className="row pt-5 pb-5">
-        <div className="col text-center display-6 fw-bold fst-italic bg-dark text-light">
-          Related Products
+      <div className="row">
+        <div className="col text-center display-1 text-light fw-bold fst-italic ">
+          <hr />
+          <h4>Related Products</h4>
+          <hr />
         </div>
+      </div>
+      {/* {JSON.stringify(related)} */}
+
+      <div className="row pb-5">
+        {related.length ? (
+          related.map((r) => (
+            <div key={r._id} className="col-md-4">
+              <ProductCard product={r} />
+            </div>
+          ))
+        ) : (
+          <div className="text-center col">No Products Found</div>
+        )}
       </div>
     </div>
   );

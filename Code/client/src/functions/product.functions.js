@@ -43,4 +43,6 @@ export const sortProducts = async (sort, order, page) =>
       headers: { authToken },
     });
   };
-  
+
+  export const getRealtedProducts = async (productId) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);

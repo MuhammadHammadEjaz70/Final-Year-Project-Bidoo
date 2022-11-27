@@ -3,13 +3,21 @@ import { Card } from "antd";
 import logo from "../../images/logo.png";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import {showAverage} from '../../functions/rating'
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
     const { title, description, images,slug ,price } = product;
   return (
  
-    <Card
+    <>
+     {product && product.ratings && product.ratings.length > 0 ? (
+          showAverage(product)
+        ) : (
+          <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
+        )}
+
+        <Card
       hoverable
       cover={
         <img
@@ -29,6 +37,8 @@ const ProductCard = ({ product }) => {
     >
       <Meta title={title} description={description} price={price}/>
     </Card>
+    </>
+
     
    
   );

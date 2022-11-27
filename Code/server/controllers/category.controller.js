@@ -1,7 +1,7 @@
 const Category = require("../models/category.model");
 const SubCategory = require("../models/sub.category.model");
 const slugify = require("slugify");
-
+const Product = require("../models/product.model");
 
 exports.create = async (req, res) => {
   try {
@@ -14,14 +14,25 @@ exports.create = async (req, res) => {
   }
 };
 exports.list = async (req, res) =>
-  res.json(await Category.find({}).sort({ createdAt: -1 })
-  .exec());
+  res.json(await Category.find({}).sort({ createdAt: -1 }).exec());
 
+// exports.read = async (req, res) => {
+//   const category = await Category.findOne({ slug: req.params.slug }).exec();
+//   // console.log("category:", category);
+//   res.json(category);
+// };
 exports.read = async (req, res) => {
   const category = await Category.findOne({ slug: req.params.slug }).exec();
-  console.log("category:", category);
-  res.json(category);
+
+  let products = await Product.find({ category })
+    .populate("category")
+    .populate("subcategories")
+    .exec();
+
+  // console.log("category:", category);
+  res.json({ category, products });
 };
+
 exports.remove = async (req, res) => {
   try {
     const deleteCategory = await Category.findOneAndDelete({

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ProductInformation from "./ProductInfromation";
+import { showAverage } from "../../functions/rating";
 import { Carousel } from "react-responsive-carousel";
 import logo from "../../images/logo.png";
 import StarRatings from "react-star-ratings";
@@ -46,6 +47,11 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       </div>
       <div className="col md-5">
         <h2 className="bg-dark p-3  text-light">{title}</h2>
+        {product && product.ratings && product.ratings.length > 0 ? (
+          showAverage(product)
+        ) : (
+          <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
+        )}
 
         <Card
           actions={[
