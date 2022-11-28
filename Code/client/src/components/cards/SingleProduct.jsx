@@ -24,6 +24,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
   const handleBidChange = async (e) => {
     setCurrentPrice(e.target.value);
     console.log(currentPrice);
+
   };
 
   return (

@@ -55,10 +55,16 @@ const Product = () => {
           // currentPrice={currentPrice}
         />
       </div>
+
+      <br />
+      <br />
+
       <div className="row">
-        <div className="col text-center display-1 text-light fw-bold fst-italic ">
+        <div className="col text-center  ">
           <hr />
-          <h4>Related Products</h4>
+          <h4 className="col text-center  text-white fw-bold display-3 m-5 bg-dark  fst-italic ">
+            Related Products
+          </h4>
           <hr />
         </div>
       </div>

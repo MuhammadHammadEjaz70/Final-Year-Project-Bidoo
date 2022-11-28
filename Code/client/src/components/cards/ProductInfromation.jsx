@@ -33,7 +33,7 @@ const ProductInfromation = ({ product }) => {
       {category && (
         <li className="list-group-item">
           Category{" "}
-          <Link
+          <Link style={{textDecoration: 'none'}}
             to={`/category/${category.slug}`}
             className="label label-default label-pill  float-end"
           >
@@ -45,12 +45,12 @@ const ProductInfromation = ({ product }) => {
         <li className="list-group-item">
           Sub-Categories
           {subcategories.map((s) => (
-            <Link
+            <Link style={{textDecoration: 'none'}}
               key={s._id}
               to={`/sub-category/${s.slug}`}
               className="label label-default label-pill float-end"
             >
-              {s.name}
+              {s.name} &nbsp;
             </Link>
           ))}
         </li>

@@ -66,22 +66,6 @@ exports.read = async (req, res) => {
   }
 };
 
-exports.update = async (req, res) => {
-  try {
-    const update = await Product.findOneAndUpdate(
-      { slug: req.params.slug },
-      req.body,
-      { new: true }
-    ).exec();
-    res.json(update);
-  } catch (error) {
-    console.log("product update error===>", error);
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-};
-
 exports.list = async (req, res) => {
   try {
     //sort: createdAt/updatedAt
@@ -160,17 +144,36 @@ exports.productRating = async (req, res) => {
   }
 };
 
-exports.productBidding = async (req, res) => {
-  const product = await Product.findById(req.params.productId);
-  const user = await User.findOne({ email: req.user.email });
+exports.update = async (req, res) => {
+  try {
+    const update = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      req.body,
+      { new: true }
+    ).exec();
+    res.json(update);
+  } catch (error) {
+    console.log("product update error===>", error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
 
-  let newPrice = await Product.findByIdAndUpdate(
-    product._id,
-    (product.price = req.body.price),
-    { new: true }
-  );
-  console.log("Current Bid===>", newPrice);
-  res.json(newPrice);
+exports.productBidding = async (req, res) => {
+  try {
+    const updatePrice = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      req.body,
+      { new: true }
+    ).exec();
+    res.json(updatePrice);
+  } catch (error) {
+    console.log("product updatePrice error===>", error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
 };
 
 exports.listRelated = async (req, res) => {
@@ -185,4 +188,24 @@ exports.listRelated = async (req, res) => {
     .populate("subcategories")
     .exec();
   res.json(related);
+};
+
+//search filtering
+
+//text based search
+const handleQuery = async (req, res, query) => {
+  const products = await Product.find({ $text: { $search: query } })
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .exec();
+  res.json(products);
+};
+
+exports.searchFilter = async (req, res) => {
+  const { query } = req.body;
+
+  if (query) {
+    console.log("query", query);
+    await handleQuery(req, res, query);
+  }
 };
