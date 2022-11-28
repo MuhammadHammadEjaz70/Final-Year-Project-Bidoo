@@ -38,11 +38,24 @@ export const sortProducts = async (sort, order, page) =>
     page,
   });
 
-  export const ProductStar  = async (productId, star, authToken) => {
-    await axios.put(`${process.env.REACT_APP_API}/product/star/${productId}`, {star}, {
+export const ProductStar = async (productId, star, authToken) => {
+  await axios.put(
+    `${process.env.REACT_APP_API}/product/star/${productId}`,
+    { star },
+    {
       headers: { authToken },
-    });
-  };
+    }
+  );
+};
+export const productBidding = async (slug, product, authToken) => {
+  await axios.put(
+    `${process.env.REACT_APP_API}/product/bid/${slug}`,
+    product,
+    {
+      headers: { authToken },
+    }
+  );
+};
 
-  export const getRealtedProducts = async (productId) =>
+export const getRealtedProducts = async (productId) =>
   await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);

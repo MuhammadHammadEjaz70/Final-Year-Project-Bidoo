@@ -20,7 +20,7 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import {LogoutOutlined,SettingOutlined } from '@ant-design/icons'
+import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 
 const Header = (props) => {
   const handleClick = () => {
@@ -54,7 +54,14 @@ const Header = (props) => {
       <MDBNavbar expand="lg" light bgColor="light" className="px-4">
         <MDBContainer fluid>
           <MDBNavbarBrand className="display-4 fst-italic  fw-bolder text-dark">
-            <h2>{props.title}</h2>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/"
+              className="text-dark"
+            >
+              {" "}
+              <h2>{props.title}</h2>{" "}
+            </Link>
           </MDBNavbarBrand>
 
           {/* Mobile View */}
@@ -75,7 +82,11 @@ const Header = (props) => {
                 aria-current="page"
                 className="nav-link"
               >
-                <Link to="/" className="text-dark">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/"
+                  className="text-dark"
+                >
                   Home{" "}
                 </Link>
               </MDBNavbarItem>
@@ -83,14 +94,22 @@ const Header = (props) => {
 
             {!user && (
               <MDBNavbarItem className="nav-link ">
-                <Link to="/login" className="text-dark">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/login"
+                  className="text-dark"
+                >
                   <div className="container">Login</div>
                 </Link>
               </MDBNavbarItem>
             )}
             {!user && (
               <MDBNavbarItem className="nav-link">
-                <Link to="/Register" className="text-dark">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/Register"
+                  className="text-dark"
+                >
                   Register
                 </Link>
               </MDBNavbarItem>
@@ -100,24 +119,31 @@ const Header = (props) => {
                 <MDBDropdown>
                   <MDBDropdownToggle className="bg-dark">
                     {/* {user.displayName} */}
-                   
+
                     {user.email && user.email.split("@")[0]}
-                    
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem link onClick={logout}>
-                    <LogoutOutlined  />Logout
+                     <span> Logout &nbsp; </span>
+                      <LogoutOutlined />
+                      
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
                       {user && user.role === "subsciber" && (
-                        <Link to="/user/history" className="text-dark">Dashboard</Link>
+                        <Link to="/user/history" className="text-dark"   style={{ textDecoration: "none" }}>
+                          Dashboard
+                        </Link>
                       )}
                       {user && user.role === "admin" && (
-                        <Link to="/admin/dashboard" className="text-dark">Dashboard</Link>
+                        <Link to="/admin/dashboard" className="text-dark">
+                          Dashboard
+                        </Link>
                       )}
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
-                      <Link to="/seller/dashboard" className="text-dark">Sell/Bid</Link>
+                      <Link to="/seller/dashboard" className="text-dark"   style={{ textDecoration: "none" }}>
+                        Sell/Bid
+                      </Link>
                     </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>

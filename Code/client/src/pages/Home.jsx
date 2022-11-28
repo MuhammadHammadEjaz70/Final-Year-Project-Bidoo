@@ -2,6 +2,8 @@ import React from "react";
 import TypeWritter from "../components/cards/TypeWritter";
 import NewArrivals from "../components/home/NewArrivals";
 import CategoryList from "../components/category/CategoryList";
+import SubCategoriesList from '../components/subcategoriesList/SubCategoriesList';
+
 const Home = () => {
   return (
     <>
@@ -24,6 +26,12 @@ const Home = () => {
         Categories
       </h3>
       <CategoryList />
+      <br />
+      <br />
+      <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
+        Subcategories
+      </h3>
+      <SubCategoriesList />
       <br />
       <br />
     </>

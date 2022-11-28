@@ -1,6 +1,7 @@
 const SubCategory = require("../models/sub.category.model");
 const slugify = require("slugify");
-const { connect } = require("mongoose");
+const Product = require("../models/product.model");
+
 
 exports.create = async (req, res) => {
   try {
@@ -19,13 +20,27 @@ exports.create = async (req, res) => {
 exports.list = async (req, res) =>
   res.json(await SubCategory.find({}).sort({ createdAt: -1 }).exec());
 
+// exports.read = async (req, res) => {
+//   const subcategory = await SubCategory.findOne({
+//     slug: req.params.slug,
+//   }).exec();
+//   console.log(" sub category:", subcategory);
+//   res.json(subcategory);
+// };
 exports.read = async (req, res) => {
-  const subcategory = await SubCategory.findOne({
+  const subCategory = await SubCategory.findOne({
     slug: req.params.slug,
   }).exec();
-  console.log(" sub category:", subcategory);
-  res.json(subcategory);
+ 
+  let products = await Product.find({ subcategories:subCategory })
+    .populate("category")
+    .exec();
+
+  console.log(" sub category:", subCategory);
+  res.json({subCategory,products});
 };
+
+
 exports.remove = async (req, res) => {
   try {
     const deletesubcategory = await SubCategory.findOneAndDelete({
