@@ -61,16 +61,17 @@ const SingleProduct = ({ product, onStarClick, star }) => {
               Cart
             </>,
             <BiddingModal>
-              <div className="form-group">
+              <form className="form-group " /*onSubmit={handleSubmit}*/ >
                 <label>Place Your Bid</label>
                 <input
                   type="number"
                   name="Bid"
                   className="form-control"
                   value={currentPrice}
+                
                   onChange={handleBidChange}
                 />
-              </div>
+              </form>
             </BiddingModal>,
             <Link to="/">
               <HeartOutlined className="text-danger" /> <br />
