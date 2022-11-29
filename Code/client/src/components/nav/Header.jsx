@@ -13,6 +13,7 @@ import {
   MDBIcon,
   MDBNavbarNav,
   MDBNavbarItem,
+  MDBInputGroup,
   MDBBtn,
   MDBDropdown,
   MDBDropdownToggle,
@@ -20,8 +21,9 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import SearchForm from "../froms/SearchForm";
-import { LogoutOutlined } from "@ant-design/icons";
+
+import Search from "../froms/Search";
+import { LogoutOutlined, ShopOutlined } from "@ant-design/icons";
 
 const Header = (props) => {
   const handleClick = () => {
@@ -76,7 +78,7 @@ const Header = (props) => {
           </MDBNavbarToggler>
 
           <MDBCollapse navbar show={showBasic}>
-            <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 px-4 ">
+            <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 px-4 fw-bold">
               <MDBNavbarItem
                 onClick={handleClick}
                 active
@@ -90,12 +92,24 @@ const Header = (props) => {
                 >
                   Home{" "}
                 </Link>
+                &nbsp; &nbsp;
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/shop"
+                  className="text-dark f"
+                >
+                  Products{" "}
+                </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
 
-            <span className="  float-end p-1 w-25">
-              <SearchForm />
+            <span className="inline p-1 w-25">
+              <Search />
             </span>
+
+               &nbsp;
+               &nbsp;
+              
             {!user && (
               <MDBNavbarItem className="nav-link ">
                 <Link

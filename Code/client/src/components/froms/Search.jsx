@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useNavigate, Link } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
+import { useNavigate} from "react-router-dom";
+// import { SearchOutlined } from "@ant-design/icons";
 
-const SearchFrom = () => {
+const Search = () => {
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
-  // console.log(search);
-  const navigate = useNavigate();
+
 
   const handleChange = (e) => {
     dispatch({
@@ -29,12 +31,13 @@ const SearchFrom = () => {
         onChange={handleChange}
         type="search"
         value={text}
-        className="form-control mr-sm-2"
+        className="form-control mr-sm-5"
         placeholder="Search"
       />
-      <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
+      
+      {/* <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} /> */}
     </form>
   );
 };
 
-export default SearchFrom;
+export default Search;
