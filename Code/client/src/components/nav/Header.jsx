@@ -20,11 +20,12 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import SearchForm from "../froms/SearchForm";
+import { LogoutOutlined } from "@ant-design/icons";
 
 const Header = (props) => {
   const handleClick = () => {
-    console.log("clicked");
+    // console.log("clicked");
   };
 
   let dispatch = useDispatch();
@@ -92,6 +93,9 @@ const Header = (props) => {
               </MDBNavbarItem>
             </MDBNavbarNav>
 
+            <span className="  float-end p-1 w-25">
+              <SearchForm />
+            </span>
             {!user && (
               <MDBNavbarItem className="nav-link ">
                 <Link
@@ -114,6 +118,7 @@ const Header = (props) => {
                 </Link>
               </MDBNavbarItem>
             )}
+
             {user && (
               <MDBNavbarItem className="nav-link ">
                 <MDBDropdown>
@@ -124,16 +129,20 @@ const Header = (props) => {
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem link onClick={logout}>
-                     <span> Logout &nbsp; </span>
+                      <span> Logout &nbsp; </span>
                       <LogoutOutlined />
-                      
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
                       {user && user.role === "subsciber" && (
-                        <Link to="/user/history" className="text-dark"   style={{ textDecoration: "none" }}>
+                        <Link
+                          to="/user/history"
+                          className="text-dark"
+                          style={{ textDecoration: "none" }}
+                        >
                           Dashboard
                         </Link>
                       )}
+
                       {user && user.role === "admin" && (
                         <Link to="/admin/dashboard" className="text-dark">
                           Dashboard
@@ -141,7 +150,11 @@ const Header = (props) => {
                       )}
                     </MDBDropdownItem>
                     <MDBDropdownItem link>
-                      <Link to="/seller/dashboard" className="text-dark"   style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/seller/dashboard"
+                        className="text-dark"
+                        style={{ textDecoration: "none" }}
+                      >
                         Sell/Bid
                       </Link>
                     </MDBDropdownItem>
