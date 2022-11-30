@@ -162,13 +162,14 @@ exports.update = async (req, res) => {
 
 exports.productBidding = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
+  // console.log(product);
   const user = await User.findOne({ email: req.user.email }).exec();
   const { price } = req.body;
 
   try {
     const updatedPrice = await Product.findByIdAndUpdate(
       product._id,
-      { price },
+      { price, postedBy: user._id },
       { new: true }
     ).exec();
     console.log(updatedPrice);

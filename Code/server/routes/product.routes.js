@@ -37,7 +37,7 @@ router.get("/product/related/:productId", listRelated);
 router.put("/product/star/:productId", authCheck, productRating);
 
 //bidding
-router.put("/product/bid/:slug", authCheck, productBidding);
+router.put("/product/bid/:productId", authCheck, productBidding);
 
 //search
 router.post("/search/filter", searchFilter);
