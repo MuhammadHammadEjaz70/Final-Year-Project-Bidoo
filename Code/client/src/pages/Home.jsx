@@ -21,7 +21,7 @@ const Home = () => {
         New Arrivals
       </h3>
       <NewArrivals />
-      {/* <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
+      <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
         Categories
       </h3>
       <CategoryList />
@@ -30,7 +30,7 @@ const Home = () => {
       <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
         Subcategories
       </h3>
-      <SubCategoriesList /> */}
+      <SubCategoriesList />
       <br />
       <br />
       <InfoCard/>
