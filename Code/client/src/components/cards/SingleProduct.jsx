@@ -16,16 +16,20 @@ const { Option } = Select;
 
 // This is children component of product component
 
-const SingleProduct = ({ product, onStarClick, star }) => {
-  const { title, images, description, _id, price } = product;
+const SingleProduct = ({ product, onStarClick, star, newBid, price }) => {
+  const { title, images, description, _id } = product;
 
   const [currentPrice, setCurrentPrice] = useState(price);
+  console.log("Current Price===>", currentPrice);
 
-  const handleBidChange = async (e) => {
+  const handleChange = (e) => {
     setCurrentPrice(e.target.value);
     console.log(currentPrice);
-
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <>
@@ -61,15 +65,14 @@ const SingleProduct = ({ product, onStarClick, star }) => {
               Cart
             </>,
             <BiddingModal>
-              <form className="form-group " /*onSubmit={handleSubmit}*/ >
+              <form className="form-group " onSubmit={newBid}>
                 <label>Place Your Bid</label>
                 <input
                   type="number"
                   name="Bid"
                   className="form-control"
-                  value={currentPrice}
-                
-                  onChange={handleBidChange}
+                  placeholder="Place your bid here"
+                  onChange={handleChange}
                 />
               </form>
             </BiddingModal>,

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getProduct, ProductStar } from "../functions/product.functions";
+import {
+  getProduct,
+  ProductStar,
+  productBidding,
+} from "../functions/product.functions";
 import { useParams } from "react-router-dom";
 import SingleProduct from "../components/cards/SingleProduct";
 import { useSelector } from "react-redux";
@@ -14,6 +18,7 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
   const [star, setStar] = useState(0);
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     loadSingleProduct();
@@ -44,6 +49,13 @@ const Product = () => {
       loadSingleProduct();
     });
   };
+  const newBid = (price, name) => {
+    setPrice(price);
+    productBidding(name, price, user.token).then((res) => {
+      // console.log(res.data);
+      loadSingleProduct();
+    });
+  };
   return (
     <div className="container-fluid">
       <div className="row pt-4">
@@ -51,8 +63,8 @@ const Product = () => {
           product={product}
           onStarClick={onStarClick}
           star={star}
-          // handleBidChange={handleBidChange}
-          // currentPrice={currentPrice}
+          newBid={newBid}
+          price={price}
         />
       </div>
 

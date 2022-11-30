@@ -47,10 +47,10 @@ export const ProductStar = async (productId, star, authToken) => {
     }
   );
 };
-export const productBidding = async (slug, product, authToken) => {
+export const productBidding = async (productId, price, authToken) => {
   await axios.put(
-    `${process.env.REACT_APP_API}/product/bid/${slug}`,
-    product,
+    `${process.env.REACT_APP_API}/product/bid/${productId}`,
+    {price},
     {
       headers: { authToken },
     }
