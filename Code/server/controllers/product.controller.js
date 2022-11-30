@@ -161,15 +161,20 @@ exports.update = async (req, res) => {
 };
 
 exports.productBidding = async (req, res) => {
+  const product = await Product.findById(req.params.productId).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
+  const { price } = req.body;
+
   try {
-    const updatePrice = await Product.findOneAndUpdate(
-      { slug: req.params.slug },
-      req.body,
+    const updatedPrice = await Product.findByIdAndUpdate(
+      product._id,
+      { price },
       { new: true }
     ).exec();
-    res.json(updatePrice);
+    console.log(updatedPrice);
+    res.json(updatedPrice);
   } catch (error) {
-    console.log("product updatePrice error===>", error);
+    console.log("product update price error===>", error);
     res.status(400).json({
       error: error.message,
     });
