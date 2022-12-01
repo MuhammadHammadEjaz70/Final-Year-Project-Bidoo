@@ -28,7 +28,6 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 32,
-      postedBy: { type: ObjectId, ref: "User" },
     },
     buyoutPrice: {
       type: Number,
@@ -58,6 +57,10 @@ const productSchema = new mongoose.Schema(
     shipping: {
       type: String,
       enum: ["Yes", "No"],
+    },
+    bidPostedBy: {
+      type: ObjectId,
+      ref: "User",
     },
     color: {
       type: String,

@@ -8,7 +8,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./store/reducers/index";
-import "antd/dist/antd.css";
+import 'antd/dist/antd.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // creating redux store
