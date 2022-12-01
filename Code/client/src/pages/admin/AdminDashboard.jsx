@@ -10,7 +10,7 @@ export const AdminDashboard = () => {
               <div className="col-md-2">
                 <AdminNavigation />
               </div>
-              <div className="col">Admin Dashboard</div>
+              <div className="col display-2">Admin Dashboard</div>
             </div>
           </div>
         </>

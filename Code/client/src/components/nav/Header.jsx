@@ -102,14 +102,10 @@ const Header = (props) => {
                 </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
-
             <span className="inline p-1 w-25">
               <Search />
             </span>
-
-               &nbsp;
-               &nbsp;
-              
+            &nbsp; &nbsp;
             {!user && (
               <MDBNavbarItem className="nav-link ">
                 <Link
@@ -132,7 +128,15 @@ const Header = (props) => {
                 </Link>
               </MDBNavbarItem>
             )}
-
+            {user && user.role === "subsciber" && (
+              <Link
+                to="/seller/dashboard"
+                className="bg-dark text-light btn btn-raised m-3"
+                style={{ textDecoration: "none" }}
+              >
+                Sell
+              </Link>
+            )}
             {user && (
               <MDBNavbarItem className="nav-link ">
                 <MDBDropdown>
@@ -163,15 +167,7 @@ const Header = (props) => {
                         </Link>
                       )}
                     </MDBDropdownItem>
-                    <MDBDropdownItem link>
-                      <Link
-                        to="/seller/dashboard"
-                        className="text-dark"
-                        style={{ textDecoration: "none" }}
-                      >
-                        Sell/Bid
-                      </Link>
-                    </MDBDropdownItem>
+                    <MDBDropdownItem link></MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
               </MDBNavbarItem>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Card, Tabs, InputNumber, Select, Space } from "antd";
+import React from "react";
+import { Card, Tabs } from "antd";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -10,26 +10,16 @@ import logo from "../../images/logo.png";
 import StarRatings from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import BiddingModal from "../modal/BiddingModal";
-const { Meta } = Card;
+// const { Meta } = Card;
 const { items } = Tabs;
-const { Option } = Select;
+// const { Option } = Select;
 
 // This is children component of product component
 
-const SingleProduct = ({ product, onStarClick, star, newBid, price }) => {
-  const { title, images, description, _id } = product;
+const SingleProduct = ({ product, onStarClick, star }) => {
+  const { title, images, description, _id ,price} = product;
 
-  const [currentPrice, setCurrentPrice] = useState(price);
-  console.log("Current Price===>", currentPrice);
-
-  const handleChange = (e) => {
-    setCurrentPrice(e.target.value);
-    console.log(currentPrice);
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
+  
 
   return (
     <>
@@ -64,18 +54,8 @@ const SingleProduct = ({ product, onStarClick, star, newBid, price }) => {
               <ShoppingCartOutlined className="text-success" /> <br /> Add to
               Cart
             </>,
-            <BiddingModal>
-              <form className="form-group " onSubmit={newBid}>
-                <label>Place Your Bid</label>
-                <input
-                  type="number"
-                  name="Bid"
-                  className="form-control"
-                  placeholder="Place your bid here"
-                  onChange={handleChange}
-                />
-              </form>
-            </BiddingModal>,
+            <BiddingModal product={product} />,
+
             <Link to="/">
               <HeartOutlined className="text-danger" /> <br />
               Add to Wishlist

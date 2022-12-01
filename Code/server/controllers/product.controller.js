@@ -169,7 +169,7 @@ exports.productBidding = async (req, res) => {
   try {
     const updatedPrice = await Product.findByIdAndUpdate(
       product._id,
-      { price, postedBy: user._id },
+      { price, bidPostedBy: user._id },
       { new: true }
     ).exec();
     console.log(updatedPrice);

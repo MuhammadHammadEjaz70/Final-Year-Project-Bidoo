@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import { CategoryForm } from "../../../components/froms/CategoryForm";
-import { SearchFrom } from "../../../components/froms/SearchFrom";
+import  SearchFrom  from "../../../components/froms/SearchFrom";
 
 export const AdminCreateCategory = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -28,11 +28,11 @@ export const AdminCreateCategory = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(name);
+   
     setLoading(true);
     createCategory({ name }, user.token)
       .then((res) => {
-        // console.log(res)
+        
         setLoading(false);
         setName("");
         toast.success(`New Category ${res.data.name} created successfully`);

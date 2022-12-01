@@ -11,7 +11,7 @@ import { getAllCategories } from "../../../functions/category.functions";
 import { Link } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import { CategoryForm } from "../../../components/froms/CategoryForm";
-import { SearchFrom } from "../../../components/froms/SearchFrom";
+import  SearchFrom  from "../../../components/froms/SearchFrom";
 
 export const SubCreateCategory = () => {
   const { user } = useSelector((state) => ({ ...state }));
