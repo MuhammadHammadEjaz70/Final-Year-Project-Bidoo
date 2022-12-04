@@ -21,9 +21,9 @@ import {
   MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-
+import { Badge } from "antd";
 import Search from "../froms/Search";
-import { LogoutOutlined, ShopOutlined } from "@ant-design/icons";
+import { LogoutOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 const Header = (props) => {
   const handleClick = () => {
@@ -32,7 +32,7 @@ const Header = (props) => {
 
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  let { user } = useSelector((state) => ({ ...state }));
+  let { user, cart } = useSelector((state) => ({ ...state }));
 
   const auth = getAuth();
   const logout = () => {
@@ -83,22 +83,37 @@ const Header = (props) => {
                 onClick={handleClick}
                 active
                 aria-current="page"
-                className="nav-link"
+                // className="nav-link"
               >
                 <Link
                   style={{ textDecoration: "none" }}
                   to="/"
-                  className="text-dark"
+                  className="text-dark hover-focus"
                 >
                   Home{" "}
                 </Link>
-                &nbsp; &nbsp;
+              </MDBNavbarItem>
+              &nbsp; &nbsp;
+              <MDBNavbarItem>
                 <Link
                   style={{ textDecoration: "none" }}
                   to="/shop"
-                  className="text-dark f"
+                  className="text-dark hover-zoom"
                 >
                   Products{" "}
+                </Link>
+              </MDBNavbarItem>
+              &nbsp; &nbsp;
+              <MDBNavbarItem>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/cart"
+                  className="text-dark hover-zoom"
+                >
+                  <ShoppingCartOutlined />
+                  <Badge count={cart.length} offset={[9,0]}>
+                    Cart
+                  </Badge>
                 </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
