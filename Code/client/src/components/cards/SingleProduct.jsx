@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Card, Tabs } from "antd";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -7,19 +7,52 @@ import ProductInformation from "./ProductInfromation";
 import { showAverage } from "../../functions/rating";
 import { Carousel } from "react-responsive-carousel";
 import logo from "../../images/logo.png";
+import { useSelector, useDispatch } from "react-redux";
 import StarRatings from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import BiddingModal from "../modal/BiddingModal";
-// const { Meta } = Card;
-const { items } = Tabs;
-// const { Option } = Select;
+import _ from "lodash";
 
 // This is children component of product component
 
 const SingleProduct = ({ product, onStarClick, star }) => {
-  const { title, images, description, _id ,price} = product;
+  const { title, images, description, _id, price } = product;
+  const [tooltip, setTooltip] = useState("Click to add");
+  //redux
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
-  
+
+  const handleAddToCart = () => {
+    //cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      //if the cart is alredy in the local storage
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      //push new items to cart
+
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      //remove duplicates
+      const unique = _.uniqWith(cart, _.isEqual);
+      //uniqWith from lodash compares the array of cart and remove the duplicate product
+
+      //save to localStorage
+      localStorage.setItem("cart", JSON.stringify(unique));
+
+      setTooltip("Added");
+
+      //add to redux
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+    }
+  };
 
   return (
     <>
@@ -50,10 +83,10 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
         <Card
           actions={[
-            <>
+            <a onClick={handleAddToCart}>
               <ShoppingCartOutlined className="text-success" /> <br /> Add to
               Cart
-            </>,
+            </a>,
             <BiddingModal product={product} />,
 
             <Link to="/">

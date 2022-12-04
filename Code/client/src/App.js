@@ -34,6 +34,7 @@ import { AllProducts } from "./pages/seller/product/AllProducts";
 import CreateProduct from "./pages/seller/product/CreateProduct";
 import UpdateProduct from "./pages/seller/product/UpdateProduct";
 import Shop from "./pages/Shop";
+import Cart from './pages/Cart'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const App = () => {
           <Route path="/product/:slug" element={<Product />} />
           <Route path="/category/:slug" element={<CategoryHome />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/sub-category/:slug" element={<SubCategoriesHome />} />
 
           <Route element={<UserPrivateRoute />}>

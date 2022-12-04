@@ -1,17 +1,55 @@
-import React from "react";
-import { Card } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Tooltip } from "antd";
 import logo from "../../images/logo.png";
 import {
   EyeOutlined,
   ShoppingCartOutlined,
   DollarOutlined,
 } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
+import _ from "lodash";
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price, buyoutPrice } = product;
+
+  const [tooltip, setTooltip] = useState("Click to add");
+  //redux
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    //cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      //if the cart is alredy in the local storage
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      //push new items to cart
+
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      //remove duplicates
+      const unique = _.uniqWith(cart, _.isEqual);
+      //uniqWith from lodash compares the array of cart and remove the duplicate product
+
+      //save to localStorage
+      localStorage.setItem("cart", JSON.stringify(unique));
+
+      setTooltip("Added");
+
+      //add to redux
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+    }
+  };
   return (
     <>
       {product && product.ratings && product.ratings.length > 0 ? (
@@ -38,9 +76,14 @@ const ProductCard = ({ product }) => {
             Current-Bid <br />
             {price}Rs
           </div>,
-          <div className="text-dark fwt-bold">
-            Buyout Price {buyoutPrice}Rs
-          </div>,
+          <Tooltip title={tooltip}>
+            <div className="text-dark fwt-bold">
+              Buyout Price {buyoutPrice}Rs
+              <a onClick={handleAddToCart}>
+                <ShoppingCartOutlined className="text-success" /> Add to Cart
+              </a>
+            </div>
+          </Tooltip>,
         ]}
       >
         <Meta title={`${title}`} description={` ${description}`} />
