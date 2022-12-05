@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Tooltip } from "antd";
+import ProductInfromation from "./ProductInfromation";
 import logo from "../../images/logo.png";
 import {
   EyeOutlined,
@@ -58,19 +59,13 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
-      {product && product.ratings && product.ratings.length > 0 ? (
-        showAverage(product)
-      ) : (
-        <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
-      )}
-
       <Card
         hoverable
         cover={
           <img
             src={images && images.length ? images[0].url : logo}
             className="p-1"
-            style={{ height: "300px", objectFit: "cover", width: 290 }}
+            style={{ height: "300px", objectFit: "cover", width: "355" }}
           />
         }
         actions={[
@@ -78,15 +73,16 @@ const ProductCard = ({ product }) => {
             <EyeOutlined className="text-warning" /> <br /> View Product
           </Link>,
 
-          <div className="text-dark fwt-bold">
-            Current-Bid <br />
-            {price}Rs
-          </div>,
+          // <div className="text-dark fwt-bold">
+          //   Current-Bid <br />
+          //   {price}Rs
+          // </div>,
           <Tooltip title={tooltip}>
             <div className="text-dark fwt-bold">
-              Buyout Price {buyoutPrice}Rs
+              {/* Buyout Price {buyoutPrice}Rs */}
               <a onClick={handleAddToCart}>
-                <ShoppingCartOutlined className="text-success" /> Add to Cart
+                <ShoppingCartOutlined className="text-success" /> <br /> Add to
+                Cart
               </a>
             </div>
           </Tooltip>,
@@ -94,6 +90,11 @@ const ProductCard = ({ product }) => {
       >
         <Meta title={`${title}`} description={` ${description}`} />
       </Card>
+      {product && product.ratings && product.ratings.length > 0 ? (
+        showAverage(product)
+      ) : (
+        <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
+      )}
     </>
   );
 };

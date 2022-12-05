@@ -37,6 +37,7 @@ import UpdateProduct from "./pages/seller/product/UpdateProduct";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Payment from './pages/Payment'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ const App = () => {
           <Route path="/category/:slug" element={<CategoryHome />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          
 
           <Route path="/sub-category/:slug" element={<SubCategoriesHome />} />
 
@@ -96,6 +98,7 @@ const App = () => {
             <Route path="/user/password" element={<Password />} exact />
             <Route path="/user/wishlist" element={<WishList />} exact />
             <Route path="/checkout" element={<Checkout />} exact />
+            <Route path="/payment" element={<Payment />} />
             <Route
               path="/seller/dashboard"
               element={<SellerDashboard />}

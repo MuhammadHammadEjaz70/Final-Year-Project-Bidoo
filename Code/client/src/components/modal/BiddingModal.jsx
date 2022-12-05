@@ -82,10 +82,10 @@ const BiddingModal = ({ product }) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="light" onClick={handleClose}>
             Close
           </Button>
-          <Button type="submit" onClick={handleClick} onSubmit={handleClick}>
+          <Button variant="dark" type="submit" onClick={handleClick} onSubmit={handleClick}>
             Place Bid
           </Button>
         </Modal.Footer>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Card, Tabs } from "antd";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -21,7 +21,6 @@ const SingleProduct = ({ product, onStarClick, star }) => {
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-
 
   const handleAddToCart = () => {
     //cart array
