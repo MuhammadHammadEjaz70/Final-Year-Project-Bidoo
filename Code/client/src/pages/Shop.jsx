@@ -30,6 +30,7 @@ const Shop = () => {
   useEffect(() => {
     const delayed = setTimeout(() => {
       fetchProducts({ query: text });
+      if (!text) loadAllProducts();
     }, 350);
     return () => clearTimeout(delayed);
     // console.log("Text use Effect is triggered", text);

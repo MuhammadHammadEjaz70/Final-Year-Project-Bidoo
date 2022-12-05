@@ -17,9 +17,7 @@ const Cart = () => {
   };
 
   const saveOrderToDb = () => {
-    // alert("Save record");
-    // navigate("/checkout");
-    // console.log("cart", JSON.stringify(cart, null, 4));
+     
     userCart(cart, user.token)
       .then((res) => {
         console.log("CART POST RES", res);
@@ -53,11 +51,11 @@ const Cart = () => {
 
       <div className="row">
         <div className="col-md-8">
-          <h4>Cart({cart.length})</h4>
+          <h4>Total items in Cart {cart.length}</h4>
           {!cart.length ? (
             <p>
               No Products in the cart <br />
-              <Link to="/shop">Continue Shopping...</Link>
+              <Link to="/shop" style={{textDecoration: "none" }}> Continue Shopping...</Link>
             </p>
           ) : (
             showCartItems()
