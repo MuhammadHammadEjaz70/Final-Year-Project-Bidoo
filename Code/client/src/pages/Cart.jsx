@@ -1,16 +1,52 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
+import { userCart } from "../functions/user";
 
 const Cart = () => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getTotal = () => {
     return cart.reduce((currentValue, nextValue) => {
       return currentValue + nextValue.count * nextValue.buyoutPrice;
     }, 0);
   };
+
+  const saveOrderToDb = () => {
+    // alert("Save record");
+    // navigate("/checkout");
+    // console.log("cart", JSON.stringify(cart, null, 4));
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) navigate("/checkout");
+      })
+      .catch((err) => console.log("cart save err", err));
+  };
+
+  const showCartItems = () => (
+    <table className="table table-bordered">
+      <thead className="thead-light">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Title</th>
+          <th scope="col">Current Bid Price</th>
+          <th scope="col"> Buyout Price</th>
+          <th scope="col">Count</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+
+      {cart.map((p) => (
+        <ProductCardInCheckout key={p._id} p={p} />
+      ))}
+    </table>
+  );
+
   return (
     <div className="contianer-fluid p-3">
       {/* {JSON.stringify(cart )} */}
@@ -24,7 +60,7 @@ const Cart = () => {
               <Link to="/shop">Continue Shopping...</Link>
             </p>
           ) : (
-            "show cart items"
+            showCartItems()
           )}
         </div>
         <div className="col-md-4">
@@ -42,13 +78,19 @@ const Cart = () => {
           <h5>Total: {getTotal()}Rs</h5>
           <hr />
           {user ? (
-            <button className="btn btn-sm btn-dark mt-2">
+            <button
+              onClick={saveOrderToDb}
+              disabled={!cart.length}
+              className="btn btn-sm btn-dark mt-2"
+            >
               Proceed to CheckOut
             </button>
           ) : (
             <Link to="/login">
               <button className="btn btn-sm btn-dark mt-2">
-                Login to Checkout
+                <Link to="/login" state={{ from: `/cart` }}>
+                  Login to CheckOut
+                </Link>
               </button>
             </Link>
           )}

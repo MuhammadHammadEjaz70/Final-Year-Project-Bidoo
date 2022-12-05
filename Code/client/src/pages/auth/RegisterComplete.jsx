@@ -60,7 +60,6 @@ const RegisterComplete = () => {
                 dispatch({
                   type: "LOGGED_IN_USER",
                   payload: {
-                    name: res.data.name,
                     email: res.data.email,
                     token: idTokenResult.token,
                     role: res.data.role,
