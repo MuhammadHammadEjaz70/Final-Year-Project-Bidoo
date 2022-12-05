@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
 import Header from "./components/nav/Header";
+import SideDrawer from "./components/drawer/SideDrawer";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import RegisterComplete from "./pages/auth/RegisterComplete";
@@ -34,7 +35,8 @@ import { AllProducts } from "./pages/seller/product/AllProducts";
 import CreateProduct from "./pages/seller/product/CreateProduct";
 import UpdateProduct from "./pages/seller/product/UpdateProduct";
 import Shop from "./pages/Shop";
-import Cart from './pages/Cart'
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -72,6 +74,7 @@ const App = () => {
     <>
       <Router>
         <Header title="Bidoo" />
+        <SideDrawer />
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} exact />
@@ -85,12 +88,14 @@ const App = () => {
           <Route path="/category/:slug" element={<CategoryHome />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+
           <Route path="/sub-category/:slug" element={<SubCategoriesHome />} />
 
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/history" element={<History />} exact />
             <Route path="/user/password" element={<Password />} exact />
             <Route path="/user/wishlist" element={<WishList />} exact />
+            <Route path="/checkout" element={<Checkout />} exact />
             <Route
               path="/seller/dashboard"
               element={<SellerDashboard />}
