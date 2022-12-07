@@ -10,9 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <MDBFooter bgColor="light" className="text-center text-lg-start" >
- 
-
+    <MDBFooter bgColor="light" className="text-center text-lg-start">
       <section className="">
         <MDBContainer className="text-center text-md-start mt-3">
           <MDBRow className="mt-1">
@@ -29,31 +27,31 @@ export default function Footer() {
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
-            <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
               <p>
-                <a href="#!" className="text-reset">
-                  Pricing
+                <a href="/login" className="text-reset">
+                  Login
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Settings
+                <a href="/register" className="text-reset">
+                  Sign Up
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Orders
+                <a href="/shop" className="text-reset">
+                  Products
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
+                <a href="/" className="text-reset">
                   Help
                 </a>
               </p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
-            <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
                 Pakistan
@@ -71,44 +69,43 @@ export default function Footer() {
             </MDBCol>
 
             <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-4">
-            <h6 className="text-uppercase fw-bold mb-4">Get In touch</h6>
-            <Link
-            className="me-4"
-            // style={{ textDecoration: "none" }}
-            to="/"
-          >
-            <MDBIcon fab icon="facebook-f" />
-          </Link>
-          <Link
-            className="me-4 "
-            // style={{ textDecoration: "none" }}
-            to="/"
-          >
-            <MDBIcon fab icon="twitter" />
-          </Link>
-          <Link
-            className="me-4"
-            // style={{ textDecoration: "none" }}
-            to="/"
-          >
-            <MDBIcon fab icon="google" />
-          </Link>
-          <Link
-            className="me-4 "
-            // style={{ textDecoration: "none" }}
-            to="/"
-          >
-            <MDBIcon fab icon="instagram" />
-          </Link>
-          <Link
-            className="me-4"
-            // style={{ textDecoration: "none" }}
-            to="/"
-          >
-            <MDBIcon fab icon="linkedin" />
-          </Link>
+              <h6 className="text-uppercase fw-bold mb-4">Get In touch</h6>
+              <Link
+                className="me-4"
+                // style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <MDBIcon fab icon="facebook-f" />
+              </Link>
+              <Link
+                className="me-4 "
+                // style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <MDBIcon fab icon="twitter" />
+              </Link>
+              <Link
+                className="me-4"
+                // style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <MDBIcon fab icon="google" />
+              </Link>
+              <Link
+                className="me-4 "
+                // style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <MDBIcon fab icon="instagram" />
+              </Link>
+              <Link
+                className="me-4"
+                // style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <MDBIcon fab icon="linkedin" />
+              </Link>
             </MDBCol>
-
           </MDBRow>
         </MDBContainer>
       </section>

@@ -3,9 +3,9 @@ import TypeWritter from "../components/cards/TypeWritter";
 import NewArrivals from "../components/home/NewArrivals";
 import CategoryList from "../components/category/CategoryList";
 import SubCategoriesList from "../components/subcategoriesList/SubCategoriesList";
-import Footer from "../components/home/Footer"
+import Footer from "../components/home/Footer";
 import InfoCard from "../components/home/InfoCard";
-import HeaderPic from "../components/home/HeaderPic"
+import HeaderPic from "../components/home/HeaderPic";
 
 const Home = () => {
   return (
@@ -16,27 +16,16 @@ const Home = () => {
         />
       </div>
 
-      <HeaderPic/>
+      <HeaderPic />
       <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
         New Arrivals
       </h3>
       <NewArrivals />
-      <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
-        Categories
-      </h3>
-      <CategoryList />
-      <br />
-      <br />
-      <h3 className="text-center bg-dark text-light p-3 mt-5 mb-5 display-4 font-weight-bold">
-        Subcategories
-      </h3>
-      <SubCategoriesList />
-      <br />
-      <br />
-      <InfoCard/>
-      
-      <Footer/>
 
+      <br />
+      <InfoCard />
+
+      <Footer />
     </>
   );
 };

@@ -52,9 +52,9 @@ const NewArrivals = () => {
         {loading ? (
           <LoadingCard count={3} />
         ) : (
-          <div className="row">
+          <div className="row  offset-md-1  pt-5 p-3 ">
             {products.map((product) => (
-              <div key={product._id} className="col-md-4">
+              <div style={{width:"300px"}} key={product._id} className="">
                 <ProductCard product={product} />
               </div>
             ))}

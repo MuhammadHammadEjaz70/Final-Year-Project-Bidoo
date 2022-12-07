@@ -62,11 +62,13 @@ const ProductCard = ({ product }) => {
       <Card
         hoverable
         cover={
+          <Link to={`/product/${slug}`}>
           <img
             src={images && images.length ? images[0].url : logo}
             className="p-1"
-            style={{ height: "300px", objectFit: "cover", width: "355" }}
+            style={{ height: "200px", objectFit: "cover", width: "280px" }}
           />
+          </Link>
         }
         actions={[
           <Link to={`/product/${slug}`}>

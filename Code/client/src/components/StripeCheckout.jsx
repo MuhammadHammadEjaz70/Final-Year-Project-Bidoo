@@ -110,12 +110,13 @@ const StripeCheckout = ({}) => {
       <div className="text-center pb-5">
         <Card
           cover={
-            <img
+            <img className=" row  offset-md-3   p-3"
               src={logo}
               style={{
                 justifyContent :"center",
-                height: "250px",
-                width: "250px",
+                alignItem:"center",
+                height: "270px",
+                width: "350px",
                 objectFit: "cover",
                 marginBottom: "-50px",
               }}
