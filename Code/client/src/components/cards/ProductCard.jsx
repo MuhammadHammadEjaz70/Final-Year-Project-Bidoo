@@ -9,14 +9,19 @@ import {
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Timer from "../Timer/Timer";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug, price, buyoutPrice } = product;
+  const { title, description, images, slug, buyoutPrice, timer } = product;
 
   const [tooltip, setTooltip] = useState("Click to add");
+
+  //convert days into to miliseconds
+  // const totalTime=Date.now()+timer;
+
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -63,11 +68,11 @@ const ProductCard = ({ product }) => {
         hoverable
         cover={
           <Link to={`/product/${slug}`}>
-          <img
-            src={images && images.length ? images[0].url : logo}
-            className="p-1"
-            style={{ height: "200px", objectFit: "cover", width: "280px" }}
-          />
+            <img
+              src={images && images.length ? images[0].url : logo}
+              className="p-1"
+              style={{ height: "200px", objectFit: "cover", width: "280px" }}
+            />
           </Link>
         }
         actions={[
@@ -92,6 +97,8 @@ const ProductCard = ({ product }) => {
       >
         <Meta title={`${title}`} description={` ${description}`} />
       </Card>
+      <h4 className='text-danger'>Bid Close In</h4>
+      <Timer TimeMs={timer} />
       {product && product.ratings && product.ratings.length > 0 ? (
         showAverage(product)
       ) : (

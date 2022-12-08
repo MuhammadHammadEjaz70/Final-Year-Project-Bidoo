@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    images: {
+      type: Array,
+    },
 
     address: String,
     contactNumber: { type: Number, min: 11, max: 12 },

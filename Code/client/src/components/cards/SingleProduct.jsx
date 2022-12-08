@@ -12,16 +12,19 @@ import StarRatings from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import BiddingModal from "../modal/BiddingModal";
 import _ from "lodash";
+import Timer from "../Timer/Timer";
 
 // This is children component of product component
 
 const SingleProduct = ({ product, onStarClick, star }) => {
-  const { title, images, description, _id, price } = product;
+  const { title, images, description, _id, price, timer } = product;
   const [tooltip, setTooltip] = useState("Click to add");
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
+  //convert days into to miliseconds
+  // const totalTime = Date.now() + timer * 24 * 60 * 60 * 1000;
   const handleAddToCart = () => {
     //cart array
     let cart = [];
@@ -74,6 +77,8 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       </div>
       <div className="col md-5">
         <h2 className="bg-dark p-3  text-light">{title}</h2>
+        <h4 className='text-danger'>Bid Close In</h4>
+        <Timer TimeMs={timer} />
         {product && product.ratings && product.ratings.length > 0 ? (
           showAverage(product)
         ) : (

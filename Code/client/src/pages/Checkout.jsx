@@ -17,6 +17,10 @@ const Checkout = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
+  const [completeAddress, setCompleteAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [zip, setZip] = useState("");
   const [addressSaved, setAddressSaved] = useState(false);
 
   const dispatch = useDispatch();
@@ -51,9 +55,17 @@ const Checkout = () => {
     });
   };
 
-  const saveAddressToDb = () => {
-    // console.log(address);
-    saveUserAddress(user.token, address).then((res) => {
+  const completeAddressDelivery = async () => {
+    setCompleteAddress(
+      `adress=${address} city=${city}  province=${province} zip= ${zip}`
+    );
+  };
+
+  const saveAddressToDb = async (e) => {
+    e.preventDefault();
+    completeAddressDelivery();
+    console.log(completeAddress);
+    saveUserAddress(user.token, completeAddress).then((res) => {
       if (res.data.ok) {
         setAddressSaved(true);
         toast.success("Address saved");
@@ -63,10 +75,85 @@ const Checkout = () => {
 
   const showAddress = () => (
     <>
-      <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
-        Save
-      </button>
+      <form className="mx-3 ">
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">
+            Address
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="Apartment, floor, or street"
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
+            required
+          />
+        </div>
+        <div cxlass="col-md-6">
+          <label for="inputCity" class="form-label">
+            City
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputCity"
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">
+            Province
+          </label>
+          <select
+            id="inputState"
+            class="form-select"
+            onChange={(e) => {
+              setProvince(e.target.value);
+            }}
+            required
+          >
+            <option selected>Choose...</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Sindh ">Sindh</option>
+            <option value="KPK">KPK</option>
+            <option value="Balochistan">Balochistan</option>
+            <option value="Giligit">Giligit</option>
+            <option value="Kashmir">Kashmir</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="inputZip" class="form-label">
+            Zip Code
+          </label>
+          <input
+            class="form-control"
+            id="inputZip"
+            maxlength="4"
+            size="4"
+            onChange={(e) => {
+              setZip(e.target.value);
+            }}
+            required
+          />
+        </div>
+
+        {
+          <button
+            className="btn btn-primary mt-2"
+            disabled={!city || !address || !province || !zip}
+            onClick={saveAddressToDb}
+          >
+            Save
+          </button>
+        }
+      </form>
     </>
   );
 
@@ -79,42 +166,10 @@ const Checkout = () => {
       </div>
     ));
 
-  //   const createCashOrder = () => {
-  //     createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
-  //       console.log("USER CASH ORDER CREATED RES ", res);
-  //       // empty cart form redux, local Storage, reset coupon, reset COD, redirect
-  //       if (res.data.ok) {
-  //         // empty local storage
-  //         if (typeof window !== "undefined") localStorage.removeItem("cart");
-  //         // empty redux cart
-  //         dispatch({
-  //           type: "ADD_TO_CART",
-  //           payload: [],
-  //         });
-  //         // empty redux coupon
-  //         dispatch({
-  //           type: "COUPON_APPLIED",
-  //           payload: false,
-  //         });
-  //         // empty redux COD
-  //         dispatch({
-  //           type: "COD",
-  //           payload: false,
-  //         });
-  //         // mepty cart from backend
-  //         emptyUserCart(user.token);
-  //         // redirect
-  //         setTimeout(() => {
-  //           navigate("/user/history");
-  //         }, 1000);
-  //       }
-  //     });
-  //   };
-
   return (
     <div className="row">
       <div className="col-md-6">
-        <h4>Delivery Address</h4>
+        <h4 className="ml-1">Delivery Address</h4>
         <br />
         <br />
         {showAddress()}

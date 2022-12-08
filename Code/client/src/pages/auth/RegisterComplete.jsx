@@ -14,6 +14,7 @@ import { createUpdateUser } from "../../functions/auth.functions";
 const RegisterComplete = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
@@ -25,6 +26,10 @@ const RegisterComplete = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Email and password is required");
+      return;
+    }
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters");
       return;
@@ -60,6 +65,7 @@ const RegisterComplete = () => {
                 dispatch({
                   type: "LOGGED_IN_USER",
                   payload: {
+                    name: res.data.name,
                     email: res.data.email,
                     token: idTokenResult.token,
                     role: res.data.role,
@@ -79,6 +85,10 @@ const RegisterComplete = () => {
         });
     }
   };
+  const handelChange = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
+  };
 
   const completeRegistrationFrom = () => (
     <form onSubmit={handelSubmit} className="row gy-5">
@@ -88,6 +98,14 @@ const RegisterComplete = () => {
         className="form-control "
         value={email}
         disabled
+      />
+      <br></br>
+      <input
+        type="name"
+        placeholder="name"
+        className="form-control "
+        value={name}
+        onChange={handelChange}
       />
       <br></br>
       <input

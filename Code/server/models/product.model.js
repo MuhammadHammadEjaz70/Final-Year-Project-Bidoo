@@ -66,6 +66,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ["Red", "Black", "Brown", "Blue", "White", "N/A"],
     },
+    timer:Number,
     brand: {
       type: String,
       trim: true,
