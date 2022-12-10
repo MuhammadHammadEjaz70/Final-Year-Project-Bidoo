@@ -29,9 +29,11 @@ import { SubCreateCategory } from "./pages/admin/subCategory/SubCreateCategory";
 import { SubUpdateCategory } from "./pages/admin/subCategory/SubUpdateCategory";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubCategoriesHome from "./pages/subcategories/SubCategoriesHome";
+import { AllProductsAdmin } from "./pages/admin/product/AllProductsAdmin";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
 import { AllProducts } from "./pages/seller/product/AllProducts";
+
 import CreateProduct from "./pages/seller/product/CreateProduct";
 import UpdateProduct from "./pages/seller/product/UpdateProduct";
 import Shop from "./pages/Shop";
@@ -116,6 +118,7 @@ const App = () => {
           <Route path="/forget/password" element={<ForgetPassword />} />
 
           <Route element={<AdminPrivateRoute />}>
+            <Route path="/admin/products" element={<AllProductsAdmin />} exact />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/category" element={<AdminCreateCategory />} />
             <Route

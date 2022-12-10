@@ -22,7 +22,7 @@ const initialState = {
   subcategories: [],
   shipping: "Yes",
   quantity: "1",
-  timer:"1",
+  timer: "",
   images: [],
   colors: ["Red", "Black", "Brown", "Blue", "White", "N/A"],
   brands: [
@@ -39,7 +39,6 @@ const initialState = {
   ],
   color: "White",
   brand: "Apple",
-  
 };
 const CreateProduct = () => {
   const [values, setValues] = useState(initialState);

@@ -50,7 +50,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-
+    productStatus: {
+      type: String,
+      default:"enable",
+    },
     images: {
       type: Array,
     },
@@ -66,7 +69,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ["Red", "Black", "Brown", "Blue", "White", "N/A"],
     },
-    timer:Number,
+    timer: Number,
     brand: {
       type: String,
       trim: true,

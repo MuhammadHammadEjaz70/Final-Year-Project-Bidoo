@@ -20,7 +20,17 @@ exports.create = async (req, res) => {
 
 exports.listAllProducts = async (req, res) => {
   console.log(" get product req body===>", req.params);
-  let products = await Product.find({})
+  let products = await Product.find({ productStatus: "enable" })
+    .limit(parseInt(req.params.count))
+    .populate("category")
+    .populate("subcategories")
+    .sort([["createdAt", "desc"]])
+    .exec();
+  res.json(products);
+};
+exports.listAllProductsAdmin = async (req, res) => {
+  console.log(" get product req body===>", req.params);
+  let products = await Product.find({ })
     .limit(parseInt(req.params.count))
     .populate("category")
     .populate("subcategories")
@@ -74,7 +84,7 @@ exports.list = async (req, res) => {
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
     const perPage = 6;
-    const products = await Product.find({})
+    const products = await Product.find({ productStatus: "enable" })
       .skip((currentPage - 1) * perPage)
       .populate("category")
       .populate("subcategories")
@@ -107,7 +117,7 @@ exports.list = async (req, res) => {
 // };
 
 exports.totalProducts = async (req, res) => {
-  let totalProducts = await Product.find({}).estimatedDocumentCount().exec();
+  let totalProducts = await Product.find().estimatedDocumentCount().exec();
   res.json(totalProducts);
 };
 exports.productRating = async (req, res) => {
@@ -159,6 +169,23 @@ exports.update = async (req, res) => {
     });
   }
 };
+exports.status = async (req, res) => {
+  const { productStatus } = req.body;
+
+  try {
+    const status = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      { productStatus },
+      { new: true }
+    ).exec();
+    res.json(status);
+  } catch (error) {
+    console.log("product status error===>", error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
 
 exports.productBidding = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
@@ -186,7 +213,7 @@ exports.listRelated = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
 
   const related = await Product.find({
-    _id: { $ne: product._id },
+    _id: { $ne: product._id, productStatus: "enable" },
     category: product.category,
   })
     .limit(3)
@@ -200,7 +227,10 @@ exports.listRelated = async (req, res) => {
 
 //text based search
 const handleQuery = async (req, res, query) => {
-  const products = await Product.find({ $text: { $search: query } })
+  const products = await Product.find({
+    $text: { $search: query },
+    productStatus: "enable",
+  })
     .populate("category", "_id name")
     .populate("subcategories", "_id name")
     .exec();
@@ -212,7 +242,7 @@ const handlePrice = async (req, res, price) => {
       price: {
         $gte: price[0],
         $lte: price[1],
-      },
+      },productStatus:"enable",
     })
       .populate("category", "_id name")
       .populate("subcategories", "_id name")
@@ -225,7 +255,7 @@ const handlePrice = async (req, res, price) => {
 
 const handleCategory = async (req, res, category) => {
   try {
-    const products = await Product.find({ category })
+    const products = await Product.find({ category ,productStatus:"enable"})
       .populate("category", "_id name")
       .populate("subcategories", "_id name")
       .exec();

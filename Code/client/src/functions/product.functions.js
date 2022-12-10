@@ -25,6 +25,9 @@ export const getProductsBySeller = async (userID) =>
   await axios.get(`${process.env.REACT_APP_API}/products-seller`, {
     headers: { userID },
   });
+export const getProductsAdmin = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products-admin`);
+
 export const updateProduct = async (slug, product, authToken) => {
   await axios.put(`${process.env.REACT_APP_API}/product/${slug}`, product, {
     headers: { authToken },
@@ -50,7 +53,16 @@ export const ProductStar = async (productId, star, authToken) => {
 export const productBidding = async (productId, price, authToken) => {
   await axios.put(
     `${process.env.REACT_APP_API}/product/bid/${productId}`,
-    {price},
+    { price },
+    {
+      headers: { authToken },
+    }
+  );
+};
+export const p_status = async (slug, productStatus, authToken) => {
+  await axios.put(
+    `${process.env.REACT_APP_API}/product-status/${slug}`,
+    { productStatus },
     {
       headers: { authToken },
     }
@@ -60,6 +72,5 @@ export const productBidding = async (productId, price, authToken) => {
 export const getRealtedProducts = async (productId) =>
   await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);
 
-
-  export const fetchProductsByfilter = async (arg) =>
-  await axios.post(`${process.env.REACT_APP_API}/search/filter`,arg);
+export const fetchProductsByfilter = async (arg) =>
+  await axios.post(`${process.env.REACT_APP_API}/search/filter`, arg);
