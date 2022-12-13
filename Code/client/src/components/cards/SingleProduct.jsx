@@ -77,8 +77,8 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       </div>
       <div className="col md-5">
         <h2 className="bg-dark p-3  text-light">{title}</h2>
-        <h4 className='text-danger'>Bid Close In</h4>
-        <Timer TimeMs={timer} />
+        <h4 className="text-danger">Bid Close In</h4>
+        <Timer TimeMs={timer} product={product} />
         {product && product.ratings && product.ratings.length > 0 ? (
           showAverage(product)
         ) : (

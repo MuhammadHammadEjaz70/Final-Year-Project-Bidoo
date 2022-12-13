@@ -68,6 +68,11 @@ export const p_status = async (slug, productStatus, authToken) => {
     }
   );
 };
+export const p_bidStatus = async (slug, productBidStatus) => {
+  await axios.put(`${process.env.REACT_APP_API}/product-bidStatus/${slug}`, {
+    productBidStatus,
+  });
+};
 
 export const getRealtedProducts = async (productId) =>
   await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);

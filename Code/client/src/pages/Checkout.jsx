@@ -135,8 +135,8 @@ const Checkout = () => {
           <input
             class="form-control"
             id="inputZip"
-            maxlength="4"
-            size="4"
+            maxlength="5"
+            size="5"
             onChange={(e) => {
               setZip(e.target.value);
             }}

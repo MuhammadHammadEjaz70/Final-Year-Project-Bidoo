@@ -50,9 +50,12 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    productStatus: {
+
+    productStatus: { type: String, default: "enable" },
+
+    productBidStatus: {
       type: String,
-      default:"enable",
+      default: "incomplete",
     },
     images: {
       type: Array,

@@ -64,6 +64,11 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
+      {product && product.ratings && product.ratings.length > 0 ? (
+        showAverage(product)
+      ) : (
+        <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
+      )}
       <Card
         hoverable
         cover={
@@ -97,13 +102,8 @@ const ProductCard = ({ product }) => {
       >
         <Meta title={`${title}`} description={` ${description}`} />
       </Card>
-      <h4 className='text-danger'>Bid Close In</h4>
-      <Timer TimeMs={timer} />
-      {product && product.ratings && product.ratings.length > 0 ? (
-        showAverage(product)
-      ) : (
-        <div className="text-center pt-1 pb-3"> No Ratings Yet</div>
-      )}
+      <h4 className="text-danger">Bid Close In</h4>
+      <Timer TimeMs={timer} product={product} />
     </>
   );
 };

@@ -20,7 +20,10 @@ exports.create = async (req, res) => {
 
 exports.listAllProducts = async (req, res) => {
   console.log(" get product req body===>", req.params);
-  let products = await Product.find({ productStatus: "enable" })
+  let products = await Product.find({
+    productStatus: "enable",
+    productBidStatus: "incomplete",
+  })
     .limit(parseInt(req.params.count))
     .populate("category")
     .populate("subcategories")
@@ -30,7 +33,7 @@ exports.listAllProducts = async (req, res) => {
 };
 exports.listAllProductsAdmin = async (req, res) => {
   console.log(" get product req body===>", req.params);
-  let products = await Product.find({ })
+  let products = await Product.find({ productBidStatus: "incomplete" })
     .limit(parseInt(req.params.count))
     .populate("category")
     .populate("subcategories")
@@ -84,7 +87,10 @@ exports.list = async (req, res) => {
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
     const perPage = 6;
-    const products = await Product.find({ productStatus: "enable" })
+    const products = await Product.find({
+      productStatus: "enable",
+      productBidStatus: "incomplete",
+    })
       .skip((currentPage - 1) * perPage)
       .populate("category")
       .populate("subcategories")
@@ -186,6 +192,23 @@ exports.status = async (req, res) => {
     });
   }
 };
+exports.bidStatus = async (req, res) => {
+  const { productBidStatus } = req.body;
+
+  try {
+    const bidStatus = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      { productBidStatus },
+      { new: true }
+    ).exec();
+    res.json(bidStatus);
+  } catch (error) {
+    console.log("product productBidStatus error===>", error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
 
 exports.productBidding = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
@@ -213,8 +236,12 @@ exports.listRelated = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
 
   const related = await Product.find({
-    _id: { $ne: product._id, productStatus: "enable" },
+    _id: {
+      $ne: product._id,
+    },
     category: product.category,
+    productStatus: "enable",
+    productBidStatus: "incomplete",
   })
     .limit(3)
     .populate("category")
@@ -230,6 +257,7 @@ const handleQuery = async (req, res, query) => {
   const products = await Product.find({
     $text: { $search: query },
     productStatus: "enable",
+    productBidStatus: "incomplete",
   })
     .populate("category", "_id name")
     .populate("subcategories", "_id name")
@@ -242,7 +270,9 @@ const handlePrice = async (req, res, price) => {
       price: {
         $gte: price[0],
         $lte: price[1],
-      },productStatus:"enable",
+      },
+      productStatus: "enable",
+      productBidStatus: "incomplete",
     })
       .populate("category", "_id name")
       .populate("subcategories", "_id name")
@@ -255,7 +285,11 @@ const handlePrice = async (req, res, price) => {
 
 const handleCategory = async (req, res, category) => {
   try {
-    const products = await Product.find({ category ,productStatus:"enable"})
+    const products = await Product.find({
+      category,
+      productStatus: "enable",
+      productBidStatus: "incomplete",
+    })
       .populate("category", "_id name")
       .populate("subcategories", "_id name")
       .exec();

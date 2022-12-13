@@ -120,22 +120,23 @@ const ProductCreateForm = ({
             onChange={handleChange}
           >
             <option>Select One</option>
-            <option value={Date.now() + (1 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 60 * 1000}>1 Mints</option>
+            <option value={Date.now() + 1 * 24 * 60 * 60 * 1000}>
               1-Day (24 Hours)
             </option>
-            <option value={Date.now() + (2 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 2 * 24 * 60 * 60 * 1000}>
               2-Days (48 Hours){" "}
             </option>
-            <option value={Date.now() + (3 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 3 * 24 * 60 * 60 * 1000}>
               3-Days (72 Hours)
             </option>
-            <option value={Date.now() + (4 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 4 * 24 * 60 * 60 * 1000}>
               4-Days (96 Hours)
             </option>
-            <option value={Date.now() + (5 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 5 * 24 * 60 * 60 * 1000}>
               5-Days (120 Hours)
             </option>
-            <option value={Date.now() + (6 * 24 * 60 * 60 * 1000)}>
+            <option value={Date.now() + 6 * 24 * 60 * 60 * 1000}>
               6-Days (144 Hours)
             </option>
             <option value={Date.now() + 7 * 24 * 60 * 60 * 1000}>

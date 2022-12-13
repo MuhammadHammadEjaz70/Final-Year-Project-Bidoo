@@ -19,7 +19,8 @@ const {
   listRelated,
   searchFilter,
   status,
-  listAllProductsAdmin
+  listAllProductsAdmin,
+  bidStatus
 } = require("../controllers/product.controller");
 
 router.post("/product", authCheck, create);
@@ -32,6 +33,7 @@ router.delete("/product/:slug", authCheck, remove);
 router.get("/product/:slug", read);
 router.put("/product/:slug", authCheck, update);
 router.put("/product-status/:slug", authCheck, status);
+router.put("/product-bidStatus/:slug", bidStatus);
 
 
 router.post("/products", list);
