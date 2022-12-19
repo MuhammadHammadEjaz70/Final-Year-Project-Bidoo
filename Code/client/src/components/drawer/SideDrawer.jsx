@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, Button } from "antd";
+import { Drawer } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
@@ -26,7 +26,7 @@ const SideDrawer = () => {
           payload: false,
         });
       }}
-      visible={drawer}
+      open={drawer}
     >
       {cart.map((p) => (
         <div key={p._id} className="row">

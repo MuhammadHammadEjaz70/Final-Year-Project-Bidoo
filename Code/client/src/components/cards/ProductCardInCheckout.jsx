@@ -6,32 +6,7 @@ import { toast } from "react-toastify";
 import { CloseOutlined } from "@ant-design/icons";
 
 const ProductCardInCheckout = ({ p }) => {
-  //   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   let dispatch = useDispatch();
-
-  //   const handleColorChange = (e) => {
-  //     console.log("color changed", e.target.value);
-
-  //     let cart = [];
-  //     if (typeof window !== "undefined") {
-  //       if (localStorage.getItem("cart")) {
-  //         cart = JSON.parse(localStorage.getItem("cart"));
-  //       }
-
-  //       cart.map((product, i) => {
-  //         if (product._id === p._id) {
-  //           cart[i].color = e.target.value;
-  //         }
-  //       });
-
-  //       //  console.log('cart udpate color', cart)
-  //       localStorage.setItem("cart", JSON.stringify(cart));
-  //       dispatch({
-  //         type: "ADD_TO_CART",
-  //         payload: cart,
-  //       });
-  //     }
-  //   };
 
   const handleQuantityChange = (e) => {
     // console.log("available quantity", p.quantity);
@@ -65,6 +40,9 @@ const ProductCardInCheckout = ({ p }) => {
 
   const handleRemove = () => {
     // console.log(p._id, "to remove");
+    alert(
+      "Are You sure? If you win this product through bid, you can longer can add this your Cart.   "
+    );
     let cart = [];
 
     if (typeof window !== "undefined") {
@@ -89,7 +67,7 @@ const ProductCardInCheckout = ({ p }) => {
   return (
     <tbody>
       <tr>
-        <td style={{width:"130px"}}>
+        <td style={{ width: "130px" }}>
           <div
             style={{
               width: "130px",
@@ -104,8 +82,8 @@ const ProductCardInCheckout = ({ p }) => {
           </div>
         </td>
         <td>{p.title}</td>
-        <td>{p.price}Rs</td>
-        <td>{p.buyoutPrice}Rs</td>
+        {/* <td>{p.price}Rs</td> */}
+        <td>${p.buyoutPrice}</td>
 
         <td className="text-center" style={{ width: "100px" }}>
           <input

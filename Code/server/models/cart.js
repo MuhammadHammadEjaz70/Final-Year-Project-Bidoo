@@ -12,10 +12,13 @@ const cartSchema = new mongoose.Schema(
         count: Number,
         price: Number,
         buyoutPrice: Number,
+        sellerID: {
+          type: ObjectId,
+          ref: "User",
+        },
       },
     ],
     cartTotal: Number,
-    totalAfterDiscount: Number,
     orderdBy: { type: ObjectId, ref: "User" },
   },
   { timestamps: true }

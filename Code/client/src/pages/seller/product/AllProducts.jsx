@@ -60,7 +60,8 @@ export const AllProducts = () => {
             <h4>All Products</h4>
           )}
           <div className="row">
-            {products.map((product) => (
+            {
+            products.map((product) => (
               <div key={product._id} className="col-m-4 pb-4">
                 <SellerProductCard
                   product={product}

@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
-    userID: String,
+    sellerID: { type: ObjectId, ref: "User" },
     description: {
       type: String,
       required: true,

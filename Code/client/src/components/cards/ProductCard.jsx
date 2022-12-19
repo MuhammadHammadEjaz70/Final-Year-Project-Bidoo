@@ -5,7 +5,6 @@ import logo from "../../images/logo.png";
 import {
   EyeOutlined,
   ShoppingCartOutlined,
-  DollarOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,12 +14,10 @@ import _ from "lodash";
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug, buyoutPrice, timer } = product;
+  const { title, description, images, slug, timer, quantity } = product;
 
   const [tooltip, setTooltip] = useState("Click to add");
-
-  //convert days into to miliseconds
-  // const totalTime=Date.now()+timer;
+ 
 
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -91,10 +88,11 @@ const ProductCard = ({ product }) => {
           // </div>,
           <Tooltip title={tooltip}>
             <div className="text-dark fwt-bold">
-              {/* Buyout Price {buyoutPrice}Rs */}
               <a onClick={handleAddToCart}>
-                <ShoppingCartOutlined className="text-success" /> <br /> Add to
-                Cart
+                <ShoppingCartOutlined className="text-success" /> <br />
+                {product.quantity < 1
+                  ? "Not Available Any More"
+                  : "Add to Cart"}
               </a>
             </div>
           </Tooltip>,

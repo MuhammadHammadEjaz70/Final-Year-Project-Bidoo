@@ -5,18 +5,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 exports.createPaymentIntent = async (req, res) => {
   console.log("createPaymentIntent =====> ", req.body);
-   
 
   // later apply coupon
-   
 
   // 1 find user
   const user = await User.findOne({ email: req.user.email }).exec();
-  
+
   const { cartTotal } = await Cart.findOne({
     orderdBy: user._id,
   }).exec();
-  
+
   let finalAmount = 0;
   finalAmount = cartTotal * 100;
 

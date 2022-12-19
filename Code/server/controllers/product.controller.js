@@ -23,6 +23,7 @@ exports.listAllProducts = async (req, res) => {
   let products = await Product.find({
     productStatus: "enable",
     productBidStatus: "incomplete",
+    quantity: { $gt: 0 },
   })
     .limit(parseInt(req.params.count))
     .populate("category")
@@ -44,8 +45,8 @@ exports.listAllProductsAdmin = async (req, res) => {
 
 exports.listAllSellerProducts = async (req, res) => {
   // console.log(" get product req header===>", req.headers);
-  const userID = req.headers.userid;
-  let products = await Product.find({ userID })
+  const sellerID = req.headers.userid;
+  let products = await Product.find({ sellerID })
     .populate("category")
     .populate("subcategories")
     .sort([["createdAt", "desc"]])
@@ -90,6 +91,7 @@ exports.list = async (req, res) => {
     const products = await Product.find({
       productStatus: "enable",
       productBidStatus: "incomplete",
+      quantity: { $gt: 0 },
     })
       .skip((currentPage - 1) * perPage)
       .populate("category")
@@ -221,7 +223,9 @@ exports.productBidding = async (req, res) => {
       product._id,
       { price, bidPostedBy: user._id },
       { new: true }
-    ).exec();
+    )
+      .populate("bidPostedBy")
+      .exec();
     console.log(updatedPrice);
     res.json(updatedPrice);
   } catch (error) {
@@ -242,6 +246,7 @@ exports.listRelated = async (req, res) => {
     category: product.category,
     productStatus: "enable",
     productBidStatus: "incomplete",
+    quantity: { $gt: 0 },
   })
     .limit(3)
     .populate("category")
@@ -258,6 +263,7 @@ const handleQuery = async (req, res, query) => {
     $text: { $search: query },
     productStatus: "enable",
     productBidStatus: "incomplete",
+    quantity: { $gt: 0 },
   })
     .populate("category", "_id name")
     .populate("subcategories", "_id name")
@@ -273,6 +279,7 @@ const handlePrice = async (req, res, price) => {
       },
       productStatus: "enable",
       productBidStatus: "incomplete",
+      quantity: { $gt: 0 },
     })
       .populate("category", "_id name")
       .populate("subcategories", "_id name")
@@ -289,6 +296,7 @@ const handleCategory = async (req, res, category) => {
       category,
       productStatus: "enable",
       productBidStatus: "incomplete",
+      quantity: { $gt: 0 },
     })
       .populate("category", "_id name")
       .populate("subcategories", "_id name")

@@ -13,7 +13,7 @@ const ProductCreateForm = ({
 }) => {
   const {
     title,
-    userID,
+    sellerID,
     description,
     price,
     buyoutPrice,
@@ -31,7 +31,7 @@ const ProductCreateForm = ({
   } = values;
   const { user } = useSelector((state) => ({ ...state }));
 
-  values.userID = user._id;
+  values.sellerID = user._id;
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -118,9 +118,10 @@ const ProductCreateForm = ({
             type="number"
             className="form-control"
             onChange={handleChange}
+            required
           >
             <option>Select One</option>
-            <option value={Date.now() + 60 * 1000}>1 Mints</option>
+            <option value={Date.now() + 60 * 1000}>2 Mints</option>
             <option value={Date.now() + 1 * 24 * 60 * 60 * 1000}>
               1-Day (24 Hours)
             </option>

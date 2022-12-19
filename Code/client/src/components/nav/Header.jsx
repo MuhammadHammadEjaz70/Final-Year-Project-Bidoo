@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { getUserBidCart } from "../../functions/user";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -33,6 +34,20 @@ const Header = (props) => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { user, cart } = useSelector((state) => ({ ...state }));
+  useEffect(() => {
+    fetchBidCart();
+  }, [user]);
+
+  const fetchBidCart = async (req, res) => {
+    try {
+      const result = await getUserBidCart(user.token).then((res) => {
+        console.log(JSON.stringify(res.data));
+        setBidCart(res.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const auth = getAuth();
   const logout = () => {
@@ -52,6 +67,7 @@ const Header = (props) => {
   };
 
   const [showBasic, setShowBasic] = useState(false);
+  const [bidCart, setBidCart] = useState([]);
   return (
     <>
       <MDBNavbar expand="lg" light bgColor="light" className="px-4">
@@ -100,7 +116,7 @@ const Header = (props) => {
                   to="/shop"
                   className="text-dark hover-zoom"
                 >
-                  Products{" "}
+                  Bids{" "}
                 </Link>
               </MDBNavbarItem>
               &nbsp; &nbsp;
@@ -110,9 +126,21 @@ const Header = (props) => {
                   to="/cart"
                   className="text-dark hover-zoom"
                 >
-                  <ShoppingCartOutlined />
-                  <Badge count={cart.length} offset={[9,0]}>
+                  <Badge count={cart.length} offset={[10, 0]}>
                     Cart
+                  </Badge>
+                  <ShoppingCartOutlined />
+                </Link>
+              </MDBNavbarItem>
+              &nbsp; &nbsp;
+              <MDBNavbarItem>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to="/bids"
+                  className="text-dark hover-zoom"
+                >
+                  <Badge count={bidCart.length} offset={[15, 0]}>
+                    Won Bids
                   </Badge>
                 </Link>
               </MDBNavbarItem>

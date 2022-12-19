@@ -25,7 +25,7 @@ const Timer = ({ TimeMs, product }) => {
 
   function updateRemainingTime(countdown) {
     setRemainingTime(
-      getRemainingTimeUntilMsTimestamp(countdown, slug, productBidStatus)
+      getRemainingTimeUntilMsTimestamp(countdown, slug, productBidStatus, product)
     );
   }
 

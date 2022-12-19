@@ -36,7 +36,7 @@ const BiddingModal = ({ product }) => {
       // console.log(product.price);
     });
   };
-  
+
   const handleChange = (e) => {
     setBidPrice(e.target.value);
   };
@@ -48,9 +48,12 @@ const BiddingModal = ({ product }) => {
     }
     productBidding(product._id, bidPrice, user.token).then((res) => {
       handleClose();
-      
+
       toast.success("Thank you for participation");
-      setTimeout(function(){ window. location. reload(); }, 2000);
+      // console.log(JSON.stringify(res.data));
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     });
   };
   return (
@@ -85,7 +88,12 @@ const BiddingModal = ({ product }) => {
           <Button variant="light" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="dark" type="submit" onClick={handleClick} onSubmit={handleClick}>
+          <Button
+            variant="dark"
+            type="submit"
+            onClick={handleClick}
+            onSubmit={handleClick}
+          >
             Place Bid
           </Button>
         </Modal.Footer>

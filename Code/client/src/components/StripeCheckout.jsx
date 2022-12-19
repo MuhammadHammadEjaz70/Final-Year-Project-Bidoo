@@ -6,7 +6,11 @@ import { Card } from "antd";
 import { DollarOutlined, CheckOutlined, SwapOutlined } from "@ant-design/icons";
 import logo from "../images/logo.png";
 import { createPaymentIntent } from "../functions/stripe";
-import { createOrder, emptyUserCart } from "../functions/user";
+import {
+  createOrder,
+  emptyUserCart,
+  emptyUserBidCart,
+} from "../functions/user";
 import { useNavigate } from "react-router-dom";
 
 const StripeCheckout = ({}) => {
@@ -69,6 +73,7 @@ const StripeCheckout = ({}) => {
           });
 
           emptyUserCart(user.token);
+          emptyUserBidCart(user.token);
         }
       });
       // empty user cart from redux store and local storage
@@ -106,15 +111,15 @@ const StripeCheckout = ({}) => {
 
   return (
     <>
-       
       <div className="text-center pb-5">
         <Card
           cover={
-            <img className=" row  offset-md-3   p-3"
+            <img
+              className=" row  offset-md-3   p-3"
               src={logo}
               style={{
-                justifyContent :"center",
-                alignItem:"center",
+                justifyContent: "center",
+                alignItem: "center",
                 height: "270px",
                 width: "350px",
                 objectFit: "cover",

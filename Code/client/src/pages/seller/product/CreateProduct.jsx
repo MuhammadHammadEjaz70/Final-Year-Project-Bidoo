@@ -13,7 +13,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
   title: "MacBook",
-  userID: "",
+  sellerID: {},
   description: "MacBook Air 512 GB",
   price: "200",
   buyoutPrice: "2000",
@@ -66,7 +66,7 @@ const CreateProduct = () => {
         window.location.reload();
       })
       .catch((error) => {
-        toast.error(error.response.data.error);
+        toast.error(`Complete the form. Please`);
       });
   };
 

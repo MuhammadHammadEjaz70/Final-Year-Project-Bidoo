@@ -3,15 +3,23 @@ import { useState, useEffect } from "react";
 import { getProduct, p_bidStatus } from "../../../functions/product.functions";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { userBidCart } from "../../../functions/user";
 
 export function getRemainingTimeUntilMsTimestamp(
   timestampMs,
   slug,
-  productBidStatus
+  productBidStatus,
+  product
 ) {
   const timestampDayjs = dayjs(timestampMs);
   const nowDayjs = dayjs();
   if (timestampDayjs.isBefore(nowDayjs)) {
+    // const bidCart = [];
+    // bidCart.push(product);
+    userBidCart(product, product.bidPostedBy).then((res) => {
+      // console.log(bidCart);
+    });
+
     p_bidStatus(slug, productBidStatus)
       .then((res) => {
         toast.success("Bid is Comepleted");

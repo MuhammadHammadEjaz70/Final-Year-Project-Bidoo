@@ -18,9 +18,6 @@ const SellerProductCard = ({ product, handleRemove }) => {
     price,
   } = product;
 
-  //    if (bidPostedBy === undefined) {
-  //   bidPostedBy = "No Bid is placed";
-  // }
   return (
     <>
       <Card

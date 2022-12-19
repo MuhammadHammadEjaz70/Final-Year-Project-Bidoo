@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const Checkout = () => {
+const CheckoutBid = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
@@ -223,4 +223,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckoutBid;

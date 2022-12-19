@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    bidCart: {
+      type: Array,
+      default: [],
+    },
     images: {
       type: Array,
     },

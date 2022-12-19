@@ -16,7 +16,7 @@ const Cart = () => {
     }, 0);
   };
 
-  const saveOrderToDb = () => {
+  const saveOrderToDb = () => { 
      
     userCart(cart, user.token)
       .then((res) => {
@@ -32,8 +32,7 @@ const Cart = () => {
         <tr>
           <th scope="col">Image</th>
           <th scope="col">Title</th>
-          <th scope="col">Current Bid Price</th>
-          <th scope="col"> Buyout Price</th>
+          <th scope="col">Price</th>
           <th scope="col">Count</th>
           <th scope="col">Remove</th>
         </tr>
@@ -68,12 +67,12 @@ const Cart = () => {
           {cart.map((c, i) => (
             <div key={i}>
               <p>
-                {c.title} x {c.count} = {c.buyoutPrice * c.count}Rs
+                {c.title} x {c.count} = ${c.buyoutPrice * c.count}
               </p>
             </div>
           ))}
           <hr />
-          <h5>Total: {getTotal()}Rs</h5>
+          <h5>Total: ${getTotal()}</h5>
           <hr />
           {user ? (
             <button

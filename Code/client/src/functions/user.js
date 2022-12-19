@@ -10,6 +10,11 @@ export const userCart = async (cart, authtoken) =>
       },
     }
   );
+export const userBidCart = async (product, bidPostedBy) =>
+  await axios.post(`${process.env.REACT_APP_API}/user/bidCart`, {
+    product,
+    bidPostedBy,
+  });
 
 export const getUserCart = async (authtoken) =>
   await axios.get(`${process.env.REACT_APP_API}/user/cart`, {
@@ -17,9 +22,21 @@ export const getUserCart = async (authtoken) =>
       authtoken,
     },
   });
+export const getUserBidCart = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user/bidCart`, {
+    headers: {
+      authtoken,
+    },
+  });
 
 export const emptyUserCart = async (authtoken) =>
   await axios.delete(`${process.env.REACT_APP_API}/user/cart`, {
+    headers: {
+      authtoken,
+    },
+  });
+export const emptyUserBidCart = async (authtoken) =>
+  await axios.delete(`${process.env.REACT_APP_API}/user/bidCart`, {
     headers: {
       authtoken,
     },
@@ -51,17 +68,6 @@ export const saveUserAddress = async (authtoken, completeAddress) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/address`,
     { completeAddress },
-    {
-      headers: {
-        authtoken,
-      },
-    }
-  );
-
-export const applyCoupon = async (authtoken, coupon) =>
-  await axios.post(
-    `${process.env.REACT_APP_API}/user/cart/coupon`,
-    { coupon },
     {
       headers: {
         authtoken,
