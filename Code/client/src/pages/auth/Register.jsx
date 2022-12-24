@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { Space,Spin } from "antd";
 const Register = () => {
   const [email, setEmail] = useState("");
   let navigate = useNavigate();
@@ -51,7 +51,6 @@ const Register = () => {
       <button type="submit" className="btn btn-raised btn-dark col-3">
         Submit
       </button>
-     
     </form>
   );
   return (

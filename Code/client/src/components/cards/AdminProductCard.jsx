@@ -29,7 +29,7 @@ const AdminProductCard = ({ product }) => {
           window.location.reload();
         })
         .catch((error) => {
-          toast.error(error.response.data.error);
+          toast.error("Admin Product Card Error",error.response.data.error);
         });
     } else if (productStatus === "disable") {
       const status = "enable";
@@ -40,7 +40,7 @@ const AdminProductCard = ({ product }) => {
           window.location.reload();
         })
         .catch((error) => {
-          toast.error(error.response.data.error);
+          toast.error("Admin Product Cart",error.response.data.error);
         });
       // console.log("product status ---->", status);
     }

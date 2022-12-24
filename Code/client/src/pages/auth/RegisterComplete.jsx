@@ -8,10 +8,10 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { createUpdateUser } from "../../functions/auth.functions";
 
-const RegisterComplete = () => {
+const RegisterComplete1 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -56,11 +56,11 @@ const RegisterComplete = () => {
               })
               .catch((error) => {
                 // An error ocurred
-                toast.error(error.message);
+                toast.error("Regiser update password method", error.message);
               });
             const idTokenResult = await user.getIdTokenResult();
             // console.log("user", user, "idTokenResult", idTokenResult);
-            createUpdateUser(idTokenResult.token)
+            createUpdateUser(idTokenResult.token, name)
               .then((res) => {
                 dispatch({
                   type: "LOGGED_IN_USER",
@@ -81,7 +81,10 @@ const RegisterComplete = () => {
           }
         })
         .catch((error) => {
-          toast.error(error.message);
+          toast.error(
+            "yh wala error registeer complete mein hai",
+            error.message
+          );
         });
     }
   };
@@ -91,7 +94,11 @@ const RegisterComplete = () => {
   };
 
   const completeRegistrationFrom = () => (
-    <form onSubmit={handelSubmit} className="row gy-5">
+    <form
+      onSubmit={handelSubmit}
+      className="row gy-5"
+      style={{ backgroundColor: "#eee", borderRadius: "25px" }}
+    >
       <input
         type="email"
         placeholder="email@xyz.com"
@@ -122,13 +129,17 @@ const RegisterComplete = () => {
       <button type="submit" className="btn btn-raised btn-dark col-3">
         Register
       </button>
+
+      <div>
+        Alreay have account? <Link to="/login"> Login</Link>
+      </div>
     </form>
   );
   return (
     <>
       <div className="container p-5">
         <div className="row ">
-          <div className="col-md-6 offset-md-3">
+          <div className="col-md-8 offset-md-3">
             <h3>Register</h3>
 
             {completeRegistrationFrom()}
@@ -139,4 +150,4 @@ const RegisterComplete = () => {
   );
 };
 
-export default RegisterComplete;
+export default RegisterComplete1;

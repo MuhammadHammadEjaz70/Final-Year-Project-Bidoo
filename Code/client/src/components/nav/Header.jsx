@@ -56,7 +56,7 @@ const Header = (props) => {
         // Sign-out successful.
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error("Header Compoenent Error", error.message);
       });
 
     dispatch({
@@ -126,10 +126,9 @@ const Header = (props) => {
                   to="/cart"
                   className="text-dark hover-zoom"
                 >
-                  <Badge count={cart.length} offset={[10, 0]}>
+                  <Badge count={cart.length} offset={[9, 0]}>
                     Cart
                   </Badge>
-                  <ShoppingCartOutlined />
                 </Link>
               </MDBNavbarItem>
               &nbsp; &nbsp;
@@ -184,9 +183,7 @@ const Header = (props) => {
               <MDBNavbarItem className="nav-link ">
                 <MDBDropdown>
                   <MDBDropdownToggle className="bg-dark">
-                    {/* {user.displayName} */}
-
-                    {user.email && user.email.split("@")[0]}
+                    {user.email && user.name}
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
                     <MDBDropdownItem link onClick={logout}>

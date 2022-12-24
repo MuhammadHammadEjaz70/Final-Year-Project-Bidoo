@@ -31,7 +31,7 @@ const Password = () => {
         })
         .catch((error) => {
           setLoading(false);
-          toast.error(error.message);
+          toast.error("Password Error",error.message);
         });
     } else {
       setLoading(false);

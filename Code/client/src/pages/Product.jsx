@@ -18,7 +18,6 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
   const [star, setStar] = useState(0);
-  
 
   useEffect(() => {
     loadSingleProduct();
@@ -49,7 +48,7 @@ const Product = () => {
       loadSingleProduct();
     });
   };
- 
+
   return (
     <div className="container-fluid">
       <div className="row pt-4">
@@ -57,7 +56,6 @@ const Product = () => {
           product={product}
           onStarClick={onStarClick}
           star={star}
-        
         />
       </div>
 
@@ -78,7 +76,7 @@ const Product = () => {
       <div className="row pb-5">
         {related.length ? (
           related.map((r) => (
-            <div key={r._id} className="col-md-4">
+            <div key={r._id} className="col-md-4" style={{ width: "310px" }}>
               <ProductCard product={r} />
             </div>
           ))

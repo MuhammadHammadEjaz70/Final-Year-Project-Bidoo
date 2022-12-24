@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { createUpdateUser } from "../../functions/auth.functions";
 import { GoogleOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("xabc1551@gmail.com");
@@ -57,6 +58,7 @@ const Login = () => {
         const idTokenResult = await user.getIdTokenResult();
         createUpdateUser(idTokenResult.token)
           .then((res) => {
+            // console.log(res.data);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
@@ -70,11 +72,11 @@ const Login = () => {
             roleBaseRedirect(res);
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error("Login Error", error.message);
           });
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error("Login Error", error.message);
         setLoading(false);
       });
   };
@@ -148,12 +150,18 @@ const Login = () => {
   );
   return (
     <>
-      <div className="container p-5">
-        <div className="row ">
-          <div className="col-md-6 offset-md-3">
+      <br />
+      <br />
+      <div
+        className="container p-5"
+        style={{ backgroundColor: "#eee", borderRadius: "25px", width: "50%" }}
+      >
+        <div className="row">
+          <div className="col-md-5 offset-md-3">
             {loading ? (
-              <h3 className="text-danger">Loading...</h3>
+              <Loader/>
             ) : (
+              // <h3 className="text-danger">Loading...</h3>
               <h3>Login</h3>
             )}
 
@@ -164,9 +172,10 @@ const Login = () => {
               type="submit"
               onClick={handelSubmit}
               className="btn btn-raised btn-dark col-6"
+              style={{ width: "100%" }}
               disabled={!email || password.length < 6}
             >
-              Sign In
+              Log In
             </button>
             <br />
             <br />
@@ -175,9 +184,20 @@ const Login = () => {
               type=" submit"
               onClick={googleLogin}
               className="btn btn-raised btn-danger col-6"
+              style={{ width: "100%" }}
             >
-              <GoogleOutlined /> Sign In With Google
+              <GoogleOutlined /> SignIn With Google
             </button>
+            <br />
+            <br />
+            <div>
+              <Link
+                style={{ color: "black", textDecoration: "None" }}
+                to="/register"
+              >
+                Register New Account
+              </Link>
+            </div>
           </div>
         </div>
       </div>

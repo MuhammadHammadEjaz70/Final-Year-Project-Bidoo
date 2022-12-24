@@ -27,7 +27,7 @@ const NewArrivals = () => {
 
   const loadAllProducts = () => {
     setLoading(true);
-    getProductsByCount(6).then((res) => {
+    getProductsByCount(3).then((res) => {
       setProducts(res.data);
       console.log(res);
       setLoading(false);
@@ -45,16 +45,16 @@ const NewArrivals = () => {
     console.log(currentPage);
     setCurrentPage(currentPage);
   };
-  const total = Math.round((productsCount / 6) * 10);
+  const total = Math.round((productsCount / 3) * 10);
   return (
     <>
       <div className="container">
         {loading ? (
           <LoadingCard count={3} />
         ) : (
-          <div className="row  offset-md-1  pt-5 p-3 ">
+          <div className="row  offset-md-1  pt-5 p-7 ">
             {products.map((product) => (
-              <div style={{width:"300px"}} key={product._id} className="">
+              <div style={{ width: "310px" }} key={product._id} className="">
                 <ProductCard product={product} />
               </div>
             ))}
@@ -63,12 +63,16 @@ const NewArrivals = () => {
       </div>
       <br />
 
-      <div className="row ">
+      {/* <div className="row ">
         <nav className="col-md-4 offset-md-4 text-center pt-5 p-3">
-          <Pagination current={currentPage} total={total} onChange={onChange} />
+          <Pagination
+            defaultCurrent={currentPage}
+            total={total}
+            onChange={onChange}
+          />
         </nav>
-      </div>
-      <br />
+      </div> */}
+      {/* <br /> */}
     </>
   );
 };

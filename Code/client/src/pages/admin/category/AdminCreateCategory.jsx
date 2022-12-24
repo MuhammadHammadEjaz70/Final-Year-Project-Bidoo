@@ -41,9 +41,9 @@ export const AdminCreateCategory = () => {
       .catch((error) => {
         console.log(error);
         setLoading(false);
-        if (error.response.status === 400) toast.error(error.response.data);
+        if (error.response.status === 400) toast.error("Admin Category Create",error.response.data);
         else {
-          toast.error(error.message);
+          toast.error("Admin Category Create",error.message);
         }
       });
   };
@@ -59,9 +59,9 @@ export const AdminCreateCategory = () => {
         .catch((error) => {
           console.log(error);
           setLoading(false);
-          if (error.response.status === 400) toast.error(error.response.data);
+          if (error.response.status === 400) toast.error("Admin Category Create",error.response.data);
           else {
-            toast.error(error.message);
+            toast.error("Admin Category Create",error.message);
           }
         });
     }

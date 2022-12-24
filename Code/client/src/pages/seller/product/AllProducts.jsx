@@ -7,6 +7,7 @@ import {
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import SellerProductCard from "../../../components/cards/SellerProductCard";
+import { Space, Spin } from "antd";
 export const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -54,14 +55,9 @@ export const AllProducts = () => {
           <SellerNavigation />
         </div>
         <div className="col">
-          {loading ? (
-            <h4 className="text-danger">Loading...</h4>
-          ) : (
-            <h4>All Products</h4>
-          )}
+          {loading ? <Spin size="large" /> : <h4>All Products</h4>}
           <div className="row">
-            {
-            products.map((product) => (
+            {products.map((product) => (
               <div key={product._id} className="col-m-4 pb-4">
                 <SellerProductCard
                   product={product}

@@ -23,7 +23,10 @@ export function getRemainingTimeUntilMsTimestamp(
     p_bidStatus(slug, productBidStatus)
       .then((res) => {
         toast.success("Bid is Comepleted");
-        window.location.reload();
+
+        setTimeout(function () {
+          window.location.href = "/shop";
+        }, 1000);
       })
       .catch((error) => {
         toast.error(error.response.data.error);

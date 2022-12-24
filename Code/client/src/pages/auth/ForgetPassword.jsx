@@ -30,7 +30,7 @@ const ForgetPassword = () => {
 
       .catch((error) => {
         setLoading(false);
-        toast.error(error.message);
+        toast.error("Forget Password error",error.message);
       });
   };
 

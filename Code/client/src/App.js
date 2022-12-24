@@ -41,7 +41,7 @@ import Cart from "./pages/Cart";
 import Bids from "./pages/Bids";
 import Checkout from "./pages/Checkout";
 import CheckoutBid from "./pages/CheckoutBid";
-import Payment from './pages/Payment'
+import Payment from "./pages/Payment";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -94,7 +94,6 @@ const App = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/bids" element={<Bids />} />
-          
 
           <Route path="/sub-category/:slug" element={<SubCategoriesHome />} />
 
@@ -122,7 +121,11 @@ const App = () => {
           <Route path="/forget/password" element={<ForgetPassword />} />
 
           <Route element={<AdminPrivateRoute />}>
-            <Route path="/admin/products" element={<AllProductsAdmin />} exact />
+            <Route
+              path="/admin/products"
+              element={<AllProductsAdmin />}
+              exact
+            />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/category" element={<AdminCreateCategory />} />
             <Route

@@ -87,7 +87,7 @@ exports.list = async (req, res) => {
     //limit: limiting the result i.e. 3
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
-    const perPage = 6;
+    const perPage = 3;
     const products = await Product.find({
       productStatus: "enable",
       productBidStatus: "incomplete",

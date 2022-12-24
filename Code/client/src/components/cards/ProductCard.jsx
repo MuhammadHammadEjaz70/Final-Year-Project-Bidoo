@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Tooltip } from "antd";
 import ProductInfromation from "./ProductInfromation";
 import logo from "../../images/logo.png";
-import {
-  EyeOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Timer from "../Timer/Timer";
@@ -17,7 +14,6 @@ const ProductCard = ({ product }) => {
   const { title, description, images, slug, timer, quantity } = product;
 
   const [tooltip, setTooltip] = useState("Click to add");
- 
 
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -73,7 +69,7 @@ const ProductCard = ({ product }) => {
             <img
               src={images && images.length ? images[0].url : logo}
               className="p-1"
-              style={{ height: "200px", objectFit: "cover", width: "280px" }}
+              style={{ height: "200px", objectFit: "cover", width: "285px" }}
             />
           </Link>
         }

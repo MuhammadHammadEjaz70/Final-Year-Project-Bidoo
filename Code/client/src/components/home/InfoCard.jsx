@@ -25,8 +25,10 @@ export default function InfoCard(props) {
           </MDBCol>
           <MDBCol md="9">
             <MDBCardBody className="text-light">
-              <MDBCardTitle className="text-light">{props.aboutus}</MDBCardTitle>
-              <MDBCardText >
+              <MDBCardTitle className="text-light">
+                {props.aboutus}
+              </MDBCardTitle>
+              <MDBCardText>
                 Description Lorem ipsum dolor, sit amet consectetur adipisicing
                 elit. Dignissimos amet, dolore architecto aspernatur mollitia
                 velit vero nobis tempora, explicabo consequatur eum quis! Dolor.
@@ -45,9 +47,15 @@ export default function InfoCard(props) {
                   Shop Now{" "}
                 </Link>{" "}
               </MDBBtn>
-              <MDBBtn className="mx-1 ml-5" color="light">
+              <MDBBtn className="mx-1 me-5" color="light">
                 {" "}
-                Sell Now{" "}
+                <Link
+                  className="text-dark"
+                  style={{ textDecoration: "none" }}
+                  to="/seller/dashboard"
+                >
+                  Sell Now{" "}
+                </Link>{" "}
               </MDBBtn>
             </MDBCardBody>
           </MDBCol>

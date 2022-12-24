@@ -17,12 +17,13 @@ export default function Footer() {
             <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-2">
               <h6 className="text-uppercase fw-bold mb-4">
                 <MDBIcon icon="gem" className="me-3" />
-                Company name
+                BiDOO.com
               </h6>
-              <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
+              <p >
+                BiDOO is the online web application-based platform where people
+                can bid for any product and get the best price out of it, and
+                along with that any person can be a seller and sell the
+                products.
               </p>
             </MDBCol>
 

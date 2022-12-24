@@ -39,9 +39,9 @@ export const AllProductsAdmin = () => {
           toast.error(`Product is deleted`);
         })
         .catch((error) => {
-          if (error.response.status === 400) toast.error(error.response.data);
+          if (error.response.status === 400) toast.error("Admin All Product update",error.response.data);
           else {
-            toast.error(error.message);
+            toast.error("AdminAllProduct",error.message);
           }
           console.log(error);
         });
