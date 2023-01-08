@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from "react";
-import UserNavigation from "../../components/nav/UserNavigation";
-import { getUserOrders } from "../../functions/user";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { toast } from "react-toastify";
 
-const History = () => {
-  const [orders, setOrders] = useState([]);
-  const { user } = useSelector((state) => ({ ...state }));
-
-  useEffect(() => {
-    loadUserOrders();
-  }, []);
-
-  const loadUserOrders = () =>
-    getUserOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
-      setOrders(res.data);
-    });
-
+const Orders = ({ orders, handleStatusChange }) => {
   const showEachOrders = () =>
     orders.map((order, i) => (
       <div key={i} className="m-5 p-3 card">
@@ -30,7 +13,7 @@ const History = () => {
       </div>
     ));
 
-   const showOrderInTable = (order) => (
+  const showOrderInTable = (order) => (
     <table className="table table-bordered">
       <thead className="thead-light">
         <tr>
@@ -69,19 +52,35 @@ const History = () => {
           </tr>
         ))}
       </tbody>
+      <br />{" "}
+      <div className="row">
+        <div className="col-md-4">Delivery Status</div>
+        <div className="col-md-8">
+          <select
+            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+            className="form-control "
+            defaultValue={order.orderStatus}
+            name="status"
+            style={{ border: "solid 2px black" }}
+          >
+            <option value="Not Processed">Not Processed</option>
+            <option value="Cash On Delivery">Cash On Delivery</option>
+            <option value="Processing">Processing</option>
+            <option value="Dispatched">Dispatched</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
     </table>
   );
-
   return (
     <>
       <div className="contianer-fluid">
         <div className="row">
-          <div className="col-md-2">
-            <UserNavigation />
-          </div>
           <div className="col text-center">
             <h4>
-              {orders.length > 0 ? "User Purchase History" : "No Purchase"}
+              {/* {orders.length > 0 ? "User Purchase History" : "No Purchase"} */}
             </h4>
 
             {showEachOrders()}
@@ -92,4 +91,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default Orders;

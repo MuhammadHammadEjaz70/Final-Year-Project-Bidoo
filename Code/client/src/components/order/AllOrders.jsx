@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from "react";
-import UserNavigation from "../../components/nav/UserNavigation";
-import { getUserOrders } from "../../functions/user";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { toast } from "react-toastify";
 
-const History = () => {
-  const [orders, setOrders] = useState([]);
-  const { user } = useSelector((state) => ({ ...state }));
-
-  useEffect(() => {
-    loadUserOrders();
-  }, []);
-
-  const loadUserOrders = () =>
-    getUserOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
-      setOrders(res.data);
-    });
-
+const AllOrders = ({ orders }) => {
   const showEachOrders = () =>
     orders.map((order, i) => (
       <div key={i} className="m-5 p-3 card">
@@ -30,7 +13,7 @@ const History = () => {
       </div>
     ));
 
-   const showOrderInTable = (order) => (
+  const showOrderInTable = (order) => (
     <table className="table table-bordered">
       <thead className="thead-light">
         <tr>
@@ -71,17 +54,13 @@ const History = () => {
       </tbody>
     </table>
   );
-
   return (
     <>
       <div className="contianer-fluid">
         <div className="row">
-          <div className="col-md-2">
-            <UserNavigation />
-          </div>
           <div className="col text-center">
             <h4>
-              {orders.length > 0 ? "User Purchase History" : "No Purchase"}
+              {/* {orders.length > 0 ? "User Purchase History" : "No Purchase"} */}
             </h4>
 
             {showEachOrders()}
@@ -92,4 +71,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default AllOrders;
