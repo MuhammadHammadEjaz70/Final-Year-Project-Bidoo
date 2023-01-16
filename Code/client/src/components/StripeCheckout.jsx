@@ -82,6 +82,9 @@ const StripeCheckout = ({}) => {
       setProcessing(false);
       setSucceeded(true);
     }
+    setTimeout(function () {
+      window.location.href = "/shop";
+    }, 1000);
   };
 
   const handleChange = async (e) => {

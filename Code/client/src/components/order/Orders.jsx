@@ -1,5 +1,4 @@
 import React from "react";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const Orders = ({ orders, handleStatusChange }) => {
   const showEachOrders = () =>
@@ -18,13 +17,13 @@ const Orders = ({ orders, handleStatusChange }) => {
       <thead className="thead-light">
         <tr>
           <th scope="col">Title</th>
-          <th scope="col">Price</th>
+          {/* <th scope="col">Price</th> */}
           {/* <th scope="col">BuyOut Price</th> */}
           <th scope="col">Payment</th>
           <th scope="col">Payment Method</th>
           <th scope="col">Ordered On</th>
           <th scope="col">Ordere Status</th>
-          <th scope="col">Total</th>
+          <th scope="col">Price</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +32,7 @@ const Orders = ({ orders, handleStatusChange }) => {
             <td>
               <b>{p.product.title}</b>
             </td>
-            <td>${p.product.price}</td>
+
             {/* <td>${p.product.buyoutPrice}</td> */}
 
             <td> {order.paymentIntent.status.toUpperCase()}</td>
@@ -42,16 +41,23 @@ const Orders = ({ orders, handleStatusChange }) => {
               {new Date(order.paymentIntent.created * 1000).toLocaleString()}
             </td>
             <td>{order.orderStatus}</td>
-            <td>
-              {" "}
-              {(order.paymentIntent.amount / 100).toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </td>
+            <td>${p.product.buyoutPrice}</td>
           </tr>
         ))}
       </tbody>
+      <br />
+      <div className="row">
+        <div className="col-md-4">Total Amount</div>
+        <div className="col-md-8">
+          <td style={{ border: "solid 2px black" }}>
+            {" "}
+            {(order.paymentIntent.amount / 100).toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+          </td>
+        </div>
+      </div>
       <br />{" "}
       <div className="row">
         <div className="col-md-4">Delivery Status</div>

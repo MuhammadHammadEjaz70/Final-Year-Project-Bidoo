@@ -26,7 +26,7 @@ export function getRemainingTimeUntilMsTimestamp(
 
         setTimeout(function () {
           window.location.href = "/shop";
-        }, 1000);
+        }, 400);
       })
       .catch((error) => {
         toast.error(error.response.data.error);

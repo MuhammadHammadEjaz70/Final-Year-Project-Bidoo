@@ -14,7 +14,10 @@ export const SellerDashboard = () => {
   }, []);
   const loadOrders = () => {
     getOrders(user.token).then((res) => {
+      console.log(user._id);
       console.log(JSON.stringify(res.data, null, 4));
+      // console.log(res.data.products.product.sellerID);
+
       setOrders(res.data);
     });
   };

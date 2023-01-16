@@ -28,11 +28,7 @@ export const AdminNavigation = () => {
                 Sub Category
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/coupon">
-                Coupon
-              </Link>
-            </li>
+
             <li className="nav-item">
               <Link className="nav-link" to="/user/password">
                 Password

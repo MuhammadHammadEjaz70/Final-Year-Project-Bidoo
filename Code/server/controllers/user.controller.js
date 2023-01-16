@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const Product = require("../models/product.model");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
+// const { ConnectionStates } = require("mongoose");
 
 exports.userCart = async (req, res) => {
   const { cart } = req.body;
@@ -133,18 +134,20 @@ exports.createOrder = async (req, res) => {
   // const seller = await User.findOne({ email: req.user.email }).exec();
 
   let { products } = await Cart.findOne({ orderdBy: user._id })
-    .populate("products.sellerID")
+    .populate("products.product")
     .exec();
+  // console.log("Cart products===>", products);
 
-  // const sellerDetails = products.map((s) => {
-  //   const seller = s.product.sellerID;
-  // });
+
+  products.map(({ product }) => {
+    // console.log("sellerID===>", product.sellerID);
+    const productSeller = product.sellerID;
+  });
 
   let newOrder = await new Order({
     products,
     paymentIntent,
     orderdBy: user._id,
-    // soldBy: products.sellerID,
   }).save();
 
   //decrement quantity  and increment sold
@@ -158,8 +161,8 @@ exports.createOrder = async (req, res) => {
   });
 
   let updated = await Product.bulkWrite(bulkOption, {});
-  console.log("product quantity decremented---->", updated);
-  console.log("new order---->", newOrder);
+  // console.log("product quantity decremented---->", updated);
+  // console.log("new order---->", newOrder);
   res.json({ ok: true });
 };
 
