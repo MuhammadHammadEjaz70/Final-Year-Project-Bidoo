@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 const Product = require("../models/product.model");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
-// const { ConnectionStates } = require("mongoose");
+var uniqid = require("uniqid");
 
 exports.userCart = async (req, res) => {
   const { cart } = req.body;
@@ -138,7 +138,6 @@ exports.createOrder = async (req, res) => {
     .exec();
   // console.log("Cart products===>", products);
 
-
   products.map(({ product }) => {
     // console.log("sellerID===>", product.sellerID);
     const productSeller = product.sellerID;
@@ -155,7 +154,15 @@ exports.createOrder = async (req, res) => {
     return {
       updateOne: {
         filter: { _id: item.product._id },
-        update: { $inc: { quantity: -item.count, sold: +item.count } },
+        update: {
+          $inc: {
+            quantity: -item.count,
+            sold: +item.count,
+          },
+          productBidStatus: "complete",
+          timer: 0000000000000,
+          bidPostedBy: null,
+        },
       },
     };
   });
@@ -173,4 +180,91 @@ exports.orders = async (req, res) => {
     .populate("products.product")
     .exec();
   res.json(userOrders);
+};
+
+exports.addToBidslist = async (req, res) => {
+  const { productId } = req.body;
+
+  const user = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $addToSet: { wishlist: productId } }
+    // { new: true }
+  ).exec();
+
+  res.json({ ok: true });
+};
+exports.bidsList = async (req, res) => {
+  const list = await User.findOne({ email: req.user.email })
+    .select("wishlist")
+    .populate("wishlist")
+    .exec();
+
+  res.json(list);
+};
+exports.removeFromBidsList = async (req, res) => {
+  const { productId } = req.params;
+  const user = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $pull: { wishlist: productId } }
+    // { new: true }
+  ).exec();
+  res.json({ ok: true });
+};
+
+exports.createCashOrder = async (req, res) => {
+  const { COD } = req.body;
+  console.log(req.body);
+  if (!COD) {
+    return res.status(400).send("Order Failed");
+  }
+
+  const user = await User.findOne({ email: req.user.email }).exec();
+  // const seller = await User.findOne({ email: req.user.email }).exec();
+
+  let userCart = await Cart.findOne({ orderdBy: user._id })
+    .populate("products.product")
+    .exec();
+  // console.log("Cart products===>", products);
+
+  // products.map(({ product }) => {
+  //   // console.log("sellerID===>", product.sellerID);
+  //   const productSeller = product.sellerID;
+  // });
+
+  let newOrder = await new Order({
+    products: userCart.products,
+    paymentIntent: {
+      id: uniqid(),
+      amount: userCart.cartTotal * 100,
+      currency: "usd",
+      status: "Cash On Delivery",
+      created: Date.now(),
+      payment_method_types: ["cash"],
+    },
+    orderdBy: user._id,
+    orderStatus: "Cash On Delivery",
+  }).save();
+
+  //decrement quantity  and increment sold
+  let bulkOption = userCart.products.map((item) => {
+    return {
+      updateOne: {
+        filter: { _id: item.product._id },
+        update: {
+          $inc: {
+            quantity: -item.count,
+            sold: +item.count,
+          },
+          productBidStatus: "complete",
+          timer: 0000000000000,
+          bidPostedBy: null,
+        },
+      },
+    };
+  });
+
+  let updated = await Product.bulkWrite(bulkOption, {});
+  // console.log("product quantity decremented---->", updated);
+  // console.log("new order---->", newOrder);
+  res.json({ ok: true });
 };

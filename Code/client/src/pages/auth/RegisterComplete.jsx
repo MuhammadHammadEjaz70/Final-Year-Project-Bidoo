@@ -56,11 +56,11 @@ const RegisterComplete1 = () => {
               })
               .catch((error) => {
                 // An error ocurred
-                toast.error("Regiser update password method", error.message);
+                toast.error("Regiser update password method");
               });
             const idTokenResult = await user.getIdTokenResult();
             // console.log("user", user, "idTokenResult", idTokenResult);
-            createUpdateUser(idTokenResult.token, name)
+            createUpdateUser(idTokenResult.token,name)
               .then((res) => {
                 dispatch({
                   type: "LOGGED_IN_USER",
@@ -74,17 +74,14 @@ const RegisterComplete1 = () => {
                 });
               })
               .catch((error) => {
-                toast.error("register module mei error hai", error.message);
+                toast.error("register module mei error hai");
               });
 
             navigate("/");
           }
         })
         .catch((error) => {
-          toast.error(
-            "yh wala error registeer complete mein hai",
-            error.message
-          );
+          toast.error(error.message);
         });
     }
   };

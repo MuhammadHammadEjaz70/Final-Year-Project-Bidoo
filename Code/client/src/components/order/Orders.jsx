@@ -6,9 +6,6 @@ const Orders = ({ orders, handleStatusChange }) => {
       <div key={i} className="m-5 p-3 card">
         <h5>Order Id: {order.paymentIntent.id}</h5>
         {showOrderInTable(order)}
-        <div className="row">
-          <div className="col">{/* <p>Download pdf</p> */}</div>
-        </div>
       </div>
     ));
 
@@ -32,8 +29,6 @@ const Orders = ({ orders, handleStatusChange }) => {
             <td>
               <b>{p.product.title}</b>
             </td>
-
-            {/* <td>${p.product.buyoutPrice}</td> */}
 
             <td> {order.paymentIntent.status.toUpperCase()}</td>
             <td>{order.paymentIntent.payment_method_types[0]}</td>
@@ -76,6 +71,15 @@ const Orders = ({ orders, handleStatusChange }) => {
             <option value="Cancelled">Cancelled</option>
             <option value="Completed">Completed</option>
           </select>
+        </div>
+      </div>
+      <br />
+      <div className="row">
+        <div className="col-md-4">Delivery Address</div>
+        <div className="col-md-8">
+          <td style={{ border: "solid 2px Black", borderRadius: "30px" }}>
+            {order.orderdBy.address}
+          </td>
         </div>
       </div>
     </table>

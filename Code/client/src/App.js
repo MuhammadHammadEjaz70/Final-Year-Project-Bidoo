@@ -40,7 +40,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Bids from "./pages/Bids";
 import Checkout from "./pages/Checkout";
-import CheckoutBid from "./pages/CheckoutBid";
+// import CheckoutBid from "./pages/CheckoutBid";
 import Payment from "./pages/Payment";
 
 const App = () => {
@@ -102,7 +102,7 @@ const App = () => {
             <Route path="/user/password" element={<Password />} exact />
             <Route path="/user/wishlist" element={<WishList />} exact />
             <Route path="/checkout" element={<Checkout />} exact />
-            <Route path="/checkoutBid" element={<CheckoutBid />} exact />
+            {/* <Route path="/checkoutBid" element={<CheckoutBid />} exact /> */}
             <Route path="/payment" element={<Payment />} />
             <Route
               path="/seller/dashboard"

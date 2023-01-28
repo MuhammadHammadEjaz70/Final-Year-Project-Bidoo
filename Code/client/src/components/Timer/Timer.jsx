@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Timer.css";
 import { getRemainingTimeUntilMsTimestamp } from "./Utils/TimeUtlis";
- 
+
 const defaultRemainingTime = {
   seconds: "00",
   minutes: "00",
@@ -11,11 +11,10 @@ const defaultRemainingTime = {
 const productBidStatus = "complete";
 
 const Timer = ({ TimeMs, product }) => {
-    const { slug } = product;
-  
+  const { slug } = product;
+
   const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
-   
   useEffect(() => {
     const intervalId = setInterval(() => {
       updateRemainingTime(TimeMs);
@@ -25,7 +24,12 @@ const Timer = ({ TimeMs, product }) => {
 
   function updateRemainingTime(countdown) {
     setRemainingTime(
-      getRemainingTimeUntilMsTimestamp(countdown, slug, productBidStatus, product)
+      getRemainingTimeUntilMsTimestamp(
+        countdown,
+        slug,
+        productBidStatus,
+        product
+      )
     );
   }
 

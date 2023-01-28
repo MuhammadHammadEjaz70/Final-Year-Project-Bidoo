@@ -93,43 +93,39 @@ export const getUserOrders = async (authtoken) =>
     },
   });
 
-// export const getWishlist = async (authtoken) =>
-//   await axios.get(`${process.env.REACT_APP_API}/user/wishlist`, {
-//     headers: {
-//       authtoken,
-//     },
-//   });
+export const getBidsList = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user/bids`, {
+    headers: {
+      authtoken,
+    },
+  });
 
-// export const removeWishlist = async (productId, authtoken) =>
-//   await axios.put(
-//     `${process.env.REACT_APP_API}/user/wishlist/${productId}`,
-//     {},
-//     {
-//       headers: {
-//         authtoken,
-//       },
-//     }
-//   );
+export const removeBidlist = async (productId, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/user/bids/${productId}`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
 
-// export const addToWishlist = async (productId, authtoken) =>
-//   await axios.post(
-//     `${process.env.REACT_APP_API}/user/wishlist`,
-//     { productId },
-//     {
-//       headers: {
-//         authtoken,
-//       },
-//     }
-//   );
+export const addToBidslist = async (productId, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/bids`,
+    { productId },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
 
-export const createCashOrderForUser = async (
-  authtoken,
-  COD,
-  couponTrueOrFalse
-) =>
+export const createCashOrderForUser = async (authtoken, COD) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/cash-order`,
-    { couponApplied: couponTrueOrFalse, COD },
+    { COD },
     {
       headers: {
         authtoken,

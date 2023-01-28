@@ -5,12 +5,10 @@ import {
   getUserCart,
   emptyUserCart,
   saveUserAddress,
-
-  //   createCashOrderForUser,
+  createCashOrderForUser,
+  emptyUserBidCart,
 } from "../functions/user";
 import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -57,7 +55,7 @@ const Checkout = () => {
 
   const completeAddressDelivery = async () => {
     setCompleteAddress(
-      `adress=${address} city=${city}  province=${province} zip= ${zip}`
+      `Adress:${address} City:${city}  Province:${province} Postal-Code:${zip}`
     );
   };
 
@@ -166,6 +164,32 @@ const Checkout = () => {
       </div>
     ));
 
+  const createCashOrder = () => {
+    createCashOrderForUser(user.token, COD).then((res) => {
+      // console.log("user cod created response===>",res)
+      if (res.data.ok) {
+        //empty local storage
+        if (typeof window !== undefined) localStorage.removeItem("cart");
+        //empty redux cart
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: [],
+        });
+        //empty COD redux
+        dispatch({
+          type: "COD",
+          payload: false,
+        });
+        //empty cart from backend
+        emptyUserCart(user.token);
+        emptyUserBidCart(user.token);
+        //redirect
+        setTimeout(() => {
+          window.location.href = "/user/history";
+        }, 1000);
+      }
+    });
+  };
   return (
     <div className="row">
       <div className="col-md-6">
@@ -193,7 +217,7 @@ const Checkout = () => {
               <button
                 className="btn btn-primary"
                 disabled={!addressSaved || !products.length}
-                // onClick={createCashOrder}
+                onClick={createCashOrder}
               >
                 Place Order
               </button>

@@ -17,7 +17,7 @@ import Timer from "../Timer/Timer";
 // This is children component of product component
 
 const SingleProduct = ({ product, onStarClick, star }) => {
-  const { title, images, description, _id, price, timer } = product;
+  const { title, images, description, _id, price, timer, quantity } = product;
   const [tooltip, setTooltip] = useState("Click to add");
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -93,15 +93,16 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         <Card
           actions={[
             <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className="text-success" /> <br /> Add to
-              Cart
+              <ShoppingCartOutlined
+                className="text-success"
+                disabled={product.quantity === 0}
+              />{" "}
+              <br /> Add to Cart
             </a>,
-            <BiddingModal product={product} />,
-
-            <Link to="/">
-              <HeartOutlined className="text-danger" /> <br />
-              Add to Wishlist
-            </Link>,
+            <BiddingModal
+              product={product}
+              disabled={product.quantity === 0}
+            />,
 
             <RatingModal>
               <StarRatings

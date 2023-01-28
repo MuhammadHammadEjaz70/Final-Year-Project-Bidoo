@@ -11,8 +11,9 @@ exports.orders = async (req, res) => {
   let allOrders = await Order.find({})
     .sort("-createdAt")
     .populate("products.product")
+    .populate("orderdBy")
     .exec();
-  // console.log("All orders===>", allOrders);
+  console.log("All orders===>", allOrders);
 
   // const orders = allOrders;
   // console.log("orders--->", orders);

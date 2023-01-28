@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { DollarOutlined } from "@ant-design/icons";
 import { productBidding, getProduct } from "../../functions/product.functions";
+import { addToBidslist } from "../../functions/user";
 
 const BiddingModal = ({ product }) => {
   const { slug } = useParams();
@@ -48,11 +49,14 @@ const BiddingModal = ({ product }) => {
     }
     productBidding(product._id, bidPrice, user.token).then((res) => {
       handleClose();
+      addToBidslist(product._id, user.token).then((res) => {
+        console.log("ADD to Bids List", res.data);
+      });
 
       toast.success("Thank you for participation");
       // console.log(JSON.stringify(res.data));
       setTimeout(function () {
-        window.location.reload();
+        window.location.href = "/user/wishlist";
       }, 2000);
     });
   };

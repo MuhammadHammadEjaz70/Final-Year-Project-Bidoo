@@ -16,11 +16,22 @@ const Cart = () => {
     }, 0);
   };
 
-  const saveOrderToDb = () => { 
-     
+  const saveOrderToDb = () => {
     userCart(cart, user.token)
       .then((res) => {
         console.log("CART POST RES", res);
+        if (res.data.ok) navigate("/checkout");
+      })
+      .catch((err) => console.log("cart save err", err));
+  };
+  const saveCashOrderToDb = () => {
+    userCart(cart, user.token)
+      .then((res) => {
+        // console.log("CART POST RES", res);
+        dispatch({
+          type: "COD",
+          payload: "true",
+        });
         if (res.data.ok) navigate("/checkout");
       })
       .catch((err) => console.log("cart save err", err));
@@ -54,7 +65,10 @@ const Cart = () => {
           {!cart.length ? (
             <p>
               No Products in the cart <br />
-              <Link to="/shop" style={{textDecoration: "none" }}> Continue Shopping...</Link>
+              <Link to="/shop" style={{ textDecoration: "none" }}>
+                {" "}
+                Continue Shopping...
+              </Link>
             </p>
           ) : (
             showCartItems()
@@ -75,13 +89,23 @@ const Cart = () => {
           <h5>Total: ${getTotal()}</h5>
           <hr />
           {user ? (
-            <button
-              onClick={saveOrderToDb}
-              disabled={!cart.length}
-              className="btn btn-sm btn-dark mt-2"
-            >
-              Proceed to CheckOut
-            </button>
+            <>
+              <button
+                onClick={saveOrderToDb}
+                disabled={!cart.length}
+                className="btn btn-sm btn-dark mt-2"
+              >
+                Proceed to CheckOut
+              </button>
+              <br />
+              <button
+                onClick={saveCashOrderToDb}
+                disabled={!cart.length}
+                className="btn btn-sm btn-primary mt-2"
+              >
+                Cash on Delivery
+              </button>
+            </>
           ) : (
             <Link to="/login">
               <button className="btn btn-sm btn-dark mt-2">

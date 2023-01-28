@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     address: String,
     contactNumber: { type: Number, min: 11, max: 12 },
 
-    //   whishlist: [{ type: ObjectId, ref: "Prdocut" }],
+    wishlist: [{ type: ObjectId, ref: "Product" }],
   },
 
   { timestamps: true }

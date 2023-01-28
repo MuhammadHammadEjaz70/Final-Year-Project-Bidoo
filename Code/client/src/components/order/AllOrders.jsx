@@ -1,5 +1,4 @@
 import React from "react";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const AllOrders = ({ orders }) => {
   const showEachOrders = () =>
@@ -7,9 +6,6 @@ const AllOrders = ({ orders }) => {
       <div key={i} className="m-5 p-3 card">
         <h5>Order Id: {order.paymentIntent.id}</h5>
         {showOrderInTable(order)}
-        <div className="row">
-          <div className="col">{/* <p>Download pdf</p> */}</div>
-        </div>
       </div>
     ));
 
@@ -62,6 +58,15 @@ const AllOrders = ({ orders }) => {
               style: "currency",
               currency: "USD",
             })}
+          </td>
+        </div>
+      </div>
+      <br />
+      <div className="row">
+        <div className="col-md-4">Delivery Address</div>
+        <div className="col-md-8">
+          <td style={{ border: "solid 2px Black", borderRadius: "30px" }}>
+            {order.orderdBy.address}
           </td>
         </div>
       </div>
