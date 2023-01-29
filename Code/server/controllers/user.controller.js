@@ -178,6 +178,7 @@ exports.orders = async (req, res) => {
 
   let userOrders = await Order.find({ orderdBy: user._id })
     .populate("products.product")
+    .populate("products.product.sellerID")
     .exec();
   res.json(userOrders);
 };

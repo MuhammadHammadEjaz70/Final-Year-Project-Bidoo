@@ -10,6 +10,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
+    NICNumber: {
+      type: Number,
+      maxlength: 13,
+      minlength: 13,
+    },
+    images: {
+      type: Array,
+    },
     role: {
       type: String,
       default: "subsciber",
@@ -27,7 +35,7 @@ const userSchema = new mongoose.Schema(
     },
 
     address: String,
-    contactNumber: { type: Number, min: 11, max: 12 },
+    phoneNumber: { type: Number, min: 11, max: 12, default: null },
 
     wishlist: [{ type: ObjectId, ref: "Product" }],
   },

@@ -24,7 +24,7 @@ exports.createUpdateUser = async (req, res) => {
 exports.currentUser = async (req, res) => {
   User.findOne({ email: req.user.email }).exec((error, user) => {
     if (error) throw new Error(error);
-    console.log("current user kai andr===>", user);
+    // console.log("current user kai andr===>", user);
     res.json(user);
   });
 };

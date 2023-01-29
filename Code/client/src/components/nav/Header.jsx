@@ -41,11 +41,14 @@ const Header = (props) => {
   const fetchBidCart = async (req, res) => {
     try {
       const result = await getUserBidCart(user.token).then((res) => {
-        console.log(JSON.stringify(res.data));
+        // console.log(JSON.stringify(res.data));
         setBidCart(res.data);
       });
     } catch (error) {
-      console.error(error);
+      console.error(
+        " header componenet--> fetchbid cart functionn error",
+        error
+      );
     }
   };
 
@@ -68,6 +71,7 @@ const Header = (props) => {
 
   const [showBasic, setShowBasic] = useState(false);
   const [bidCart, setBidCart] = useState([]);
+  console.log("user header===>", user);
   return (
     <>
       <MDBNavbar expand="lg" light bgColor="light" className="px-4">
@@ -170,6 +174,25 @@ const Header = (props) => {
                 </Link>
               </MDBNavbarItem>
             )}
+            {/* {user &&
+            user.role === "subsciber" &&
+            user.phoneNumber === undefined ? (
+              <Link
+                to="/seller/completeInformation"
+                className="bg-dark text-light btn btn-raised m-3"
+                style={{ textDecoration: "none" }}
+              >
+                Sell
+              </Link>
+            ) : (
+              <Link
+                to="/seller/dashboard"
+                className="bg-dark text-light btn btn-raised m-3"
+                style={{ textDecoration: "none" }}
+              >
+                Sell
+              </Link>
+            )} */}
             {user && user.role === "subsciber" && (
               <Link
                 to="/seller/dashboard"

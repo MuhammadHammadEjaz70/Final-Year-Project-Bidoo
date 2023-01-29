@@ -32,6 +32,7 @@ import SubCategoriesHome from "./pages/subcategories/SubCategoriesHome";
 import { AllProductsAdmin } from "./pages/admin/product/AllProductsAdmin";
 
 import { SellerDashboard } from "./pages/seller/SellerDashboard";
+import SellerCompleteInformation from "./pages/seller/SellerCompleteInformation";
 import { AllProducts } from "./pages/seller/product/AllProducts";
 
 import CreateProduct from "./pages/seller/product/CreateProduct";
@@ -107,6 +108,11 @@ const App = () => {
             <Route
               path="/seller/dashboard"
               element={<SellerDashboard />}
+              exact
+            />
+            <Route
+              path="/seller/completeInformation"
+              element={<SellerCompleteInformation />}
               exact
             />
             <Route path="/seller/product" element={<CreateProduct />} exact />

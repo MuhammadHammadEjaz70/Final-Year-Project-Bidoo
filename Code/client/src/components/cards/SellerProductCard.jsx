@@ -31,11 +31,24 @@ const SellerProductCard = ({ product, handleRemove }) => {
                 style={{ height: "200px", objectFit: "cover", width: "280px" }}
               />
             </div>
-            <div className="h5 pt-3 "> Product Status : {productStatus}d </div>
-            <div className="h5 pt-3 "> Bid Status : {productBidStatus} </div>
-            <div className="h5 pt-3 ">
+            <div className="h5 pt-3 px-3 ">
               {" "}
-              {`Higest Bidd : "${price}Rs"  By "${bidPostedBy}"`}
+              Product Status : {productStatus}d{" "}
+            </div>
+            <div className="h5 pt-3 px-3">
+              {" "}
+              Bid Status : {productBidStatus}{" "}
+            </div>
+            <div className="h5 pt-3 px-3"> {`Higest Bidd : "${price}Rs"`}</div>
+            <div className="h5 pt-3 px-3">
+              {" "}
+              {`Highest Bidder : ${
+                bidPostedBy === null
+                  ? "Sold Out"
+                  : bidPostedBy === undefined
+                  ? "No Bids"
+                  : bidPostedBy
+              }`}
             </div>
           </>
         }

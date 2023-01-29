@@ -1,6 +1,6 @@
 import React from "react";
 
-const AllOrders = ({ orders }) => {
+const AllOrders = ({ orders, handleStatusChange }) => {
   const showEachOrders = () =>
     orders.map((order, i) => (
       <div key={i} className="m-5 p-3 card">
@@ -14,12 +14,12 @@ const AllOrders = ({ orders }) => {
       <thead className="thead-light">
         <tr>
           <th scope="col">Title</th>
-          {/* <th scope="col">Price</th> */}
-          {/* <th scope="col">BuyOut Price</th> */}
+          <th scope="col">Ordered By</th>
+          <th scope="col">Sold By</th>
           <th scope="col">Payment</th>
           <th scope="col">Payment Method</th>
           <th scope="col">Ordered On</th>
-          <th scope="col">Ordere Status</th>
+          <th scope="col">Order Status</th>
           <th scope="col">Price</th>
         </tr>
       </thead>
@@ -29,13 +29,12 @@ const AllOrders = ({ orders }) => {
             <td>
               <b>{p.product.title}</b>
             </td>
-            {/* <td>${p.product.price}</td> */}
 
+            <td> {order.orderdBy.name.toUpperCase()}</td>
+            <td>{p.product.sellerID}</td>
             <td> {order.paymentIntent.status.toUpperCase()}</td>
             <td>{order.paymentIntent.payment_method_types[0]}</td>
-            <td>
-              {new Date(order.paymentIntent.created * 1000).toLocaleString()}
-            </td>
+            <td>{new Date(order.paymentIntent.created).toLocaleString()}</td>
             <td>{order.orderStatus}</td>
             <td>${p.product.buyoutPrice}</td>
             {/* <td>
@@ -59,6 +58,26 @@ const AllOrders = ({ orders }) => {
               currency: "USD",
             })}
           </td>
+        </div>
+      </div>
+      <br />{" "}
+      <div className="row">
+        <div className="col-md-4">Delivery Status</div>
+        <div className="col-md-8">
+          <select
+            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+            className="form-control "
+            defaultValue={order.orderStatus}
+            name="status"
+            style={{ border: "solid 2px black" }}
+          >
+            <option value="Not Processed">Not Processed</option>
+            <option value="Cash On Delivery">Cash On Delivery</option>
+            <option value="Processing">Processing</option>
+            <option value="Dispatched">Dispatched</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Completed">Completed</option>
+          </select>
         </div>
       </div>
       <br />

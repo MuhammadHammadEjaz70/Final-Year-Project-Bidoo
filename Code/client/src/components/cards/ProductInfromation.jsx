@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const ProductInfromation = ({ product }) => {
   const {
@@ -12,7 +12,9 @@ const ProductInfromation = ({ product }) => {
     subcategories,
     sold,
     quantity,
+    bidPostedBy,
   } = product;
+  const { user } = useSelector((state) => ({ ...state }));
   return (
     <ul className="list-group">
       <li className="list-group-item">
@@ -20,6 +22,20 @@ const ProductInfromation = ({ product }) => {
         <span className="label label-default label-pill  float-end">
           {" "}
           {price} Rs
+        </span>
+      </li>
+      <li className="list-group-item">
+        Highest Bidder{" "}
+        <span className="label label-default label-pill  float-end">
+          {` ${
+            bidPostedBy === null
+              ? "Sold Out"
+              : bidPostedBy === undefined
+              ? "No Bids"
+              : bidPostedBy === user._id
+              ? "You are Winnner"
+              : bidPostedBy
+          }`}
         </span>
       </li>
       <li className="list-group-item panel-footer ">

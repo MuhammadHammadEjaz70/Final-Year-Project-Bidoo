@@ -60,7 +60,7 @@ const RegisterComplete1 = () => {
               });
             const idTokenResult = await user.getIdTokenResult();
             // console.log("user", user, "idTokenResult", idTokenResult);
-            createUpdateUser(idTokenResult.token,name)
+            createUpdateUser(idTokenResult.token, name)
               .then((res) => {
                 dispatch({
                   type: "LOGGED_IN_USER",
@@ -120,10 +120,9 @@ const RegisterComplete1 = () => {
         onChange={(e) => {
           setPassword(e.target.value);
         }}
-        autoFocus
       />
 
-      <button type="submit" className="btn btn-raised btn-dark col-3">
+      <button type="submit"  className="btn btn-raised btn-dark col-3">
         Register
       </button>
 
