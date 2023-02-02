@@ -76,7 +76,7 @@ const ProductCreateForm = ({
             onChange={handleChange}
           />
         </div>
-
+{/* 
         <div className="form-group">
           <label>Shipping</label>
           <select
@@ -98,7 +98,7 @@ const ProductCreateForm = ({
             value={quantity}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Color</label>
           <select name="color" className="form-control" onChange={handleChange}>

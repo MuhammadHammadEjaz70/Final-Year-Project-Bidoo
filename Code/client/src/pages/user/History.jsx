@@ -73,8 +73,8 @@ const History = () => {
       </tbody>
       <br />
       <div className="row">
-        <div className="col-md-4">Total Amount</div>
-        <div className="col-md-8">
+        <div className="col-md-5">Total Amount</div>
+        <div className="col-md-7">
           <td style={{ border: "solid 2px black" }}>
             {(order.paymentIntent.amount / 100).toLocaleString("en-US", {
               style: "currency",

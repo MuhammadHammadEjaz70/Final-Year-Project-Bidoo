@@ -53,17 +53,31 @@ const Checkout = () => {
     });
   };
 
-  const completeAddressDelivery = async () => {
-    setCompleteAddress(
-      `Adress:${address} City:${city}  Province:${province} Postal-Code:${zip}`
-    );
-  };
+  let address1 =
+    "Address: " +
+    address +
+    " City:" +
+    city +
+    " Province:" +
+    province +
+    " Postal-Code" +
+    zip;
+
+  // const completeAddressDelivery = async () => {
+  //   // setCompleteAddress(
+  //   //   `Adress:${address} City:${city}  Province:${province} Postal-Code:${zip}`
+  //   // );
+  //   console.log("address1 ===>", address1);
+  //   setCompleteAddress(address1);
+  //   console.log("address ===>", completeAddress);
+  // };
 
   const saveAddressToDb = async (e) => {
     e.preventDefault();
-    completeAddressDelivery();
-    // console.log(completeAddress);
-    saveUserAddress(user.token, completeAddress).then((res) => {
+    // await completeAddressDelivery();
+    console.log("address===>", address1);
+
+    saveUserAddress(user.token, address1).then((res) => {
       if (res.data.ok) {
         setAddressSaved(true);
         toast.success("Address saved");
@@ -100,7 +114,7 @@ const Checkout = () => {
             id="inputCity"
             value={city}
             onChange={(e) => {
-              setCity(e.target.value);
+              setCity(" " + e.target.value);
             }}
             required
           />
@@ -113,7 +127,7 @@ const Checkout = () => {
             id="inputState"
             class="form-select"
             onChange={(e) => {
-              setProvince(e.target.value);
+              setProvince(" " + e.target.value);
             }}
             required
           >
@@ -136,7 +150,7 @@ const Checkout = () => {
             maxLength="5"
             size="5"
             onChange={(e) => {
-              setZip(e.target.value);
+              setZip(" " + e.target.value);
             }}
             required
           />

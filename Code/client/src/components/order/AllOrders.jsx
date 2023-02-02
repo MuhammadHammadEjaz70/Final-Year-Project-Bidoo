@@ -34,7 +34,9 @@ const AllOrders = ({ orders, handleStatusChange }) => {
             <td>{p.product.sellerID}</td>
             <td> {order.paymentIntent.status.toUpperCase()}</td>
             <td>{order.paymentIntent.payment_method_types[0]}</td>
-            <td>{new Date(order.paymentIntent.created).toLocaleString()}</td>
+            <td>
+              {new Date(order.paymentIntent.created).toLocaleString()}
+            </td>
             <td>{order.orderStatus}</td>
             <td>${p.product.buyoutPrice}</td>
             {/* <td>

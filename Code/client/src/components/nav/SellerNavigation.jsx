@@ -23,11 +23,6 @@ const SellerNavigation = () => {
           </li>
 
           <li className="nav-item ">
-            <Link className="nav-link text-dark " to="/seller/coupon">
-              Coupon
-            </Link>
-          </li>
-          <li className="nav-item ">
             <Link className="nav-link text-dark " to="/user/password">
               Password
             </Link>
