@@ -43,7 +43,7 @@ const Orders = ({ orders }) => {
           <td> {product.name.toUpperCase()}</td>
           <td> {product.paymentIntent.status.toUpperCase()}</td>
           <td>{product.paymentIntent.payment_method_types}</td>
-          <td>{new Date(product.paymentIntent.created).toLocaleString()}</td>
+          <td>{new Date(product.paymentIntent.created*1000).toLocaleString()}</td>
           <td>{product.orderStatus}</td>
           <td>${product.price}</td>
         </tr>

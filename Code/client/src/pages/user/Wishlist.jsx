@@ -14,13 +14,13 @@ const WishList = () => {
     // console.log(user._id);
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     loadBidList();
-  //     console.log("Data is comming");
-  //   }, 3000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      loadBidList();
+      console.log("Data is comming");
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const loadBidList = () =>
     getBidsList(user.token).then((res) => {
