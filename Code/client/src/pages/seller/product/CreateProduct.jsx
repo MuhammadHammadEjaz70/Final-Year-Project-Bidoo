@@ -70,9 +70,9 @@ const CreateProduct = () => {
       });
   };
 
-  const handleChange = async (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+    const handleChange = async (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value });
+    };
 
   const handleCategoryChange = async (e) => {
     e.preventDefault();
